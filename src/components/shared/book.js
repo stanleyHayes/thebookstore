@@ -7,15 +7,46 @@ import {
     CardHeader,
     CardMedia,
     Divider,
+    Menu,
+    MenuItem,
     Stack,
     Typography
 } from "@mui/material";
-import React from "react";
-import {Comment, Info, ThumbUpOutlined} from "@mui/icons-material";
+import React, {useState} from "react";
+import {Comment, DeleteForever, Edit, Info, MoreHoriz, ThumbUpOutlined} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {UTILS} from "../../utils/utils";
+import {useDispatch, useSelector} from "react-redux";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
+import ConfirmationDialog from "../dialogs/confirmation-dialog";
+import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
 
 const Book = ({book, variant}) => {
+
+    const {authData} = useSelector(selectAuth);
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleMenuOpen = event => {
+        setMenuOpen(true);
+        setAnchorEl(event.currentTarget);
+    }
+
+    const handleMenuClose = () => {
+        setMenuOpen(false);
+        setAnchorEl(null);
+    }
+
+
+    const handleDeleteClick = () => {
+        setDialogOpen(true);
+    }
+
+    const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
+
     return (
         <Card
             sx={{
@@ -53,9 +84,21 @@ const Book = ({book, variant}) => {
                             {UTILS.getInitials(book.user.fullName)}
                         </Typography>
                     </Avatar>
-                }/>
+                }
+                action={authData._id === book.user._id && (
+                    <MoreHoriz
+                        onClick={handleMenuOpen}
+                        sx={{
+                            backgroundColor: 'light.secondary',
+                            borderTopRightRadius: 32,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32
+                        }}/>
+                )}
+            />
             <CardMedia
-                src={book.image}
+                src={book.image.url}
                 component="img"
                 sx={{height: 200, objectFit: 'cover', objectPosition: 'center'}}
             />
@@ -107,6 +150,75 @@ const Book = ({book, variant}) => {
                     </Link>
                 </Stack>
             </CardActionArea>
+
+            <Menu open={menuOpen} anchorEl={anchorEl} onClose={handleMenuClose} variant="menu" elevation={0}>
+                <MenuItem>
+                    <Link to="/books/:bookID/update" style={{textDecoration: 'none'}}>
+                        <Button
+                            size="large"
+                            sx={{
+                                justifyContent: 'flex-start',
+                                color: 'text.primary',
+                                textTransform: 'capitalize'
+                            }}
+                            fullWidth={true}
+                            variant="text"
+                            startIcon={
+                                <Edit
+                                    sx={{
+                                        cursor: 'pointer',
+                                        color: 'secondary.main',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                        padding: 1,
+                                        fontSize: 24,
+                                        backgroundColor: 'light.secondary'
+                                    }}/>}>
+                            Update Trailer
+                        </Button>
+                    </Link>
+                </MenuItem>
+                <MenuItem>
+                    <Button
+                        size="large"
+                        sx={{
+                            justifyContent: 'flex-start',
+                            color: 'text.primary',
+                            textTransform: 'capitalize'
+                        }}
+                        fullWidth={true}
+                        variant="text"
+                        startIcon={
+                            <DeleteForever
+                                onClick={handleDeleteClick}
+                                sx={{
+                                    cursor: 'pointer',
+                                    color: 'secondary.main',
+                                    borderTopRightRadius: 32,
+                                    borderBottomRightRadius: 0,
+                                    borderBottomLeftRadius: 32,
+                                    borderTopLeftRadius: 32,
+                                    padding: 1,
+                                    fontSize: 24,
+                                    backgroundColor: 'light.secondary'
+                                }}/>}>
+                        Delete Trailer
+                    </Button>
+                </MenuItem>
+            </Menu>
+
+            {dialogOpen && (
+                <ConfirmationDialog
+                    onClose={() => setDialogOpen(false)}
+                    open={dialogOpen}
+                    message={`Are you sure you want to delete ${book.name}?`}
+                    handleDelete={() => dispatch(BOOKS_ACTION_CREATORS.deleteBook({
+                        id: book._id,
+                        token
+                    }))}/>
+            )}
         </Card>
     )
 }

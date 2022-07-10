@@ -3,21 +3,20 @@ import {Alert, AlertTitle, Box, Button, Container, Grid, LinearProgress, Stack, 
 import Overlay from "../../components/shared/overlay";
 import banner from "./../../assets/images/banner.jpg";
 import Book from "../../components/shared/book";
-import {useSelector} from "react-redux";
-import {selectBook} from "../../redux/features/books/book-slice";
+import {useDispatch, useSelector} from "react-redux";
+import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import {UTILS} from "../../utils/utils";
 import {KeyboardArrowRight} from "@mui/icons-material";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
 import Empty from "../../components/shared/empty";
 
 const HomePage = () => {
 
     const {
-        books,
         bookLoading,
         bookError,
         actionBooks,
@@ -35,6 +34,16 @@ const HomePage = () => {
         otherBooks
     } = useSelector(selectBook);
     const {authData} = useSelector(selectAuth);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(BOOKS_ACTION_CREATORS.getBooks({}));
+    }, []);
+
+    useEffect(() => {
+        dispatch(BOOKS_ACTION_CREATORS.getBooks({query: 'catogories=other'}));
+    }, []);
 
     return (
         <Layout>
@@ -1092,7 +1101,7 @@ const HomePage = () => {
                 py: 5,
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'background.default'
+                backgroundColor: 'background.paper'
             }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>

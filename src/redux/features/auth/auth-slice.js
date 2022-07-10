@@ -7,15 +7,7 @@ const initialState = {
     authMessage: null,
     authError: null,
     token: null,
-    authData: {
-        fullName: 'Inigo Lopez',
-        lastName: 'Lopez',
-        firstName: 'Inigo',
-        gender: 'male',
-        email: 'inigo.lopez@gmail.com',
-        phoneNumber: '+233270048319',
-        username: 'inigo'
-    }
+    authData: null
 };
 
 const login = createAsyncThunk(
@@ -40,7 +32,7 @@ const login = createAsyncThunk(
     });
 
 const getProfile = createAsyncThunk('auth/getProfile',
-    async (token, {rejectWithValue}) => {
+    async ({token}, {rejectWithValue}) => {
         try {
             const response = await authAPI.getProfile(token);
             return response.data;

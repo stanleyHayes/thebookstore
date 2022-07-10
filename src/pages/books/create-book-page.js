@@ -21,22 +21,26 @@ import {
     Typography
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {selectBook} from "../../redux/features/books/book-slice";
+import {useDispatch, useSelector} from "react-redux";
+import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import {Remove} from "@mui/icons-material";
+import {CloudUpload, Remove} from "@mui/icons-material";
 import imageUpload from "./../../assets/images/upload-photo.png";
 import videoUpload from "./../../assets/images/upload-video.png";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
 
 const CreateBookPage = () => {
     const {bookLoading, bookError} = useSelector(selectBook);
+    const {token} = useSelector(selectAuth);
     const [cover, setCover] = useState(undefined);
     const [base64Cover, setBase64Cover] = useState(null);
     const [base64Trailer, setBase64Trailer] = useState(null);
     const [coverPreview, setCoverPreview] = useState(null);
     const [trailer, setTrailer] = useState(null);
     const [trailerPreview, setTrailerPreview] = useState(null);
+
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         validationSchema: yup.object().shape({
@@ -56,7 +60,12 @@ const CreateBookPage = () => {
         validateOnBlur: true,
         validateOnChange: true,
         onSubmit: (values, {setSubmitting, resetForm}) => {
-            console.log(base64Trailer)
+            dispatch(BOOKS_ACTION_CREATORS.createBook({
+                book: {...values, trailer: base64Trailer, image: base64Cover},
+                token,
+                setSubmitting,
+                resetForm
+            }));
         }
     });
 
@@ -137,7 +146,6 @@ const CreateBookPage = () => {
                         </Grid>
                     </Grid>
 
-
                     <Divider variant="fullWidth" light={true} sx={{my: 4}}/>
                     {bookError && (
                         <Alert severity="error">
@@ -146,111 +154,161 @@ const CreateBookPage = () => {
                     )}
 
                     <Grid container={true} spacing={4}>
-                        <Grid item={true} xs={12} md={6}>
-                            {coverPreview ? (
-                                <Card
-                                    sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
-                                      variant="outlined">
-                                    <CardMedia
-                                        component="img"
-                                        sx={{objectFit: 'cover', objectPosition: 'center', flexGrow: 1}}
-                                        image={base64Cover}/>
-                                    <CardContent>
-                                        <Button
-                                            onClick={handleCoverRemoved}
-                                            color="secondary"
-                                            fullWidth={true}
-                                            endIcon={<Remove/>}
-                                            sx={{
-                                                textTransform: 'capitalize',
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32,
-                                            }}
-                                            variant="outlined"
-                                            disableElevation={true}>
-                                            Remove Image
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            ) : (
-                                <label
-                                    style={{cursor: 'pointer', display: 'flex', height: '100%', flexDirection: 'column'}}
-                                       htmlFor="upload-image">
-                                    <Input onChange={handleCoverSelected} sx={{display: 'none'}} id="upload-image"
-                                           accept="image/*" type="file"/>
-                                    <Card sx={{flexGrow: 1}} variant="outlined">
+                        <Grid item={true} xs={12} md={3}>
+                            <Stack direction="column" spacing={2} justifyContent="space-between" sx={{height: '100%'}}>
+                                {coverPreview ? (
+                                    <Card
+                                        sx={{display: 'flex', flexDirection: 'column'}}
+                                        variant="outlined">
+                                        <CardMedia
+                                            component="img"
+                                            sx={{objectFit: 'cover', objectPosition: 'center', flexGrow: 1}}
+                                            image={base64Cover}/>
                                         <CardContent>
-                                            <CardMedia
-                                                component="img"
-                                                sx={{objectFit: 'cover', objectPosition: 'center', mb: 2}}
-                                                src={imageUpload}/>
-                                            <Typography align="center" variant="h6" sx={{color: 'text.primary'}}>
-                                                No cover image selected
-                                            </Typography>
+                                            <Button
+                                                onClick={handleCoverRemoved}
+                                                color="secondary"
+                                                fullWidth={true}
+                                                endIcon={<Remove/>}
+                                                sx={{
+                                                    textTransform: 'capitalize',
+                                                    borderTopRightRadius: 32,
+                                                    borderBottomRightRadius: 0,
+                                                    borderBottomLeftRadius: 32,
+                                                    borderTopLeftRadius: 32,
+                                                }}
+                                                variant="outlined"
+                                                disableElevation={true}>
+                                                Remove Image
+                                            </Button>
                                         </CardContent>
                                     </Card>
-                                </label>
-                            )}
-                        </Grid>
-                        <Grid item={true} xs={12} md={6}>
-                            {trailerPreview ? (
-                                <Card sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
-                                      variant="outlined">
-                                    <CardMedia
-                                        sx={{flexGrow: 1}}
-                                        muted={true}
-                                        controls={true}
-                                        autoPlay={true}
-                                        allow="autoPlay"
-                                        component="video"
-                                        src={trailerPreview}
-                                    />
-                                    <CardContent>
-                                        <Button
-                                            onClick={handleTrailerRemoved}
-                                            color="secondary"
-                                            fullWidth={true}
-                                            endIcon={<Remove/>}
-                                            sx={{
-                                                textTransform: 'capitalize',
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32,
-                                            }}
-                                            variant="outlined"
-                                            disableElevation={true}>
-                                            Remove Trailer
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            ) : (
-                                <label style={{cursor: 'pointer', height: '100%', display: 'flex', flexDirection: 'column'}}
-                                       htmlFor="upload-video">
-                                    <Input onChange={handleTrailerSelected} sx={{display: 'none'}} id="upload-video"
-                                           accept="video/*" type="file"/>
-                                    <Card variant="outlined" sx={{flexGrow: 1}}>
+                                ) : (
+                                    <label
+                                        style={{
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            flex: 1
+                                        }}
+                                        htmlFor="upload-image">
+                                        <Input onChange={handleCoverSelected} sx={{display: 'none'}} id="upload-image"
+                                               accept="image/*" type="file"/>
+                                        <Card sx={{flex: 1, borderWidth: 2, borderStyle: 'dashed'}}
+                                              variant="outlined">
+                                            <CardContent>
+                                                <CardMedia
+                                                    component="img"
+                                                    sx={{
+                                                        objectFit: 'cover',
+                                                        objectPosition: 'center',
+                                                        mb: 2,
+                                                        height: '100%',
+                                                        width: '100%'
+                                                    }}
+                                                    src={imageUpload}/>
+                                                <Button
+                                                    color="secondary"
+                                                    fullWidth={true}
+                                                    endIcon={<CloudUpload/>}
+                                                    sx={{
+                                                        textTransform: 'capitalize',
+                                                        borderTopRightRadius: 32,
+                                                        borderBottomRightRadius: 0,
+                                                        borderBottomLeftRadius: 32,
+                                                        borderTopLeftRadius: 32,
+                                                    }}
+                                                    variant="outlined"
+                                                    disableElevation={true}>
+                                                    Browse book cover
+                                                </Button>
+                                            </CardContent>
+                                        </Card>
+                                    </label>
+                                )}
+
+                                {trailerPreview ? (
+                                    <Card sx={{display: 'flex', flexDirection: 'column', flex: 1}}
+                                          variant="outlined">
+                                        <CardMedia
+                                            sx={{flexGrow: 1,}}
+                                            muted={true}
+                                            controls={true}
+                                            autoPlay={true}
+                                            allow="autoPlay"
+                                            component="video"
+                                            src={trailerPreview}
+                                        />
                                         <CardContent>
-                                            <CardMedia
-                                                component="img"
-                                                sx={{objectFit: 'cover', objectPosition: 'center', mb: 2}}
-                                                src={videoUpload}
-                                            />
-                                            <Typography align="center" variant="h6" sx={{color: 'text.primary'}}>
-                                                No trailer selected
-                                            </Typography>
+                                            <Button
+                                                onClick={handleTrailerRemoved}
+                                                color="secondary"
+                                                fullWidth={true}
+                                                endIcon={<Remove/>}
+                                                sx={{
+                                                    textTransform: 'capitalize',
+                                                    borderTopRightRadius: 32,
+                                                    borderBottomRightRadius: 0,
+                                                    borderBottomLeftRadius: 32,
+                                                    borderTopLeftRadius: 32,
+                                                }}
+                                                variant="outlined"
+                                                disableElevation={true}>
+                                                Remove Trailer
+                                            </Button>
                                         </CardContent>
                                     </Card>
-                                </label>
-                            )}
+                                ) : (
+                                    <label
+                                        style={{
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            flex: 1
+                                        }}
+                                        htmlFor="upload-video">
+                                        <Input onChange={handleTrailerSelected} sx={{display: 'none'}} id="upload-video"
+                                               accept="video/*" type="file"/>
+                                        <Card variant="outlined"
+                                              sx={{flexGrow: 1, borderWidth: 2, borderStyle: 'dashed'}}>
+                                            <CardContent>
+                                                <CardMedia
+                                                    component="img"
+                                                    sx={{
+                                                        objectFit: 'cover',
+                                                        objectPosition: 'center',
+                                                        mb: 2,
+                                                        height: '100%',
+                                                        width: '100%'
+                                                    }}
+                                                    src={videoUpload}
+                                                />
+                                                <Button
+                                                    color="secondary"
+                                                    fullWidth={true}
+                                                    endIcon={<CloudUpload/>}
+                                                    sx={{
+                                                        textTransform: 'capitalize',
+                                                        borderTopRightRadius: 32,
+                                                        borderBottomRightRadius: 0,
+                                                        borderBottomLeftRadius: 32,
+                                                        borderTopLeftRadius: 32,
+                                                    }}
+                                                    variant="outlined"
+                                                    disableElevation={true}>
+                                                    Browse book trailer
+                                                </Button>
+                                            </CardContent>
+                                        </Card>
+                                    </label>
+                                )}
+                            </Stack>
                         </Grid>
-                        <Grid item={true} xs={12} md={6}>
+                        <Grid item={true} xs={12} md={9}>
                             <form onSubmit={formik.handleSubmit}>
                                 <Card variant="outlined">
                                     <CardContent>
-                                        <Stack direction="column" spacing={2}>
+                                        <Stack direction="column" spacing={3}>
                                             <TextField
                                                 label="Name"
                                                 fullWidth={true}
@@ -361,9 +419,10 @@ const CreateBookPage = () => {
                                                     borderBottomLeftRadius: 32,
                                                     borderTopLeftRadius: 32,
                                                 }}
+                                                disabled={bookLoading}
                                                 variant="contained"
                                                 disableElevation={true}>
-                                                Create Trailer
+                                                {bookLoading ? 'Creating trailer...': 'Create Trailer'}
                                             </Button>
                                         </Stack>
                                     </CardContent>

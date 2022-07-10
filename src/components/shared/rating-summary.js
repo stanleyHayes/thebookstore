@@ -8,16 +8,16 @@ const RatingSummary = ({rating}) => {
                 <Grid item={true} xs={12} md={4}>
                     <Stack direction="column" spacing={1}>
                         <Typography variant="h1" sx={{color: 'text.primary'}}>
-                            {rating.average}
+                            {rating?.average}
                         </Typography>
                         <Rating
                             precision={0.1}
                             readOnly={true}
-                            value={rating.average}
+                            value={rating?.average}
                             size="small"
                         />
                         <Typography variant="body1" sx={{color: 'text.primary'}}>
-                            {rating.count}
+                            {rating?.count}
                         </Typography>
                     </Stack>
                 </Grid>

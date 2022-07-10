@@ -19,6 +19,8 @@ import RegisterPage from "./pages/authentication/register-page";
 import VerifyAccountPage from "./pages/authentication/verify-account-page";
 import VerificationAcknowledgmentPage from "./pages/authentication/verification-acknowledgment-page";
 import WelcomePage from "./pages/authentication/welcome-page";
+import VerifyLoginOtpPage from "./pages/authentication/verify-login-otp-page";
+import RequireAuth from "./components/shared/require-auth";
 
 function App() {
     const {themeVariant} = useSelector(selectUI);
@@ -29,13 +31,14 @@ function App() {
             <Routes>
                 <Route element={<HomePage/>} exact={true} path="/"/>
                 <Route element={<BooksPage/>} exact={true} path="/books"/>
-                <Route element={<SettingsPage/>} exact={true} path="/settings"/>
-                <Route element={<ProfilePage/>} exact={true} path="/profile"/>
-                <Route element={<CreateBookPage/>} exact={true} path="/trailer/new"/>
+                <Route element={<RequireAuth><SettingsPage/></RequireAuth>} exact={true} path="/settings"/>
+                <Route element={<RequireAuth><ProfilePage/></RequireAuth>} exact={true} path="/profile"/>
+                <Route element={<RequireAuth><CreateBookPage/></RequireAuth>} exact={true} path="/trailer/new"/>
                 <Route element={<BookDetailPage/>} exact={true} path="/books/:bookID"/>
                 <Route element={<AboutPage/>} exact={true} path="/about"/>
                 <Route element={<VerifyAccountPage/>} exact={true} path="/auth/verify/:token"/>
                 <Route element={<RegisterPage/>} exact={true} path="/auth/register"/>
+                <Route element={<VerifyLoginOtpPage/>} exact={true} path="/auth/otp/:token/verify"/>
                 <Route element={<LoginPage/>} exact={true} path="/auth/login"/>
                 <Route element={<WelcomePage/>} exact={true} path="/welcome"/>
                 <Route element={<ResetPasswordPage/>} exact={true} path="/auth/reset-password"/>

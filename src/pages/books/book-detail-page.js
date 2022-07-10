@@ -34,12 +34,12 @@ import {LoadingButton} from "@mui/lab";
 import {useParams} from "react-router";
 import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
 import Comments from "../../components/tabs/comments";
-import video from "./../../assets/videos/Egyptian King Mo Salah - Marc Kenny (Lyric Video).mp4";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
 
 const BookDetailPage = () => {
     const {bookLoading, bookError, bookDetail} = useSelector(selectBook);
     const {bookID} = useParams();
-
+    const {authData} = useSelector(selectAuth);
     const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
 
     const formik = useFormik({
@@ -90,61 +90,25 @@ const BookDetailPage = () => {
                 )}
                 <Box sx={{pt: 4}}>
                     <Grid sx={{mb: 4}} container={true} spacing={4}>
-                        <Grid item={true} xs={12} md={6} sx={{width: '100%', height: '100%'}}>
-                            <LoadingItem
-                                mb={2}
-                                item={
-                                    <img
-                                        src={bookDetail?.image}
-                                        title={`${bookDetail?.name} book`}
-                                        alt={`${bookDetail?.name} book`}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            objectPosition: 'center',
-                                            borderTopRightRadius: 32,
-                                            borderBottomRightRadius: 0,
-                                            borderBottomLeftRadius: 32,
-                                            borderTopLeftRadius: 32,
-                                        }}
-                                    />
-                                }
-                                loading={bookLoading}
-                                skeleton={
-                                    <Skeleton
-                                        sx={{
-                                            width: '100%',
-                                            height: '100%',
-                                            borderTopRightRadius: 32,
-                                            borderBottomRightRadius: 0,
-                                            borderBottomLeftRadius: 32,
-                                            borderTopLeftRadius: 32,
-                                        }}
-                                        variant="rectangular"
-                                        animation="wave"
-                                    />}
-                            />
-
+                        <Grid item={true} xs={12} md={4} sx={{width: '100%', height: '100%'}}>
                             <Card
                                 variant="outlined"
                                 sx={{
+                                    flex: 1,
+                                    height: '100%',
                                     borderTopRightRadius: 32,
                                     borderBottomRightRadius: 0,
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                 }} elevation={0}>
                                 <CardMedia
-                                    controls={true}
-                                    component="video"
-                                    image={video}
-                                    autoPlay={false}
-                                    allowAutoPlay={true}
+                                    sx={{objectFit: 'cover', objectPosition: 'center'}}
+                                    component="img"
+                                    image={bookDetail?.image?.url}
                                 />
                             </Card>
-
                         </Grid>
-                        <Grid item={true} xs={12} md={6}>
+                        <Grid item={true} xs={12} md={8}>
                             <LoadingItem
                                 mb={2}
                                 item={
@@ -157,7 +121,7 @@ const BookDetailPage = () => {
                             />
                             <Stack mb={2} direction="row" spacing={2} alignItems="center">
                                 <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                    {moment(bookDetail.createdAt).fromNow()}
+                                    {`Created ${moment(bookDetail?.createdAt).fromNow()}`}
                                 </Typography>
                                 <Typography
                                     variant="body2"
@@ -176,7 +140,7 @@ const BookDetailPage = () => {
                                         borderBottomLeftRadius: 32,
                                         borderTopLeftRadius: 32,
                                     }}
-                                    label={bookDetail.category.toUpperCase()} variant="outlined"/>
+                                    label={bookDetail?.category.toUpperCase()} variant="outlined"/>
                                 <Typography
                                     variant="body1"
                                     sx={{color: 'text.secondary'}}>
@@ -193,7 +157,7 @@ const BookDetailPage = () => {
                                     <Typography
                                         sx={{color: 'secondary.main'}}
                                         variant="h6">
-                                        {UTILS.getInitials(bookDetail?.user?.fullName)}
+                                        {bookDetail && UTILS.getInitials(bookDetail?.user?.fullName)}
                                     </Typography>
                                 </Avatar>
                             </Stack>
@@ -208,70 +172,93 @@ const BookDetailPage = () => {
                                 loading={bookLoading}
                                 skeleton={<Skeleton variant="text" animation="wave"/>}
                             />
+                            {authData && (
+                                <Grid container={true} spacing={2} mb={2}>
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Button
+                                            fullWidth={true}
+                                            onClick={() => setReviewDialogOpen(true)}
+                                            size="medium"
+                                            variant="contained"
+                                            color="secondary"
+                                            disableElevation={true}
+                                            sx={{
+                                                textTransform: 'capitalize',
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32
+                                            }}>
+                                            Write a Review
+                                        </Button>
+                                    </Grid>
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Button
+                                            fullWidth={true}
+                                            onClick={() => setReviewDialogOpen(true)}
+                                            size="medium"
+                                            variant="outlined"
+                                            color="secondary"
+                                            disableElevation={true}
+                                            sx={{
+                                                textTransform: 'capitalize',
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32,
+                                            }}>
+                                            Write a Comment
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            )}
 
-                            <Grid container={true} spacing={2} mb={2}>
-                                <Grid item={true} xs={12} md={6}>
-                                    <Button
-                                        fullWidth={true}
-                                        onClick={() => setReviewDialogOpen(true)}
-                                        size="medium"
-                                        variant="contained"
-                                        color="secondary"
-                                        disableElevation={true}
-                                        sx={{
-                                            textTransform: 'capitalize',
-                                            borderTopRightRadius: 32,
-                                            borderBottomRightRadius: 0,
-                                            borderBottomLeftRadius: 32,
-                                            borderTopLeftRadius: 32
-                                        }}>
-                                        Write a Review
-                                    </Button>
-                                </Grid>
-                                <Grid item={true} xs={12} md={6}>
-                                    <Button
-                                        fullWidth={true}
-                                        onClick={() => setReviewDialogOpen(true)}
-                                        size="medium"
-                                        variant="outlined"
-                                        color="secondary"
-                                        disableElevation={true}
-                                        sx={{
-                                            textTransform: 'capitalize',
-                                            borderTopRightRadius: 32,
-                                            borderBottomRightRadius: 0,
-                                            borderBottomLeftRadius: 32,
-                                            borderTopLeftRadius: 32,
-                                        }}>
-                                        Write a Comment
-                                    </Button>
-                                </Grid>
-                            </Grid>
                             <LoadingItem
                                 mb={2}
                                 item={
                                     <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                        {bookDetail && bookDetail.description}
+                                        {bookDetail?.description}
                                     </Typography>
                                 }
                                 loading={bookLoading}
                                 skeleton={<Skeleton variant="text" animation="wave"/>}
                             />
 
-                            <Box>
-                                <Card
-                                    variant="outlined"
-                                    sx={{
-                                        borderTopRightRadius: 32,
-                                        borderBottomRightRadius: 0,
-                                        borderBottomLeftRadius: 32,
-                                        borderTopLeftRadius: 32,
-                                    }}>
-                                    <CardContent>
-                                        <RatingSummary rating={bookDetail?.rating}/>
-                                    </CardContent>
-                                </Card>
-                            </Box>
+                            <Grid container={true} spacing={4}>
+                                <Grid item={true} xs={12} md={6}>
+                                    <Card
+                                        variant="outlined"
+                                        sx={{
+                                            flex: 1,
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                        }} elevation={0}>
+                                        <CardMedia
+                                            controls={true}
+                                            component="video"
+                                            image={bookDetail?.trailer?.url}
+                                            autoPlay={false}
+                                            allowAutoPlay={true}
+                                        />
+                                    </Card>
+                                </Grid>
+                                <Grid item={true} xs={12} md={6}>
+                                    <Card
+                                        variant="outlined"
+                                        sx={{
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                        }}>
+                                        <CardContent>
+                                            <RatingSummary rating={bookDetail?.rating}/>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Box>
