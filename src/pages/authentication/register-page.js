@@ -33,7 +33,7 @@ import {
 import {useState} from "react";
 import {LoadingButton} from "@mui/lab";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../../redux/features/auth/auth-slice";
+import {AUTH_ACTION_CREATORS, selectAuth} from "../../redux/features/auth/auth-slice";
 import {useNavigate} from "react-router";
 import {useSnackbar} from "notistack";
 
@@ -61,7 +61,6 @@ const RegisterPage = () => {
             email: ''
         },
         onSubmit: (values, formikHelpers) => {
-            console.log(values, formikHelpers);
         },
         validateOnBlur: true,
         validateOnChange: true,

@@ -29,18 +29,12 @@ const WelcomePage = () => {
                         Welcome to
                     </Typography>
                     <Typography mb={3} variant="h4" sx={{color: 'secondary.main'}}>
-                        The Book Store
+                        The Book Station
                     </Typography>
                     <Typography mb={4} variant="body1" sx={{color: 'text.secondary', fontWeight: 400}}>
-                        The Book Store is a platform that allows you to easily distribute your quality
-                        marijuana, edibles or accessories. You have the ability to create as many shops
-                        as
-                        you please and advertise as many products as you wish. You handle the orders and
-                        delivery of your products to your customers while we give you the ability to
-                        generate report, manage stock and project your revenue all at a minimum fee.
-                        Join
-                        The Book Store now and get access to millions of the sons and daughters of the most
-                        high.
+                        Need a book ?
+                        With Book Station, we provide you with a short trailer of a book and the link to the book next
+                        to it. After you watch a trailer, grab your book with ease.
                     </Typography>
                     <Box>
                         <Grid container={true} spacing={2} alignItems="center">
