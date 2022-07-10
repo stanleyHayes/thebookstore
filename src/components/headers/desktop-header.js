@@ -56,7 +56,7 @@ const DesktopHeader = () => {
                         <NavLink label="Home" path="/" active={activePath === '/'}/>
                         <NavLink label="Books" path="/books" active={activePath === '/books'}/>
                         <NavLink label="About" path="/about" active={activePath === '/about'}/>
-                        <Link to="/book/new" style={{textDecoration: 'none'}}>
+                        <Link to="/trailer/new" style={{textDecoration: 'none'}}>
                             <Button
                                 color="secondary"
                                 fullWidth={true}
@@ -69,7 +69,7 @@ const DesktopHeader = () => {
                                 }}
                                 variant="contained"
                                 disableElevation={true}>
-                                Create Book
+                                Create Trailer
                             </Button>
                         </Link>
                     </Stack>

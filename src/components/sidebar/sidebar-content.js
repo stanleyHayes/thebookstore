@@ -95,8 +95,9 @@ const SidebarContent = () => {
                             borderBottomRightRadius: 0,
                             borderBottomLeftRadius: 32,
                             borderTopLeftRadius: 32,
+                            backgroundColor: 'light.secondary'
                         }}>
-                        <Typography variant="h2">{UTILS.getInitials(authData.fullName)}</Typography>
+                        <Typography sx={{color: 'secondary.main'}} variant="h2">{UTILS.getInitials(authData.fullName)}</Typography>
                     </Avatar>
                     <Typography sx={{color: 'text.primary'}} variant="h6">{authData.fullName}</Typography>
                     <Typography sx={{color: 'text.primary'}} variant="body2">{authData.username}</Typography>
@@ -198,7 +199,9 @@ const SidebarContent = () => {
                         )
                         }
                     />
-                    <Link to="/book/new" style={{textDecoration: 'none', marginLeft: 8, marginRight: 8}}>
+                </Stack>
+                <Stack direction="column">
+                    <Link to="/trailer/new" style={{textDecoration: 'none', marginLeft: 8, marginRight: 8}}>
                         <Button
                             color="secondary"
                             fullWidth={true}
@@ -210,11 +213,12 @@ const SidebarContent = () => {
                             }}
                             variant="contained"
                             disableElevation={true}>
-                            Create Book
+                            Create Trailer
                         </Button>
                     </Link>
                 </Stack>
                 <Stack direction="column">
+
                     <SidebarLink
                         active={activePath === '/profile'}
                         label="Profile"

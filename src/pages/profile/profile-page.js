@@ -66,8 +66,9 @@ const ProfilePage = () => {
                                                 borderBottomRightRadius: 0,
                                                 borderBottomLeftRadius: 32,
                                                 borderTopLeftRadius: 32,
+                                                backgroundColor: 'light.secondary'
                                             }}>
-                                            <Typography variant="h3">
+                                            <Typography sx={{color: 'secondary.main'}} variant="h3">
                                                 {authData && UTILS.getInitials(`${authData?.firstName} ${authData?.lastName}`)}
                                             </Typography>
                                         </Avatar>

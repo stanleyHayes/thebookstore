@@ -1,5 +1,5 @@
 import {Badge, Box, Stack, Toolbar, Typography} from "@mui/material";
-import {Menu, Notifications} from "@mui/icons-material";
+import {Add, Menu, Notifications} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {openDrawer} from "../../redux/features/ui/ui-slice";
 import {useDispatch} from "react-redux";
@@ -28,7 +28,7 @@ const MobileHeader = () => {
                     <Link to="/" style={{textDecoration: 'none'}}>
                         <Typography
                             sx={{color: 'text.primary', fontWeight: 'bold'}}
-                            variant="h6">The Book Store</Typography>
+                            variant="body1">The Book Station</Typography>
                     </Link>
                 </Box>
                 <Badge

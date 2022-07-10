@@ -16,9 +16,9 @@ import {Comment, Info, ThumbUpOutlined} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import React from "react";
 
-const BookListItem = ({book}) => {
+const BookListItem = ({book, variant}) => {
     return (
-        <Card elevation={0}>
+        <Card elevation={0} variant={variant}>
             <Box sx={{display: 'flex'}}>
                 <Box sx={{flexBasis: '30%'}}>
                     <CardMedia

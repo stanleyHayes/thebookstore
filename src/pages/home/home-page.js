@@ -14,7 +14,7 @@ import React from "react";
 
 const HomePage = () => {
 
-    const {books, bookLoading, bookError, count} = useSelector(selectBook);
+    const {books, bookLoading, bookError} = useSelector(selectBook);
 
     return (
         <Layout>
@@ -26,20 +26,22 @@ const HomePage = () => {
                             <Grid container={true} spacing={4} alignItems="center">
                                 <Grid item={true} xs={12} md={6}>
                                     <Typography variant="h3" sx={{color: 'white', mb: 2}}>
-                                        Lorem ipsum
+                                        The Book Station
                                     </Typography>
                                     <Typography variant="h6" sx={{color: 'white', mb: 6}}>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua
+                                        With Book Station, we provide you with a short trailer of a book and the link to
+                                        the book next to it. After you watch a trailer, grab your book with ease.
                                     </Typography>
-                                    <Button
-                                        sx={{textTransform: 'capitalize', width: {xs: '100%', md: '30%'}}}
-                                        variant="contained"
-                                        disableElevation={true}
-                                        size="large"
-                                        color="secondary">
-                                        Create Book
-                                    </Button>
+                                    <Link to="/trailer/new" style={{textDecoration: 'none'}}>
+                                        <Button
+                                            sx={{textTransform: 'capitalize', width: {xs: '100%', md: '30%'}}}
+                                            variant="contained"
+                                            disableElevation={true}
+                                            size="large"
+                                            color="secondary">
+                                            Create Trailer
+                                        </Button>
+                                    </Link>
                                 </Grid>
                             </Grid>
                         </Container>
@@ -47,16 +49,19 @@ const HomePage = () => {
                 image={banner}
                 backgroundColor="#000000"/>
 
+            {bookError && (
+                <Alert severity="error">
+                    <AlertTitle>{bookError}</AlertTitle>
+                </Alert>
+            )}
 
-            <Container maxWidth="xl" sx={{py: 4, minHeight: '90vh'}}>
-                {bookError && (
-                    <Alert severity="error">
-                        <AlertTitle>{bookError}</AlertTitle>
-                    </Alert>
-                )}
-            </Container>
-
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.default'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.default'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -83,7 +88,7 @@ const HomePage = () => {
                             {books && books.map(book => {
                                 return (
                                     <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="elevation" book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Box>
                                 )
                             })}
@@ -104,7 +109,13 @@ const HomePage = () => {
                 </Container>
             </Box>
 
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -151,7 +162,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.default'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.default'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -178,7 +195,7 @@ const HomePage = () => {
                             {books && books.map(book => {
                                 return (
                                     <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="elevation" book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Box>
                                 )
                             })}
@@ -199,7 +216,13 @@ const HomePage = () => {
                 </Container>
             </Box>
 
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -246,7 +269,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.default'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.default'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -273,7 +302,7 @@ const HomePage = () => {
                             {books && books.map(book => {
                                 return (
                                     <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="elevation" book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Box>
                                 )
                             })}
@@ -294,7 +323,13 @@ const HomePage = () => {
                 </Container>
             </Box>
 
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -341,7 +376,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.default'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.default'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -368,7 +409,7 @@ const HomePage = () => {
                             {books && books.map(book => {
                                 return (
                                     <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="elevation" book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Box>
                                 )
                             })}
@@ -389,7 +430,13 @@ const HomePage = () => {
                 </Container>
             </Box>
 
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -436,7 +483,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.default'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.default'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -463,7 +516,7 @@ const HomePage = () => {
                             {books && books.map(book => {
                                 return (
                                     <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="elevation" book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Box>
                                 )
                             })}
@@ -484,7 +537,13 @@ const HomePage = () => {
                 </Container>
             </Box>
 
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -531,7 +590,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.default'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.default'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -558,7 +623,7 @@ const HomePage = () => {
                             {books && books.map(book => {
                                 return (
                                     <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="elevation" book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Box>
                                 )
                             })}
@@ -579,7 +644,13 @@ const HomePage = () => {
                 </Container>
             </Box>
 
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">
@@ -626,7 +697,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
-            <Box sx={{minHeight: '50vh', py: 5, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                minHeight: '50vh',
+                py: 5,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper'
+            }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
                         <Typography sx={{color: 'text.primary', mb: 2}} variant="h4" align="center">

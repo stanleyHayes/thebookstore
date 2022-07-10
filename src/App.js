@@ -24,7 +24,7 @@ function App() {
           <Route element={<BooksPage/>} exact={true} path="/books"/>
           <Route element={<SettingsPage/>} exact={true} path="/settings"/>
           <Route element={<ProfilePage/>} exact={true} path="/profile"/>
-          <Route element={<CreateBookPage/>} exact={true} path="/book/new"/>
+          <Route element={<CreateBookPage/>} exact={true} path="/trailer/new"/>
           <Route element={<BookDetailPage/>} exact={true} path="/books/:bookID"/>
           <Route element={<AboutPage/>} exact={true} path="/about"/>
           <Route element={<NotFoundPage/>} exact={true} path="*"/>

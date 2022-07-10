@@ -239,7 +239,7 @@ const BooksPage = () => {
                                             }}
                                             variant="contained"
                                             disableElevation={true}>
-                                            Create Book
+                                            Create Trailer
                                         </Button>
                                     </Link>
                                 </Stack>
@@ -252,7 +252,7 @@ const BooksPage = () => {
                             books && books.map(book => {
                                 return (
                                     <Grid item={true} key={book._id} xs={12} md={6} lg={4}>
-                                        <Book book={book}/>
+                                        <Book variant="outlined" book={book}/>
                                     </Grid>
                                 )
                             })
@@ -260,7 +260,7 @@ const BooksPage = () => {
                             books && books.map(book => {
                                 return (
                                     <Grid item={true} key={book._id} xs={12} md={6}>
-                                        <BookList book={book}/>
+                                        <BookList variant="outlined" book={book}/>
                                     </Grid>
                                 )
                             })
