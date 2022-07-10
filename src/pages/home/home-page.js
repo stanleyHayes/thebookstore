@@ -11,10 +11,30 @@ import {UTILS} from "../../utils/utils";
 import {KeyboardArrowRight} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import React from "react";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
+import Empty from "../../components/shared/empty";
 
 const HomePage = () => {
 
-    const {books, bookLoading, bookError} = useSelector(selectBook);
+    const {
+        books,
+        bookLoading,
+        bookError,
+        actionBooks,
+        adventureBooks,
+        classicBooks,
+        comicBooks,
+        fantasyBooks,
+        horrorBooks,
+        romanceBooks,
+        sciFiBooks,
+        thrillersBooks,
+        crimeBooks,
+        dramaBooks,
+        fairytaleBooks,
+        otherBooks
+    } = useSelector(selectBook);
+    const {authData} = useSelector(selectAuth);
 
     return (
         <Layout>
@@ -32,16 +52,19 @@ const HomePage = () => {
                                         With Book Station, we provide you with a short trailer of a book and the link to
                                         the book next to it. After you watch a trailer, grab your book with ease.
                                     </Typography>
-                                    <Link to="/trailer/new" style={{textDecoration: 'none'}}>
-                                        <Button
-                                            sx={{textTransform: 'capitalize', width: {xs: '100%', md: '30%'}}}
-                                            variant="contained"
-                                            disableElevation={true}
-                                            size="large"
-                                            color="secondary">
-                                            Create Trailer
-                                        </Button>
-                                    </Link>
+                                    {authData && (
+                                        <Link to="/trailer/new" style={{textDecoration: 'none'}}>
+                                            <Button
+                                                sx={{textTransform: 'capitalize', width: {xs: '100%', md: '30%'}}}
+                                                variant="contained"
+                                                disableElevation={true}
+                                                size="large"
+                                                color="secondary">
+                                                Create Trailer
+                                            </Button>
+                                        </Link>
+                                    )}
+
                                 </Grid>
                             </Grid>
                         </Container>
@@ -77,22 +100,60 @@ const HomePage = () => {
                             align="center">
                             Our Latest Action Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {actionBooks && actionBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {actionBooks && actionBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
+
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=action`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -131,22 +192,60 @@ const HomePage = () => {
                             align="center">
                             Our Latest Adventure Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {adventureBooks && adventureBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {adventureBooks && adventureBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
+
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=adventure`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -184,22 +283,60 @@ const HomePage = () => {
                             align="center">
                             Our Latest Classic Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+
+                        {classicBooks && classicBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {classicBooks && classicBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=classic`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -238,22 +375,59 @@ const HomePage = () => {
                             align="center">
                             Our Latest Comic Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {comicBooks && comicBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {comicBooks && comicBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=comic`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -291,22 +465,59 @@ const HomePage = () => {
                             align="center">
                             Our Latest Fantasy Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {fantasyBooks && fantasyBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {fantasyBooks && fantasyBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=fantasy`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -345,22 +556,59 @@ const HomePage = () => {
                             align="center">
                             Our Latest Horror Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {horrorBooks && horrorBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {horrorBooks && horrorBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=horror`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -398,22 +646,61 @@ const HomePage = () => {
                             align="center">
                             Our Latest Romance Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {romanceBooks && romanceBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            authData && (
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                            )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {romanceBooks && romanceBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=romance`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -452,22 +739,61 @@ const HomePage = () => {
                             align="center">
                             Our Latest Action Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {sciFiBooks && sciFiBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            authData && (
+                                                <Stack direction="row" justifyContent="center">
+                                                    <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                        <Button
+                                                            color="secondary"
+                                                            sx={{
+                                                                textTransform: 'capitalize',
+                                                                borderTopRightRadius: 32,
+                                                                borderBottomRightRadius: 0,
+                                                                borderBottomLeftRadius: 32,
+                                                                borderTopLeftRadius: 32,
+                                                            }}
+                                                            variant="contained"
+                                                            disableElevation={true}>
+                                                            Create Trailer
+                                                        </Button>
+                                                    </Link>
+                                                </Stack>
+                                            )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {sciFiBooks && sciFiBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=sci-fi`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -503,24 +829,63 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Action Books
+                            Our Latest Thriller Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {thrillersBooks && thrillersBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            authData && (
+                                                <Stack direction="row" justifyContent="center">
+                                                    <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                        <Button
+                                                            color="secondary"
+                                                            sx={{
+                                                                textTransform: 'capitalize',
+                                                                borderTopRightRadius: 32,
+                                                                borderBottomRightRadius: 0,
+                                                                borderBottomLeftRadius: 32,
+                                                                borderTopLeftRadius: 32,
+                                                            }}
+                                                            variant="contained"
+                                                            disableElevation={true}>
+                                                            Create Trailer
+                                                        </Button>
+                                                    </Link>
+                                                </Stack>
+                                            )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {thrillersBooks && thrillersBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=thriller`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -559,22 +924,61 @@ const HomePage = () => {
                             align="center">
                             Our Latest Crime Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {crimeBooks && crimeBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            authData && (
+                                                <Stack direction="row" justifyContent="center">
+                                                    <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                        <Button
+                                                            color="secondary"
+                                                            sx={{
+                                                                textTransform: 'capitalize',
+                                                                borderTopRightRadius: 32,
+                                                                borderBottomRightRadius: 0,
+                                                                borderBottomLeftRadius: 32,
+                                                                borderTopLeftRadius: 32,
+                                                            }}
+                                                            variant="contained"
+                                                            disableElevation={true}>
+                                                            Create Trailer
+                                                        </Button>
+                                                    </Link>
+                                                </Stack>
+                                            )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {crimeBooks && crimeBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=crime`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -612,22 +1016,61 @@ const HomePage = () => {
                             align="center">
                             Our Latest Drama Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {dramaBooks && dramaBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            authData && (
+                                                <Stack direction="row" justifyContent="center">
+                                                    <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                        <Button
+                                                            color="secondary"
+                                                            sx={{
+                                                                textTransform: 'capitalize',
+                                                                borderTopRightRadius: 32,
+                                                                borderBottomRightRadius: 0,
+                                                                borderBottomLeftRadius: 32,
+                                                                borderTopLeftRadius: 32,
+                                                            }}
+                                                            variant="contained"
+                                                            disableElevation={true}>
+                                                            Create Trailer
+                                                        </Button>
+                                                    </Link>
+                                                </Stack>
+                                            )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {dramaBooks && dramaBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=drama`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -649,7 +1092,7 @@ const HomePage = () => {
                 py: 5,
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'background.paper'
+                backgroundColor: 'background.default'
             }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
@@ -666,22 +1109,60 @@ const HomePage = () => {
                             align="center">
                             Our Latest Fairytale Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {fairytaleBooks && fairytaleBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={authData && (
+                                            <Stack direction="row" justifyContent="center">
+                                                <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                                    <Button
+                                                        color="secondary"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                        }}
+                                                        variant="contained"
+                                                        disableElevation={true}>
+                                                        Create Trailer
+                                                    </Button>
+                                                </Link>
+                                            </Stack>
+                                        )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {fairytaleBooks && fairytaleBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=fairytale`} style={{textDecoration: 'none'}}>
                                 <Button
@@ -697,12 +1178,13 @@ const HomePage = () => {
                     </Stack>
                 </Container>
             </Box>
+
             <Box sx={{
                 minHeight: '50vh',
                 py: 5,
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'background.paper'
+                backgroundColor: 'background.default'
             }}>
                 <Container maxWidth="xl">
                     <Stack spacing={4}>
@@ -719,22 +1201,61 @@ const HomePage = () => {
                             align="center">
                             Our Latest Books
                         </Typography>
-                        <Carousel
-                            autoPlay={true}
-                            autoPlaySpeed={5000}
-                            infinite={true}
-                            partialVisible={true}
-                            keyBoardControl={true}
-                            pauseOnHover={true}
-                            responsive={UTILS.responsive}>
-                            {books && books.map(book => {
-                                return (
-                                    <Box key={book._id} sx={{mx: 2}}>
-                                        <Book variant="outlined" book={book}/>
-                                    </Box>
-                                )
-                            })}
-                        </Carousel>
+                        {otherBooks && otherBooks.length === 0 ? (
+                            <Box>
+                                <Grid container={true} justifyContent="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No books
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to create a book
+                                            </Typography>
+                                        } button={
+                                            authData && (
+                                                <Stack direction="row" justifyContent="center">
+                                                    <Link to="/book/new?category=other" style={{textDecoration: 'none'}}>
+                                                        <Button
+                                                            color="secondary"
+                                                            sx={{
+                                                                textTransform: 'capitalize',
+                                                                borderTopRightRadius: 32,
+                                                                borderBottomRightRadius: 0,
+                                                                borderBottomLeftRadius: 32,
+                                                                borderTopLeftRadius: 32,
+                                                            }}
+                                                            variant="contained"
+                                                            disableElevation={true}>
+                                                            Create Trailer
+                                                        </Button>
+                                                    </Link>
+                                                </Stack>
+                                            )
+                                        }/>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        ) : (
+                            <Carousel
+                                autoPlay={true}
+                                autoPlaySpeed={5000}
+                                infinite={true}
+                                partialVisible={true}
+                                keyBoardControl={true}
+                                pauseOnHover={true}
+                                responsive={UTILS.responsive}>
+                                {otherBooks && otherBooks.map(book => {
+                                    return (
+                                        <Box key={book._id} sx={{mx: 2}}>
+                                            <Book variant="outlined" book={book}/>
+                                        </Box>
+                                    )
+                                })}
+                            </Carousel>
+                        )}
                         <Stack direction="row" justifyContent="flex-end">
                             <Link to={`/books?categories=other`} style={{textDecoration: 'none'}}>
                                 <Button

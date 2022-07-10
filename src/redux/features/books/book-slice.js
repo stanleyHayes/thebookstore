@@ -7,8 +7,20 @@ const initialState = {
     bookError: null,
     bookLoading: false,
     bookMessage: null,
-    bookDetail: books[0],
-    filteredBooks: []
+    bookDetail: null,
+    actionBooks: [...books],
+    adventureBooks: [...books],
+    classicBooks: [...books],
+    comicBooks: [...books],
+    fantasyBooks: [...books],
+    horrorBooks: [...books],
+    romanceBooks: [...books],
+    sciFiBooks: [...books],
+    thrillersBooks: [...books],
+    crimeBooks: [...books],
+    dramaBooks: [...books],
+    fairytaleBooks: [...books],
+    otherBooks: [...books],
 }
 
 export const getBooks = createAsyncThunk('books/getBooks', async ({token, query}) => {

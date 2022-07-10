@@ -12,8 +12,6 @@ import {
     Close,
     DarkMode,
     DeleteForever,
-    Edit,
-    EditOutlined,
     ExitToApp,
     Face,
     FaceOutlined,
@@ -22,13 +20,12 @@ import {
     Info,
     InfoOutlined,
     LightMode,
-    Lock,
-    LockOutlined,
     Settings,
     SettingsOutlined
 } from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {Link} from "react-router-dom";
+import React from "react";
 
 const SidebarContent = () => {
 
@@ -86,22 +83,28 @@ const SidebarContent = () => {
                         }}/>
 
                 </Stack>
-                <Stack sx={{px: 4}} direction="column" spacing={1}>
-                    <Avatar
-                        sx={{
-                            width: 100,
-                            height: 100,
-                            borderTopRightRadius: 32,
-                            borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 32,
-                            borderTopLeftRadius: 32,
-                            backgroundColor: 'light.secondary'
-                        }}>
-                        <Typography sx={{color: 'secondary.main'}} variant="h2">{UTILS.getInitials(authData.fullName)}</Typography>
-                    </Avatar>
-                    <Typography sx={{color: 'text.primary'}} variant="h6">{authData.fullName}</Typography>
-                    <Typography sx={{color: 'text.primary'}} variant="body2">{authData.username}</Typography>
-                </Stack>
+                {
+                    authData && (
+                        <Stack sx={{px: 4}} direction="column" spacing={1}>
+                            <Avatar
+                                sx={{
+                                    width: 100,
+                                    height: 100,
+                                    borderTopRightRadius: 32,
+                                    borderBottomRightRadius: 0,
+                                    borderBottomLeftRadius: 32,
+                                    borderTopLeftRadius: 32,
+                                    backgroundColor: 'light.secondary'
+                                }}>
+                                <Typography sx={{color: 'secondary.main'}}
+                                            variant="h2">{UTILS.getInitials(authData.fullName)}</Typography>
+                            </Avatar>
+                            <Typography sx={{color: 'text.primary'}} variant="h6">{authData.fullName}</Typography>
+                            <Typography sx={{color: 'text.primary'}} variant="body2">{authData.username}</Typography>
+                        </Stack>
+                    )
+                }
+
                 <Stack direction="column">
                     <SidebarLink
                         active={activePath === '/'}
@@ -200,12 +203,175 @@ const SidebarContent = () => {
                         }
                     />
                 </Stack>
-                <Stack direction="column">
-                    <Link to="/trailer/new" style={{textDecoration: 'none', marginLeft: 8, marginRight: 8}}>
+                {authData ? (
+                    <React.Fragment>
+                        <Stack direction="column">
+                            <Link to="/trailer/new" style={{textDecoration: 'none', marginLeft: 8, marginRight: 8}}>
+                                <Button
+                                    color="secondary"
+                                    fullWidth={true}
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                    }}
+                                    variant="contained"
+                                    disableElevation={true}>
+                                    Create Trailer
+                                </Button>
+                            </Link>
+                        </Stack>
+                        <Stack direction="column">
+                            <SidebarLink
+                                active={activePath === '/profile'}
+                                label="Profile"
+                                path="/profile"
+                                icon={activePath === '/profile' ? (
+                                    <Face
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 24,
+                                            backgroundColor: 'light.secondary'
+                                        }}/>
+                                ) : (
+                                    <FaceOutlined
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'text.secondary',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 24
+                                        }}/>
+                                )}
+                            />
+
+                            <SidebarLink
+                                active={activePath === '/settings'}
+                                label="Settings"
+                                path="/"
+                                icon={activePath === '/settings' ? (
+                                    <Settings
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 24,
+                                            backgroundColor: 'light.secondary'
+                                        }}/>
+                                ) : (
+                                    <SettingsOutlined
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'text.secondary',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 24
+                                        }}/>
+                                )
+                                }
+                            />
+                        </Stack>
+                        <Stack direction="column">
+                            <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                <Button
+                                    size="large"
+                                    sx={{
+                                        px: 3,
+                                        justifyContent: 'flex-start',
+                                        color: 'secondary.main',
+                                        textTransform: 'capitalize'
+                                    }}
+                                    fullWidth={true}
+                                    variant="text"
+                                    startIcon={
+                                        <ExitToApp
+                                            sx={{
+                                                cursor: 'pointer',
+                                                color: 'secondary.main',
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32,
+                                                padding: 1,
+                                                fontSize: 24,
+                                                backgroundColor: 'light.secondary'
+                                            }}/>}>
+                                    Logout
+                                </Button>
+
+                                <ChevronRight
+                                    sx={{
+                                        cursor: 'pointer',
+                                        color: 'secondary.main',
+                                        borderRadius: '1%',
+                                        padding: 1,
+                                        fontSize: 24,
+                                    }}/>
+                            </Stack>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                <Button
+                                    size="large"
+                                    sx={{
+                                        px: 3,
+                                        justifyContent: 'flex-start',
+                                        color: red[800],
+                                        textTransform: 'capitalize'
+                                    }}
+                                    fullWidth={true}
+                                    variant="text"
+                                    startIcon={
+                                        <DeleteForever
+                                            sx={{
+                                                cursor: 'pointer',
+                                                color: red[800],
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32,
+                                                padding: 1,
+                                                fontSize: 24,
+                                                backgroundColor: red[100]
+                                            }}/>}>
+                                    Disable Account
+                                </Button>
+                                <ChevronRight
+                                    sx={{
+                                        cursor: 'pointer',
+                                        color: red[800],
+                                        borderRadius: '1%',
+                                        padding: 1,
+                                        fontSize: 24,
+                                    }}/>
+                            </Stack>
+                        </Stack>
+                    </React.Fragment>
+                ) : (
+                    <Link
+                        to="/auth/login"
+                        style={{textDecoration: 'none', marginLeft: 8, marginRight: 8}}>
                         <Button
                             color="secondary"
                             fullWidth={true}
-                            sx={{textTransform: 'capitalize',
+                            sx={{
+                                textTransform: 'capitalize',
                                 borderTopRightRadius: 32,
                                 borderBottomRightRadius: 0,
                                 borderBottomLeftRadius: 32,
@@ -213,152 +379,10 @@ const SidebarContent = () => {
                             }}
                             variant="contained"
                             disableElevation={true}>
-                            Create Trailer
+                            Login
                         </Button>
                     </Link>
-                </Stack>
-                <Stack direction="column">
-
-                    <SidebarLink
-                        active={activePath === '/profile'}
-                        label="Profile"
-                        path="/profile"
-                        icon={activePath === '/profile' ? (
-                            <Face
-                                sx={{
-                                    cursor: 'pointer',
-                                    color: 'secondary.main',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                    padding: 1,
-                                    fontSize: 24,
-                                    backgroundColor: 'light.secondary'
-                                }}/>
-                        ) : (
-                            <FaceOutlined
-                                sx={{
-                                    cursor: 'pointer',
-                                    color: 'text.secondary',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                    padding: 1,
-                                    fontSize: 24
-                                }}/>
-                        )
-                        }
-                    />
-
-                    <SidebarLink
-                        active={activePath === '/settings'}
-                        label="Settings"
-                        path="/"
-                        icon={activePath === '/settings' ? (
-                            <Settings
-                                sx={{
-                                    cursor: 'pointer',
-                                    color: 'secondary.main',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                    padding: 1,
-                                    fontSize: 24,
-                                    backgroundColor: 'light.secondary'
-                                }}/>
-                        ) : (
-                            <SettingsOutlined
-                                sx={{
-                                    cursor: 'pointer',
-                                    color: 'text.secondary',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                    padding: 1,
-                                    fontSize: 24
-                                }}/>
-                        )
-                        }
-                    />
-                </Stack>
-                <Stack direction="column">
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Button
-                            size="large"
-                            sx={{
-                                px: 3,
-                                justifyContent: 'flex-start',
-                                color: 'secondary.main',
-                                textTransform: 'capitalize'
-                            }}
-                            fullWidth={true}
-                            variant="text"
-                            startIcon={
-                                <ExitToApp
-                                    sx={{
-                                        cursor: 'pointer',
-                                        color: 'secondary.main',
-                                        borderTopRightRadius: 32,
-                                        borderBottomRightRadius: 0,
-                                        borderBottomLeftRadius: 32,
-                                        borderTopLeftRadius: 32,
-                                        padding: 1,
-                                        fontSize: 24,
-                                        backgroundColor: 'light.secondary'
-                                    }}/>}>
-                            Logout
-                        </Button>
-
-                        <ChevronRight
-                            sx={{
-                                cursor: 'pointer',
-                                color: 'secondary.main',
-                                borderRadius: '1%',
-                                padding: 1,
-                                fontSize: 24,
-                            }}/>
-                    </Stack>
-
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Button
-                            size="large"
-                            sx={{
-                                px: 3,
-                                justifyContent: 'flex-start',
-                                color: red[800],
-                                textTransform: 'capitalize'
-                            }}
-                            fullWidth={true}
-                            variant="text"
-                            startIcon={
-                                <DeleteForever
-                                    sx={{
-                                        cursor: 'pointer',
-                                        color: red[800],
-                                        borderTopRightRadius: 32,
-                                        borderBottomRightRadius: 0,
-                                        borderBottomLeftRadius: 32,
-                                        borderTopLeftRadius: 32,
-                                        padding: 1,
-                                        fontSize: 24,
-                                        backgroundColor: red[100]
-                                    }}/>}>
-                            Disable Account
-                        </Button>
-                        <ChevronRight
-                            sx={{
-                                cursor: 'pointer',
-                                color: red[800],
-                                borderRadius: '1%',
-                                padding: 1,
-                                fontSize: 24,
-                            }}/>
-                    </Stack>
-                </Stack>
+                )}
             </Stack>
         </Box>
     )
