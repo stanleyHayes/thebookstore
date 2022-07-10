@@ -7,13 +7,22 @@ const initialState = {
     bookError: null,
     bookLoading: false,
     bookMessage: null,
-    bookDetail: null,
+    bookDetail: books[0],
     filteredBooks: []
 }
 
 export const getBooks = createAsyncThunk('books/getBooks', async ({token, query}) => {
     try {
         return await BOOK_API.getBooks(token, query);
+    }catch (e) {
+        const {message} = e.response.data;
+        return message;
+    }
+});
+
+export const getBook = createAsyncThunk('books/getBook', async ({id}) => {
+    try {
+        return await BOOK_API.getBook(id);
     }catch (e) {
         const {message} = e.response.data;
         return message;
@@ -49,5 +58,5 @@ const bookSlice = createSlice({
 
 export const selectBook = state => state.books;
 
-export const BOOKS_ACTION_CREATORS = {getBooks, ...bookSlice.actions};
+export const BOOKS_ACTION_CREATORS = {getBooks, getBook, ...bookSlice.actions};
 export default bookSlice.reducer;

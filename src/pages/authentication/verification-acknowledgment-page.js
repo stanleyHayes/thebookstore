@@ -14,7 +14,7 @@ import {
     useTheme,Card, CardContent
 } from "@mui/material";
 import logo from "./../../assets/images/logo.png";
-import loginLogo from "./../../assets/images/login-background-smoke.jpg";
+import loginLogo from "./../../assets/images/forgot-password-background.jpg";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import "yup-phone";

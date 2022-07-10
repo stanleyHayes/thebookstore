@@ -7,6 +7,12 @@ import ebere from "./../assets/images/ebere.png";
 import antoinette from "./../assets/images/antoinette.jpg";
 import karamoa from "./../assets/images/karamoa.png";
 
+import share from "./../assets/images/share.png";
+import languages from "./../assets/images/languages.png";
+import categories from "./../assets/images/categories.png";
+import trailers from "./../assets/images/trailers.png";
+import interactions from "./../assets/images/interactions.png";
+
 const TEAM = [
     {
         _id: 1,
@@ -68,9 +74,29 @@ const TEAM = [
 
 const FEATURES = [
     {
-        name: '',
-        description: '',
-        image: ''
+        name: 'Languages',
+        description: 'Get your latest books in your favorite languages',
+        image: languages
+    },
+    {
+        name: 'Categories',
+        description: 'Get books in all categories from Sci-Fi to Documentaries',
+        image: categories
+    },
+    {
+        name: 'Trailers',
+        description: 'Peek into your favorite books by watching the video trailer',
+        image: trailers
+    },
+    {
+        name: 'Interactions',
+        description: 'Like, comment and rate your favorite trailers',
+        image: interactions
+    },
+    {
+        name: 'Share',
+        description: 'Share your great works for a farther reach',
+        image: share
     }
 ]
 export const THE_BOOK_STORE_DATA = {FEATURES, TEAM};

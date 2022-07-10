@@ -12,4 +12,11 @@ const getBooks = (token, query) => {
     });
 }
 
-export const BOOK_API = {getBooks};
+const getBook = (id) => {
+    return axios({
+        method: 'GET',
+        url: `${CONSTANTS.SERVER_BASE_URL}/user/books/${id}`,
+    });
+}
+
+export const BOOK_API = {getBooks, getBook};

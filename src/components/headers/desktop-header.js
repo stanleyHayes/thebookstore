@@ -8,6 +8,7 @@ import {selectUI, toggleTheme} from "../../redux/features/ui/ui-slice";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import NavLink from "../shared/nav-link";
+import React from "react";
 
 const DesktopHeader = () => {
 
@@ -56,130 +57,151 @@ const DesktopHeader = () => {
                         <NavLink label="Home" path="/" active={activePath === '/'}/>
                         <NavLink label="Books" path="/books" active={activePath === '/books'}/>
                         <NavLink label="About" path="/about" active={activePath === '/about'}/>
-                        <Link to="/trailer/new" style={{textDecoration: 'none'}}>
-                            <Button
-                                color="secondary"
-                                fullWidth={true}
-                                sx={{
-                                    textTransform: 'capitalize',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                }}
-                                variant="contained"
-                                disableElevation={true}>
-                                Create Trailer
-                            </Button>
-                        </Link>
+                        {authData && (
+                            <Link to="/trailer/new" style={{textDecoration: 'none'}}>
+                                <Button
+                                    color="secondary"
+                                    fullWidth={true}
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                    }}
+                                    variant="contained"
+                                    disableElevation={true}>
+                                    Create Trailer
+                                </Button>
+                            </Link>
+                        )}
                     </Stack>
 
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Link to="/profile" style={{textDecoration: 'none'}}>
-                            <Avatar
-                                sx={{
-                                    backgroundColor: 'light.secondary',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32
-                                }}>
-                                <Typography
-                                    sx={{color: 'secondary.main'}}
-                                    variant="h6">
-                                    {UTILS.getInitials(authData?.fullName)}
-                                </Typography>
-                            </Avatar>
-                        </Link>
-                        <Badge color="secondary" max={100} badgeContent={999} variant="dot">
-                            <Notifications
-                                sx={{
-                                    cursor: 'pointer',
-                                    color: 'secondary.main',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                    padding: 1,
-                                    fontSize: 24,
-                                    backgroundColor: 'light.secondary'
-                                }}/>
-                        </Badge>
-
-                        <MoreHoriz
-                            onClick={handleMenuOpen}
-                            sx={{
-                                cursor: 'pointer',
-                                color: 'secondary.main',
-                                borderTopRightRadius: 32,
-                                borderBottomRightRadius: 0,
-                                borderBottomLeftRadius: 32,
-                                borderTopLeftRadius: 32,
-                                padding: 1,
-                                fontSize: 24,
-                                backgroundColor: 'light.secondary'
-                            }}/>
-
-                        <Menu
-                            open={openMenu}
-                            onClose={handleMenuClose}
-                            elevation={2}
-                            anchorEl={anchorEl}>
-                            <MenuItem>
+                        {authData ? (
+                            <React.Fragment>
                                 <Link to="/profile" style={{textDecoration: 'none'}}>
-                                    <Button
-                                        size="large"
+                                    <Avatar
                                         sx={{
-                                            justifyContent: 'flex-start',
-                                            color: 'text.primary',
-                                            textTransform: 'capitalize'
-                                        }}
-                                        fullWidth={true}
-                                        variant="text"
-                                        startIcon={
-                                            <Face
-                                                sx={{
-                                                    cursor: 'pointer',
-                                                    color: 'secondary.main',
-                                                    borderTopRightRadius: 32,
-                                                    borderBottomRightRadius: 0,
-                                                    borderBottomLeftRadius: 32,
-                                                    borderTopLeftRadius: 32,
-                                                    padding: 1,
-                                                    fontSize: 24,
-                                                    backgroundColor: 'light.secondary'
-                                                }}/>}>
-                                        Profile
-                                    </Button>
+                                            backgroundColor: 'light.secondary',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32
+                                        }}>
+                                        <Typography
+                                            sx={{color: 'secondary.main'}}
+                                            variant="h6">
+                                            {UTILS.getInitials(authData?.fullName)}
+                                        </Typography>
+                                    </Avatar>
                                 </Link>
-                            </MenuItem>
-                            <MenuItem>
-                                <Button
-                                    size="large"
+                                <Badge color="secondary" max={100} badgeContent={999} variant="dot">
+                                    <Notifications
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 24,
+                                            backgroundColor: 'light.secondary'
+                                        }}/>
+                                </Badge>
+                                <MoreHoriz
+                                    onClick={handleMenuOpen}
                                     sx={{
-                                        justifyContent: 'flex-start',
-                                        color: 'text.primary',
-                                        textTransform: 'capitalize'
-                                    }}
-                                    fullWidth={true}
-                                    variant="text"
-                                    startIcon={
-                                        <ExitToApp
+                                        cursor: 'pointer',
+                                        color: 'secondary.main',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                        padding: 1,
+                                        fontSize: 24,
+                                        backgroundColor: 'light.secondary'
+                                    }}/>
+                                <Menu
+                                    open={openMenu}
+                                    onClose={handleMenuClose}
+                                    elevation={2}
+                                    anchorEl={anchorEl}>
+                                    <MenuItem>
+                                        <Link to="/profile" style={{textDecoration: 'none'}}>
+                                            <Button
+                                                size="large"
+                                                sx={{
+                                                    justifyContent: 'flex-start',
+                                                    color: 'text.primary',
+                                                    textTransform: 'capitalize'
+                                                }}
+                                                fullWidth={true}
+                                                variant="text"
+                                                startIcon={
+                                                    <Face
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            color: 'secondary.main',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                            padding: 1,
+                                                            fontSize: 24,
+                                                            backgroundColor: 'light.secondary'
+                                                        }}/>}>
+                                                Profile
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Button
+                                            size="large"
                                             sx={{
-                                                cursor: 'pointer',
-                                                color: 'secondary.main',
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32,
-                                                padding: 1,
-                                                fontSize: 24,
-                                                backgroundColor: 'light.secondary'
-                                            }}/>}>
-                                    Logout
+                                                justifyContent: 'flex-start',
+                                                color: 'text.primary',
+                                                textTransform: 'capitalize'
+                                            }}
+                                            fullWidth={true}
+                                            variant="text"
+                                            startIcon={
+                                                <ExitToApp
+                                                    sx={{
+                                                        cursor: 'pointer',
+                                                        color: 'secondary.main',
+                                                        borderTopRightRadius: 32,
+                                                        borderBottomRightRadius: 0,
+                                                        borderBottomLeftRadius: 32,
+                                                        borderTopLeftRadius: 32,
+                                                        padding: 1,
+                                                        fontSize: 24,
+                                                        backgroundColor: 'light.secondary'
+                                                    }}/>}>
+                                            Logout
+                                        </Button>
+                                    </MenuItem>
+                                </Menu>
+                            </React.Fragment>
+                        ): (
+                            <Link to="/auth/login" style={{textDecoration: 'none'}}>
+                                <Button
+                                    color="secondary"
+                                    fullWidth={true}
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                    }}
+                                    variant="contained"
+                                    disableElevation={true}>
+                                    Login
                                 </Button>
-                            </MenuItem>
-                        </Menu>
+                            </Link>
+                        )}
 
                         {themeVariant === 'light' ? (
                             <DarkMode

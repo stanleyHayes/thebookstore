@@ -3,7 +3,9 @@ import {
     Alert,
     AlertTitle,
     Box,
-    Button, Card, CardContent,
+    Button,
+    Card,
+    CardContent,
     Container,
     Divider,
     FormControl,
@@ -15,27 +17,27 @@ import {
     Select,
     Stack,
     TextField,
-    Typography, useMediaQuery, useTheme
+    Typography,
+    useMediaQuery,
+    useTheme
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
 import {useEffect, useState} from "react";
 import Book from "../../components/shared/book";
-import {DarkMode, GridOn, LightMode, ListRounded} from "@mui/icons-material";
 import {useLocation, useNavigate} from "react-router";
 import qs from "query-string";
-import {selectUI} from "../../redux/features/ui/ui-slice";
 import Empty from "../../components/shared/empty";
 import BookList from "../../components/shared/book-list-item";
 import {Link} from "react-router-dom";
-import * as UI_ACTION_CREATORS from "../../redux/features/ui/ui-slice";
+import {selectCategory} from "../../redux/features/categories/category-slice";
 
 
 const BooksPage = () => {
     const {books, bookLoading, bookError, count} = useSelector(selectBook);
-    const {genres} = useSelector(selectBook);
+    const {categories} = useSelector(selectCategory);
     const [book, setBook] = useState("");
-    const [genre, setRole] = useState("");
+    const [category, setRole] = useState("");
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
@@ -46,19 +48,18 @@ const BooksPage = () => {
 
     const params = qs.parse(location.search);
 
-    // useEffect(() => {
-    //     dispatch(BOOKS_ACTION_CREATORS.getBooks({}));
-    // }, []);
-    //
-    // useEffect(() => {
-    //     dispatch(BOOKS_ACTION_CREATORS.getBooks({query: params['book']}));
-    // }, []);
-    //
-    //
-    // useEffect(() => {
-    //     dispatch(BOOKS_ACTION_CREATORS.getBooks({query: qs.stringify(params)}));
-    // }, [size, book, genre]);
-    //
+    useEffect(() => {
+        dispatch(BOOKS_ACTION_CREATORS.getBooks({}));
+    }, []);
+
+    useEffect(() => {
+        dispatch(BOOKS_ACTION_CREATORS.getBooks({query: params['book']}));
+    }, []);
+
+
+    useEffect(() => {
+        dispatch(BOOKS_ACTION_CREATORS.getBooks({query: qs.stringify(params)}));
+    }, [size, book, category]);
 
     const handleSearchClick = () => {
         dispatch(BOOKS_ACTION_CREATORS.getBooks({query: qs.stringify(params)}));
@@ -77,9 +78,9 @@ const BooksPage = () => {
 
     const handleRoleChange = event => {
         if (event.target.value === "") {
-            delete params["genre"];
+            delete params["category"];
         } else {
-            params['genre'] = event.target.value;
+            params['category'] = event.target.value;
         }
         setRole(event.target.value);
         navigate({pathname: location.pathname, search: qs.stringify(params)});
@@ -123,31 +124,37 @@ const BooksPage = () => {
                     <Divider variant="fullWidth" sx={{my: 4}} light={true}/>
                 </Box>
                 <Box>
-                    <Card elevation={0}>
+                    <Card
+                        sx={{
+                            borderTopRightRadius: 32,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32,
+                        }} variant="outlined">
                         <CardContent>
                             <Grid container={true} spacing={2} alignItems="center">
                                 <Grid item={true} xs={12} md={3}>
                                     <FormControl variant="outlined" fullWidth={true}>
-                                        <InputLabel htmlFor="book">Select Genre</InputLabel>
+                                        <InputLabel htmlFor="book">Select Category</InputLabel>
                                         <Select
-                                            id="genre"
+                                            id="category"
                                             margin="dense"
                                             fullWidth={true}
                                             elevation={1}
                                             color="secondary"
                                             onChange={handleBookChange}
-                                            value={genre}
+                                            value={category}
                                             label="Select Book"
                                             variant="outlined">
                                             <MenuItem
                                                 value=""
                                                 key="">All Books</MenuItem>
-                                            {genres?.map(genre => {
+                                            {categories?.map(category => {
                                                 return (
                                                     <MenuItem
-                                                        value={genre.name}
-                                                        key={genre._id}>
-                                                        {genre.name}
+                                                        value={category.name}
+                                                        key={category._id}>
+                                                        {category.name}
                                                     </MenuItem>
                                                 )
                                             })}
@@ -156,16 +163,16 @@ const BooksPage = () => {
                                 </Grid>
                                 <Grid item={true} xs={12} md={3}>
                                     <FormControl variant="outlined" fullWidth={true}>
-                                        <InputLabel htmlFor="genre">Sort books in</InputLabel>
+                                        <InputLabel htmlFor="category">Sort books in</InputLabel>
                                         <Select
-                                            id="genre"
+                                            id="category"
                                             margin="dense"
-                                            defaultValue={genre}
+                                            defaultValue={category}
                                             color="secondary"
                                             fullWidth={true}
                                             elevation={1}
                                             onChange={handleRoleChange}
-                                            value={genre}
+                                            value={category}
                                             label="Select Role"
                                             variant="outlined">
                                             <MenuItem value="asc" key="asc">Ascending</MenuItem>

@@ -23,7 +23,7 @@ const BannerSliderItem = ({item}) => {
                 align="center"
                 variant="h4"
                 sx={{color: 'secondary.main', fontWeight: 400, mb: 2}}>
-                {item.title}
+                {item.name}
             </Typography>
             <Typography
                 align="center"

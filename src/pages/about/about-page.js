@@ -1,5 +1,5 @@
 import Layout from "../../components/layout/layout";
-import {Box, Container, Divider, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {Box, Button, Container, Divider, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import Team from "../../components/shared/team";
 import {GridOn, ListRounded} from "@mui/icons-material";
@@ -7,6 +7,10 @@ import * as UI_ACTION_CREATORS from "../../redux/features/ui/ui-slice";
 import {selectUI} from "../../redux/features/ui/ui-slice";
 import {THE_BOOK_STORE_DATA} from "../../utils/data";
 import TeamListItem from "../../components/shared/team-list";
+import Overlay from "../../components/shared/overlay";
+import {Link} from "react-router-dom";
+import banner from "../../assets/images/team.jpg";
+import React from "react";
 
 const AboutPage = () => {
     const {viewMode} = useSelector(selectUI);
@@ -17,9 +21,35 @@ const AboutPage = () => {
 
     return (
         <Layout>
-
+            <Overlay
+                children={
+                    <Box sx={{height: '100%', display: 'flex', alignItems: 'center'}}>
+                        <Container>
+                            <Grid container={true} spacing={4} alignItems="center">
+                                <Grid item={true} xs={12} md={6}>
+                                    <Typography variant="h3" sx={{color: 'white', mb: 2}}>
+                                        Need a book ?
+                                    </Typography>
+                                    <Typography variant="h6" sx={{color: 'white', mb: 6}}>
+                                        With Book Station, we provide you with a short trailer of a book and the link to the book next to it. After you watch a trailer,  grab your book with ease.
+                                    </Typography>
+                                    <Link to="/books" style={{textDecoration: 'none'}}>
+                                        <Button
+                                            sx={{textTransform: 'capitalize', width: {xs: '100%', md: '30%'}}}
+                                            variant="contained"
+                                            disableElevation={true}
+                                            size="large"
+                                            color="secondary">
+                                            Find books
+                                        </Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Container>
+                    </Box>}
+                image={banner}
+                backgroundColor="#000000"/>
             <Container sx={{py: 4, minHeight: '90vh'}}>
-
                 <Box>
                     <Grid container={true} justifyContent="space-between" spacing={2} alignItems="center">
                         <Grid item={true}>

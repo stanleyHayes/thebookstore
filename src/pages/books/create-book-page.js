@@ -25,7 +25,7 @@ import {useSelector} from "react-redux";
 import {selectBook} from "../../redux/features/books/book-slice";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import {GridOn, ListRounded, Remove} from "@mui/icons-material";
+import {Remove} from "@mui/icons-material";
 import imageUpload from "./../../assets/images/upload-photo.png";
 import videoUpload from "./../../assets/images/upload-video.png";
 
@@ -56,7 +56,7 @@ const CreateBookPage = () => {
         validateOnBlur: true,
         validateOnChange: true,
         onSubmit: (values, {setSubmitting, resetForm}) => {
-
+            console.log(base64Trailer)
         }
     });
 

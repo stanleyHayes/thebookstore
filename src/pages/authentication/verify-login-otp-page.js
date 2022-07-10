@@ -14,7 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AUTH_ACTION_CREATORS, selectAuth} from "../../redux/features/auth/auth-slice";
 import {useNavigate, useParams} from "react-router";
 import Overlay from "../../components/shared/overlay";
-import loginLogo from "../../assets/images/login-background-smoke.jpg";
+import loginLogo from "../../assets/images/dizzy-designer.jpg";
 import {Link} from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import {Visibility, VisibilityOff} from "@mui/icons-material";

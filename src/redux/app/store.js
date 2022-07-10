@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import uiReducer from "../features/ui/ui-slice";
 import authReducer from "../features/auth/auth-slice";
 import bookReducer from "../features/books/book-slice";
+import categoryReducer from "../features/categories/category-slice";
 
 import {CONSTANTS} from "../../utils/constants";
 
@@ -24,20 +25,13 @@ const store = configureStore({
         ui: uiReducer,
         auth: authReducer,
         books: bookReducer,
+        categories: categoryReducer
     },
     preloadedState: {
         ui: {themeVariant, activePath: '/', drawerOpen: false, viewMode},
         auth: {
             token,
-            authData: {
-                fullName: 'Inigo Lopez',
-                lastName: 'Lopez',
-                firstName: 'Inigo',
-                gender: 'male',
-                email: 'inigo.lopez@gmail.com',
-                phoneNumber: '+233270048319',
-                username: 'inigo'
-            }
+            authData
         }
     },
     devTools: true

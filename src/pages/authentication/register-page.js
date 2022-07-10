@@ -3,7 +3,6 @@ import {
     AlertTitle,
     Box,
     Button,
-    Chip,
     CircularProgress,
     Container,
     FormControl,
@@ -17,7 +16,7 @@ import {
     Typography,
     useTheme
 } from "@mui/material";
-import loginLogo from "./../../assets/images/dizzy-designer.png";
+import loginLogo from "./../../assets/images/sign-up.png";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import "yup-phone";
@@ -34,7 +33,7 @@ import {
 import {useState} from "react";
 import {LoadingButton} from "@mui/lab";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../../redux/features/authentication/authentication-slice";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
 import {useNavigate} from "react-router";
 import {useSnackbar} from "notistack";
 
@@ -105,7 +104,7 @@ const RegisterPage = () => {
                         maxHeight: '100vh',
                         width: '100%',
                         height: '100vh',
-                        objectFit: 'contain',
+                        objectFit: 'cover',
                         objectPosition: 'center'
                     }}
                     alt=""
@@ -113,25 +112,18 @@ const RegisterPage = () => {
                 />
                 }
             </Box>
-            <Box sx={{flex: 1, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
+            <Box sx={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'background.paper',
+                minHeight: '100vh',
+                overflowY: {xs: 'scroll'}
+            }}>
                 {authLoading && <LinearProgress variant="query" color="secondary"/>}
                 <Container>
                     <Grid container={true} justifyContent="center">
                         <Grid item={true} xs={12} md={8}>
-                            <Stack
-                                direction="column"
-                                sx={{minHeight: '100vh', py: 4}}
-                                justifyContent="space-between">
-                                <Box mb={4}>
-                                    <Button
-                                        size="large"
-                                        sx={{textTransform: 'capitalize'}}
-                                        onClick={() => navigate(-1)}
-                                        variant="text"
-                                        startIcon={<KeyboardArrowLeft/>}>
-                                        Back
-                                    </Button>
-                                </Box>
                                 <Box sx={{alignItems: "center", display: 'flex'}} flexGrow={1}>
                                     <form
                                         style={{width: '100%'}}
@@ -150,24 +142,26 @@ const RegisterPage = () => {
                                                 </Alert>
                                             )}
 
-                                            <Typography mb={2} variant="h5" sx={{color: 'text.secondary'}}>
+                                            <Box mb={4}>
+                                                <Button
+                                                    color="secondary"
+                                                    size="large"
+                                                    sx={{textTransform: 'capitalize'}}
+                                                    onClick={() => navigate(-1)}
+                                                    variant="text"
+                                                    startIcon={<KeyboardArrowLeft/>}>
+                                                    Back
+                                                </Button>
+                                            </Box>
+
+                                            <Typography mb={2} variant="h5" sx={{color: 'text.primary'}}>
                                                 Sign Up
                                             </Typography>
 
-                                            <Stack mb={4} alignItems="center" direction="row" spacing={2}>
-                                                <Typography variant="h4" sx={{color: 'secondary.main'}}>
-                                                    Ruderalis
-                                                </Typography>
-                                                <Chip
-                                                    variant="filled"
-                                                    label="Vendor"
-                                                    sx={{
-                                                        backgroundColor: 'light.secondary',
-                                                        fontWeight: 'bold',
-                                                        color: 'secondary.main'
-                                                    }}
-                                                />
-                                            </Stack>
+                                            <Typography variant="h4" sx={{color: 'secondary.main', mb: 4}}>
+                                                The Book Station
+                                            </Typography>
+
 
                                             <Stack mb={4} direction="row" spacing={2} alignItems="center">
                                                 <Typography
@@ -212,7 +206,7 @@ const RegisterPage = () => {
                                                                                 cursor: 'pointer',
                                                                                 color: 'secondary.main',
                                                                                 padding: 1,
-                                                                                fontSize: 32,
+                                                                                fontSize: 24,
                                                                             }}
                                                                         />
                                                                     </InputAdornment>
@@ -256,7 +250,7 @@ const RegisterPage = () => {
                                                                                 cursor: 'pointer',
                                                                                 color: 'secondary.main',
                                                                                 padding: 1,
-                                                                                fontSize: 32,
+                                                                                fontSize: 24,
                                                                             }}
                                                                         />
                                                                     </InputAdornment>
@@ -303,7 +297,7 @@ const RegisterPage = () => {
                                                                                 cursor: 'pointer',
                                                                                 color: 'secondary.main',
                                                                                 padding: 1,
-                                                                                fontSize: 32,
+                                                                                fontSize: 24,
                                                                             }}
                                                                         />
                                                                     </InputAdornment>
@@ -347,7 +341,7 @@ const RegisterPage = () => {
                                                                                 cursor: 'pointer',
                                                                                 color: 'secondary.main',
                                                                                 padding: 1,
-                                                                                fontSize: 32,
+                                                                                fontSize: 24,
                                                                             }}
                                                                         />
                                                                     </InputAdornment>
@@ -394,7 +388,7 @@ const RegisterPage = () => {
                                                                                 cursor: 'pointer',
                                                                                 color: 'secondary.main',
                                                                                 padding: 1,
-                                                                                fontSize: 32,
+                                                                                fontSize: 24,
                                                                             }}
                                                                         />
                                                                     </InputAdornment>
@@ -444,7 +438,7 @@ const RegisterPage = () => {
                                                                                     cursor: 'pointer',
                                                                                     color: 'secondary.main',
                                                                                     padding: 1,
-                                                                                    fontSize: 32,
+                                                                                    fontSize: 24,
                                                                                 }}
                                                                             /> :
                                                                             <VisibilityOutlined
@@ -453,7 +447,7 @@ const RegisterPage = () => {
                                                                                     cursor: 'pointer',
                                                                                     color: 'secondary.main',
                                                                                     padding: 1,
-                                                                                    fontSize: 32,
+                                                                                    fontSize: 24,
                                                                                 }}
                                                                             />}
                                                                     </InputAdornment>
@@ -505,7 +499,7 @@ const RegisterPage = () => {
                                                                                     cursor: 'pointer',
                                                                                     color: 'secondary.main',
                                                                                     padding: 1,
-                                                                                    fontSize: 32,
+                                                                                    fontSize: 24,
                                                                                 }}
                                                                             /> :
                                                                             <VisibilityOutlined
@@ -514,7 +508,7 @@ const RegisterPage = () => {
                                                                                     cursor: 'pointer',
                                                                                     color: 'secondary.main',
                                                                                     padding: 1,
-                                                                                    fontSize: 32,
+                                                                                    fontSize: 24,
                                                                                 }}
                                                                             />}
                                                                     </InputAdornment>
@@ -565,7 +559,7 @@ const RegisterPage = () => {
                                                                                     cursor: 'pointer',
                                                                                     color: 'secondary.main',
                                                                                     padding: 1,
-                                                                                    fontSize: 32,
+                                                                                    fontSize: 24,
                                                                                 }}
                                                                             /> :
                                                                             <VisibilityOutlined
@@ -574,7 +568,7 @@ const RegisterPage = () => {
                                                                                     cursor: 'pointer',
                                                                                     color: 'secondary.main',
                                                                                     padding: 1,
-                                                                                    fontSize: 32,
+                                                                                    fontSize: 24,
                                                                                 }}
                                                                             />}
                                                                     </InputAdornment>
@@ -602,12 +596,12 @@ const RegisterPage = () => {
                                             <LoadingButton
                                                 type="submit"
                                                 size="large"
-                                                color="primary"
+                                                color="secondary"
                                                 sx={{
                                                     textTransform: 'capitalize',
                                                     py: 1.2,
                                                     mb: 2,
-                                                    borderRadius: 32,
+                                                    borderRadius: 24,
                                                     display: 'inline-block',
                                                     width: {
                                                         xs: '100%',
@@ -628,31 +622,6 @@ const RegisterPage = () => {
                                         </Box>
                                     </form>
                                 </Box>
-                                <Typography align="center" variant="body2" sx={{color: 'text.primary'}}>
-                                    By registering, you agree to our {' '}
-                                    <Link
-                                        style={{
-                                            color: theme.palette.secondary.main,
-                                            textDecoration: 'none',
-                                            fontWeight: 'bold'
-                                        }} to="/terms">Terms of Service</Link>,{' '}
-                                    <Link
-                                        style={{
-                                            color: theme.palette.secondary.main,
-                                            textDecoration: 'none',
-                                            fontWeight: 'bold'
-                                        }} to="/privacy">Privacy
-                                        Policy</Link> {' '} and our {' '}
-                                    <Link
-                                        style={{
-                                            textDecoration: 'none',
-                                            color: theme.palette.secondary.main,
-                                            fontWeight: 'bold'
-                                        }} to="/acceptable-use-policy">
-                                        Acceptable Use Policy
-                                    </Link>
-                                </Typography>
-                            </Stack>
                         </Grid>
                     </Grid>
                 </Container>
