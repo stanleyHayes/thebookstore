@@ -43,13 +43,13 @@ const DesktopHeader = () => {
                             <img
                                 src={logo}
                                 style={{width: 50, height: 50, objectFit: 'contain', objectPosition: 'center'}}
-                                alt="The Book Store Logo"
+                                alt="The Book Station Logo"
                             />
                         </Link>
                         <Link to="/" style={{textDecoration: 'none'}}>
                             <Typography
                                 sx={{color: 'text.primary'}}
-                                variant="h4">The Book Store</Typography>
+                                variant="h4">The Book Station</Typography>
                         </Link>
                     </Stack>
 

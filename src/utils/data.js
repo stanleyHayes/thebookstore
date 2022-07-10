@@ -3,9 +3,9 @@ import achaako from "./../assets/images/achaako.jpg";
 import mugisha from "./../assets/images/mugishajpg.jpg";
 import coulibaly from "./../assets/images/coulibaly.jpg";
 import mukarakate from "./../assets/images/mukarakate.jpeg";
-import ebere from "./../assets/images/ebere.png";
+import ebere from "./../assets/images/ebere.jpg";
 import antoinette from "./../assets/images/antoinette.jpg";
-import karamoa from "./../assets/images/karamoa.png";
+import karamoa from "./../assets/images/karamoa.jpg";
 
 import share from "./../assets/images/share.png";
 import languages from "./../assets/images/languages.png";
@@ -26,7 +26,7 @@ const TEAM = [
         image:achaako,
         name: 'Christiana Achaako',
         role: 'Facilitator',
-        description: 'Christiana Achaako, a Mechanical Engineering student, is the facilitator of The Zetas and is responsible for arranging and facilitating team meetings, establishing an action plan, making sure tasks are delegated clearly and appropriately and completed in time, and encouraging the team in the Zetas vision.'
+        description: 'Christiana Achaako, a Mechanical Engineering student, is the facilitator of The Deux+five and is responsible for arranging and facilitating team meetings, establishing an action plan, making sure tasks are delegated clearly and appropriately and completed in time, and encouraging the team in the Deux+five vision.'
     },
     {
         _id: 3,
@@ -54,21 +54,21 @@ const TEAM = [
         image: ebere,
         name: 'Princess Ebere',
         role: 'Marketing Partner',
-        description: 'Princess Ebere, a Marketing student, plays a vital role in promoting the business and mission of this organization, and serves as the face of The Zetas company, coordinating and producing all materials representing our business, reaches out to prospects, customers, investors, and/or the community while creating an overarching image that represents your company in a positive light.'
+        description: 'Princess Ebere, a Marketing student, plays a vital role in promoting the business and mission of this organization, and serves as the face of The Deux+five company, coordinating and producing all materials representing our business, reaches out to prospects, customers, investors, and/or the community while creating an overarching image that represents your company in a positive light.'
     },
     {
         _id: 7,
         image: antoinette,
-        name: 'Antoinette Dewotor',
+        name: 'Antoinette Dewortor',
         role: 'Marketing Partner',
-        description: 'Antoinette Dewotor, a Marketing student, plays a vital role in promoting the business and mission of this organization, and serves as the face of The Zetas company, coordinating and producing all materials representing our business, reaches out to prospects, customers, investors, and/or the community while creating an overarching image that represents your company in a positive light.'
+        description: 'Antoinette Dewortor, a Marketing student, plays a vital role in promoting the business and mission of this organization, and serves as the face of The Deux+five company, coordinating and producing all materials representing our business, reaches out to prospects, customers, investors, and/or the community while creating an overarching image that represents your company in a positive light.'
     },
     {
         _id: 8,
         image: karamoa,
         name: 'Melody Koramoa',
         role: 'Researcher',
-        description: 'Melody Koramoa, a computer science student, and researcher of the Zetas, responsible for aligning methodologies with research goals, using a range of tools to acquire information and interpret data. I\'m also responsible for writing up reports and presenting findings and schedules to management and other stakeholders, identifying trends and patterns, and conducting fieldwork and tests for various books making it interesting for our users to read on our website.'
+        description: 'Melody Koramoa, a computer science student, and researcher of the Deux+five, responsible for aligning methodologies with research goals, using a range of tools to acquire information and interpret data. I\'m also responsible for writing up reports and presenting findings and schedules to management and other stakeholders, identifying trends and patterns, and conducting fieldwork and tests for various books making it interesting for our users to read on our website.'
     },
 ];
 
