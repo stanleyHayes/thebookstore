@@ -265,7 +265,7 @@ const BookDetailPage = () => {
                                 size="small"
                                 variant="h6"
                                 sx={{textTransform: 'capitalize', color: 'text.primary'}}>
-                                {`${bookDetail?.comments.length} Comments`}
+                                {`${bookDetail?.comments?.length} Comments`}
                             </Typography>
                             <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
                             {authData ? (
@@ -308,7 +308,7 @@ const BookDetailPage = () => {
                                 </form>
                             ) : (
                                 <Box>
-                                    <Link to={`/auth/login?redirect=/books/${bookDetail._id}`}
+                                    <Link to={`/auth/login?redirect=/books/${bookDetail?._id}`}
                                           style={{textDecoration: 'none'}}>
                                         <Button
                                             type="submit"
