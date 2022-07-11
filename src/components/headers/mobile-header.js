@@ -1,5 +1,5 @@
 import {Badge, Box, Stack, Toolbar, Typography} from "@mui/material";
-import {Add, Menu, Notifications} from "@mui/icons-material";
+import {Menu, Notifications} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {openDrawer} from "../../redux/features/ui/ui-slice";
 import {useDispatch} from "react-redux";

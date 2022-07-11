@@ -16,7 +16,6 @@ const NavLink = ({path, label, active}) => {
                 size="large"
                 variant="text"
                 sx={{
-                    fontSize: 18,
                     borderTopRightRadius: 32,
                     borderBottomRightRadius: 0,
                     borderBottomLeftRadius: 32,

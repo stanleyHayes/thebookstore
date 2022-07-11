@@ -1,114 +1,90 @@
 import Layout from "../../components/layout/layout";
+import {useDispatch, useSelector} from "react-redux";
+import LoadingItem from "../../components/shared/loading-text";
+import moment from "moment";
+import React, {useEffect} from "react";
+import {useFormik} from "formik";
+import * as yup from "yup";
+import {useParams} from "react-router";
+import {Link} from "react-router-dom";
+import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
 import {
     Alert,
     AlertTitle,
-    Avatar,
     Box,
     Button,
     Card,
-    CardContent, CardMedia,
-    Chip,
-    CircularProgress,
+    CardMedia,
     Container,
+    Divider,
     Grid,
     LinearProgress,
-    Rating,
+    Link as MUILink,
     Skeleton,
     Stack,
-    Tab,
-    Tabs,
     TextField,
     Typography
 } from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import LoadingItem from "../../components/shared/loading-text";
-import {UTILS} from "../../utils/utils";
-import moment from "moment";
-import RatingSummary from "../../components/shared/rating-summary";
-import {useEffect, useState} from "react";
-import Reviews from "../../components/tabs/reviews";
-import ReviewForm from "../../components/dialogs/review-form";
-import {useFormik} from "formik";
-import * as yup from "yup";
-import {LoadingButton} from "@mui/lab";
-import {useParams} from "react-router";
-import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
+import {Comment, Delete, Edit, Share, ThumbUpOutlined} from "@mui/icons-material";
 import Comments from "../../components/tabs/comments";
-import {selectAuth} from "../../redux/features/auth/auth-slice";
+import Empty from "../../components/shared/empty";
 
 const BookDetailPage = () => {
     const {bookLoading, bookError, bookDetail} = useSelector(selectBook);
     const {bookID} = useParams();
     const {authData} = useSelector(selectAuth);
-    const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
 
-    const formik = useFormik({
-        validationSchema: yup.object({
-            text: yup.string().max(200, "Can't exceed 200 characters").required('Review required'),
-            rating: yup.string().min(0, "Can't go beneath 0").max(5, "Can't exceed 5").required('Review required')
-        }),
-        validateOnChange: true,
-        validateOnBlur: true,
-        onSubmit: (values, formikHelpers) => {
-            console.log(values, formikHelpers);
-        },
-        initialValues: {
-            text: '',
-            rating: '',
-        }
-    });
-
-    const [selectedTab, setSelectedTab] = useState("comments");
-    const handleTabChange = (event, value) => {
-        setSelectedTab(value);
-    }
-
-    const renderTabs = selectedTab => {
-        switch (selectedTab) {
-            case 'reviews':
-                return <Reviews reviews={bookDetail?.reviews}/>;
-            case 'comments':
-                return <Comments comments={bookDetail?.comments}/>;
-            default:
-                return <Comments comments={bookDetail?.comments}/>;
-        }
-    }
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(BOOKS_ACTION_CREATORS.getBook({id: bookID}));
     }, [bookID]);
 
+
+    const commentFormik = useFormik({
+        validationSchema: yup.object().shape({
+            text: yup.string().required('Comment required')
+        }),
+        initialValues: {
+            text: ''
+        },
+        onSubmit: (values, {resetForm, setSubmitting}) => {
+        }
+    });
+
     return (
         <Layout>
             {bookLoading && <LinearProgress variant="query" color="secondary"/>}
-            <Container sx={{py: 2}}>
+            <Container maxWidth="xl" sx={{py: 2}}>
                 {bookError && (
                     <Alert sx={{my: 2}} severity="error">
                         <AlertTitle>{bookError}</AlertTitle>
                     </Alert>
                 )}
                 <Box sx={{pt: 4}}>
-                    <Grid sx={{mb: 4}} container={true} spacing={4}>
-                        <Grid item={true} xs={12} md={4} sx={{width: '100%', height: '100%'}}>
+                    <Box sx={{mb: 4, display: 'flex', flexDirection: {xs: 'column', lg: 'row'}}}>
+                        <Box sx={{flexBasis: '70%', mr: {xs: 0, lg: 4}, mb: {xs: 4, lg: 0}}}>
                             <Card
                                 variant="outlined"
                                 sx={{
                                     flex: 1,
-                                    height: '100%',
+                                    mb: 4,
                                     borderTopRightRadius: 32,
                                     borderBottomRightRadius: 0,
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                 }} elevation={0}>
                                 <CardMedia
-                                    sx={{objectFit: 'cover', objectPosition: 'center'}}
-                                    component="img"
-                                    image={bookDetail?.image?.url}
+                                    controls={true}
+                                    component="video"
+                                    image={bookDetail?.trailer?.url}
+                                    autoPlay={false}
                                 />
                             </Card>
-                        </Grid>
-                        <Grid item={true} xs={12} md={8}>
+
+                            <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
+
                             <LoadingItem
                                 mb={2}
                                 item={
@@ -119,48 +95,116 @@ const BookDetailPage = () => {
                                 loading={bookLoading}
                                 skeleton={<Skeleton variant="text" animation="wave"/>}
                             />
-                            <Stack mb={2} direction="row" spacing={2} alignItems="center">
-                                <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                    {`Created ${moment(bookDetail?.createdAt).fromNow()}`}
-                                </Typography>
-                                <Typography
-                                    variant="body2"
-                                    sx={{color: 'text.secondary'}}>
-                                    &#8226;
-                                </Typography>
-                                <Chip
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        cursor: 'pointer',
-                                        color: 'secondary.main',
-                                        padding: 1,
-                                        backgroundColor: 'light.secondary',
-                                        borderTopRightRadius: 32,
-                                        borderBottomRightRadius: 0,
-                                        borderBottomLeftRadius: 32,
-                                        borderTopLeftRadius: 32,
-                                    }}
-                                    label={bookDetail?.category.toUpperCase()} variant="outlined"/>
-                                <Typography
-                                    variant="body1"
-                                    sx={{color: 'text.secondary'}}>
-                                    &#8226;
-                                </Typography>
-                                <Avatar
-                                    sx={{
-                                        backgroundColor: 'light.secondary',
-                                        borderTopRightRadius: 32,
-                                        borderBottomRightRadius: 0,
-                                        borderBottomLeftRadius: 32,
-                                        borderTopLeftRadius: 32,
-                                    }}>
+
+                            <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
+
+                            <Grid container={true} spacing={2} alignItems="center">
+                                <Grid item={true}>
+                                    <LoadingItem
+                                        item={
+                                            <MUILink href={bookDetail?.link} target="_blank">
+                                                <Typography variant="body2" sx={{color: 'secondary.main'}}>
+                                                    Purchase Book
+                                                </Typography>
+                                            </MUILink>
+                                        }
+                                        loading={bookLoading}
+                                        skeleton={<Skeleton variant="text" animation="wave"/>}
+                                    />
+                                </Grid>
+
+                                <Grid item={true}>
                                     <Typography
-                                        sx={{color: 'secondary.main'}}
-                                        variant="h6">
-                                        {bookDetail && UTILS.getInitials(bookDetail?.user?.fullName)}
+                                        variant="body2"
+                                        sx={{color: 'text.secondary'}}>
+                                        &#8226;
                                     </Typography>
-                                </Avatar>
-                            </Stack>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Button
+                                        color="secondary"
+                                        size="small"
+                                        variant="text"
+                                        sx={{textTransform: 'capitalize'}}
+                                        startIcon={<ThumbUpOutlined/>}>
+                                        {`${bookDetail?.likes.length} Likes`}
+                                    </Button>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{color: 'text.secondary'}}>
+                                        &#8226;
+                                    </Typography>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Button
+                                        color="secondary"
+                                        size="small"
+                                        variant="text"
+                                        sx={{textTransform: 'capitalize'}}
+                                        startIcon={<Comment color="secondary"/>}>
+                                        {`${bookDetail?.likes.length} Comments`}
+                                    </Button>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{color: 'text.secondary'}}>
+                                        &#8226;
+                                    </Typography>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Button
+                                        color="secondary"
+                                        size="small"
+                                        variant="text"
+                                        sx={{textTransform: 'capitalize'}}
+                                        startIcon={<Share color="secondary"/>}>
+                                        Share
+                                    </Button>
+                                </Grid>
+                                {authData?._id === bookDetail?.user?._id && (
+                                    <React.Fragment>
+                                        <Grid item={true}>
+                                            <Typography
+                                                variant="body1"
+                                                sx={{color: 'text.secondary'}}>
+                                                &#8226;
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item={true}>
+                                            <Button
+                                                color="secondary"
+                                                size="small"
+                                                variant="text"
+                                                sx={{textTransform: 'capitalize'}}
+                                                startIcon={<Edit color="secondary"/>}>
+                                                Update
+                                            </Button>
+                                        </Grid>
+                                        <Grid item={true}>
+                                            <Typography
+                                                variant="body1"
+                                                sx={{color: 'text.secondary'}}>
+                                                &#8226;
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item={true}>
+                                            <Button
+                                                color="secondary"
+                                                size="small"
+                                                variant="text"
+                                                sx={{textTransform: 'capitalize'}}
+                                                startIcon={<Delete color="secondary"/>}>
+                                                Delete
+                                            </Button>
+                                        </Grid>
+                                    </React.Fragment>
+                                )}
+                            </Grid>
+
+                            <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
 
                             <LoadingItem
                                 mb={2}
@@ -172,30 +216,81 @@ const BookDetailPage = () => {
                                 loading={bookLoading}
                                 skeleton={<Skeleton variant="text" animation="wave"/>}
                             />
-                            {authData && (
-                                <Grid container={true} spacing={2} mb={2}>
-                                    <Grid item={true} xs={12} md={6}>
-                                        <Button
+
+                            <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
+
+                            <LoadingItem
+                                mb={2}
+                                item={
+                                    <Typography variant="body2" sx={{color: 'text.secondary'}}>
+                                        {bookDetail?.description}
+                                    </Typography>
+                                }
+                                loading={bookLoading}
+                                skeleton={<Skeleton variant="text" animation="wave"/>}
+                            />
+
+                            <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
+
+                            <Stack mb={2} direction="row" spacing={2} alignItems="center">
+                                <Typography variant="body2" sx={{color: 'text.secondary'}}>
+                                    {`Created ${moment(bookDetail?.createdAt).fromNow()}`}
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{color: 'text.secondary'}}>
+                                    &#8226;
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{color: 'text.secondary'}}>
+                                    {bookDetail?.category}
+                                </Typography>
+
+                                <Typography
+                                    variant="body2"
+                                    sx={{color: 'text.secondary'}}>
+                                    &#8226;
+                                </Typography>
+
+                                <Typography
+                                    sx={{color: 'text.secondary'}}
+                                    variant="body2">
+                                    {bookDetail?.user?.fullName}
+                                </Typography>
+                            </Stack>
+                        </Box>
+                        <Box sx={{flexBasis: '30%', maxHeight: '100vh', overflowY: 'scroll'}}>
+                            <Typography
+                                size="small"
+                                variant="h6"
+                                sx={{textTransform: 'capitalize', color: 'text.primary'}}>
+                                {`${bookDetail?.comments.length} Comments`}
+                            </Typography>
+                            <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
+                            {authData ? (
+                                <form onSubmit={commentFormik.handleSubmit}>
+                                    <Stack spacing={2}>
+                                        <TextField
+                                            label="Caption"
                                             fullWidth={true}
-                                            onClick={() => setReviewDialogOpen(true)}
+                                            name="text"
+                                            required={true}
+                                            variant="outlined"
+                                            value={commentFormik.values.text}
+                                            error={Boolean(commentFormik.touched.text && commentFormik.errors.text)}
+                                            helperText={commentFormik.errors.text}
+                                            type="text"
                                             size="medium"
-                                            variant="contained"
-                                            color="secondary"
-                                            disableElevation={true}
-                                            sx={{
-                                                textTransform: 'capitalize',
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32
-                                            }}>
-                                            Write a Review
-                                        </Button>
-                                    </Grid>
-                                    <Grid item={true} xs={12} md={6}>
+                                            placeholder="Enter comment text"
+                                            onChange={commentFormik.handleChange}
+                                            onBlur={commentFormik.handleBlur}
+                                            multiline={true}
+                                            minRows={2}
+                                        />
                                         <Button
+                                            type="submit"
                                             fullWidth={true}
-                                            onClick={() => setReviewDialogOpen(true)}
                                             size="medium"
                                             variant="outlined"
                                             color="secondary"
@@ -209,151 +304,53 @@ const BookDetailPage = () => {
                                             }}>
                                             Write a Comment
                                         </Button>
-                                    </Grid>
-                                </Grid>
+                                    </Stack>
+                                </form>
+                            ) : (
+                                <Box>
+                                    <Link to={`/auth/login?redirect=/books/${bookDetail._id}`}
+                                          style={{textDecoration: 'none'}}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth={true}
+                                            size="medium"
+                                            variant="outlined"
+                                            color="secondary"
+                                            disableElevation={true}
+                                            sx={{
+                                                textTransform: 'capitalize',
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32,
+                                            }}>
+                                            Login to comment
+                                        </Button>
+                                    </Link>
+                                </Box>
                             )}
-
-                            <LoadingItem
-                                mb={2}
-                                item={
-                                    <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                        {bookDetail?.description}
-                                    </Typography>
-                                }
-                                loading={bookLoading}
-                                skeleton={<Skeleton variant="text" animation="wave"/>}
-                            />
-
-                            <Grid container={true} spacing={4}>
-                                <Grid item={true} xs={12} md={6}>
-                                    <Card
-                                        variant="outlined"
-                                        sx={{
-                                            flex: 1,
-                                            borderTopRightRadius: 32,
-                                            borderBottomRightRadius: 0,
-                                            borderBottomLeftRadius: 32,
-                                            borderTopLeftRadius: 32,
-                                        }} elevation={0}>
-                                        <CardMedia
-                                            controls={true}
-                                            component="video"
-                                            image={bookDetail?.trailer?.url}
-                                            autoPlay={false}
-                                            allowAutoPlay={true}
+                            <Stack direction="column" spacing={2}>
+                                {bookDetail?.comments?.length === 0 ? (
+                                    <Box>
+                                        <Empty
+                                            title={
+                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                    No comments
+                                                </Typography>
+                                            } message={
+                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                                Be the first to write a comment
+                                            </Typography>}
                                         />
-                                    </Card>
-                                </Grid>
-                                <Grid item={true} xs={12} md={6}>
-                                    <Card
-                                        variant="outlined"
-                                        sx={{
-                                            borderTopRightRadius: 32,
-                                            borderBottomRightRadius: 0,
-                                            borderBottomLeftRadius: 32,
-                                            borderTopLeftRadius: 32,
-                                        }}>
-                                        <CardContent>
-                                            <RatingSummary rating={bookDetail?.rating}/>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Box>
-                        <Tabs
-                            sx={{textTransform: 'capitalize'}}
-                            variant="scrollable"
-                            color="secondary"
-                            indicatorColor="secondary"
-                            defaultValue="comments"
-                            value={selectedTab}
-                            onChange={handleTabChange}>
-                            <Tab
-                                sx={{textTransform: 'capitalize'}}
-                                title="Comments"
-                                value="comments"
-                                label={`Comments (${bookDetail?.comments?.length})`}/>
-                            <Tab
-                                sx={{textTransform: 'capitalize'}}
-                                title="Reviews"
-                                value="reviews"
-                                label={`Reviews (${bookDetail?.reviews?.length})`}
-                            />
-                        </Tabs>
-                        <Box sx={{py: 2}}>
-                            {renderTabs(selectedTab)}
+                                    </Box>
+                                ) : (
+                                    <Comments comments={bookDetail?.comments}/>
+                                )}
+                            </Stack>
                         </Box>
                     </Box>
                 </Box>
             </Container>
-
-            {reviewDialogOpen && (
-                <ReviewForm
-                    open={reviewDialogOpen}
-                    handleClose={() => setReviewDialogOpen(false)}>
-                    <form onSubmit={formik.handleSubmit}>
-                        <Stack direction="column" spacing={2}>
-                            <Typography variant="h6" sx={{color: 'text.primary'}}>
-                                Write a review for {bookDetail?.name}
-                            </Typography>
-                            <TextField
-                                required={true}
-                                label="Review"
-                                name="text"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                fullWidth={true}
-                                multiline={true}
-                                minRows={4}
-                                placeholder="Write a review..."
-                                value={formik.values.text}
-                                error={formik.touched.text && formik.errors.text}
-                                helperText={formik.touched.text && formik.errors.text}
-                            />
-                            <Box>
-                                <Typography variant="body1" sx={{color: 'text.secondary', mb: 2}}>
-                                    Click or drag to rate
-                                </Typography>
-                                <Rating
-                                    name="rating"
-                                    size="large"
-                                    onChange={formik.handleChange}
-                                    defaultValue={0}
-                                    value={Number(formik.values.rating)}
-                                    precision={0.1}
-                                    max={5}
-                                    min={0}
-                                    draggable={true}
-                                    color="secondary"
-                                />
-                            </Box>
-                            <LoadingButton
-                                loading={formik.isSubmitting}
-                                loadingPosition="start"
-                                loadingIndicator={formik.isSubmitting &&
-                                    <CircularProgress color="secondary" size={20}/>}
-                                fullWidth={true}
-                                onClick={() => setReviewDialogOpen(true)}
-                                size="medium"
-                                variant="outlined"
-                                sx={{
-                                    color: 'secondary.main',
-                                    textTransform: 'capitalize',
-                                    borderTopRightRadius: 32,
-                                    borderBottomRightRadius: 0,
-                                    borderBottomLeftRadius: 32,
-                                    borderTopLeftRadius: 32,
-                                    backgroundColor: 'light.secondary',
-                                    py: 1.5
-                                }}>
-                                Write a Review
-                            </LoadingButton>
-                        </Stack>
-                    </form>
-                </ReviewForm>
-            )}
         </Layout>
     )
 }

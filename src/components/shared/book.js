@@ -65,7 +65,7 @@ const Book = ({book, variant}) => {
                     </Typography>
                 }
                 subheader={
-                    <Typography variant="caption" sx={{color: 'text.secondary', fontWeight: 700}}>
+                    <Typography variant="caption" sx={{color: 'text.secondary', fontWeight: 500}}>
                         {book.category}
                     </Typography>
                 }
@@ -76,7 +76,8 @@ const Book = ({book, variant}) => {
                             borderTopRightRadius: 32,
                             borderBottomRightRadius: 0,
                             borderBottomLeftRadius: 32,
-                            borderTopLeftRadius: 32
+                            borderTopLeftRadius: 32,
+                            cursor: 'pointer'
                         }}>
                         <Typography
                             sx={{color: 'secondary.main'}}
@@ -87,6 +88,7 @@ const Book = ({book, variant}) => {
                 }
                 action={authData._id === book.user._id && (
                     <MoreHoriz
+                        color="secondary"
                         onClick={handleMenuOpen}
                         sx={{
                             backgroundColor: 'light.secondary',
@@ -151,7 +153,7 @@ const Book = ({book, variant}) => {
                 </Stack>
             </CardActionArea>
 
-            <Menu open={menuOpen} anchorEl={anchorEl} onClose={handleMenuClose} variant="menu" elevation={0}>
+            <Menu open={menuOpen} anchorEl={anchorEl} onClose={handleMenuClose} variant="menu" elevation={1}>
                 <MenuItem>
                     <Link to="/books/:bookID/update" style={{textDecoration: 'none'}}>
                         <Button

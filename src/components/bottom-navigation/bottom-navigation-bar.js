@@ -2,39 +2,50 @@ import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {
     Add,
     AddOutlined,
-    Book, BookOnline, BookOnlineOutlined,
-    BookOutlined,
     Face,
     FaceOutlined,
     Home,
     HomeOutlined,
-    Info,
-    InfoOutlined
+    Videocam,
+    VideocamOutlined
 } from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 import {changePath, selectUI} from "../../redux/features/ui/ui-slice";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
+import {useState} from "react";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
 
 const BottomNavigationBar = () => {
     const {activePath} = useSelector(selectUI);
+    const {authData} = useSelector(selectAuth);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
 
-    const handleClick = (event, path) => {
-        navigate(path);
-        dispatch(changePath(path));
+    const [selectedTab, setSelectedTab] = useState(() => {
+        return location?.pathname?.slice(1)
+    });
+
+    const handleTabChange = (event, value) => {
+        navigate(`/${value}`);
+        dispatch(changePath(`/${value}`));
+        setSelectedTab(value);
     }
 
     return (
-        <BottomNavigation sx={{
+        <BottomNavigation
+            color="secondary"
+            defaultValue=""
+            value={selectedTab}
+            onChange={handleTabChange}
+            sx={{
             borderTopWidth: 1,
             borderTopStyle: 'solid',
             borderTopColor: 'divider'
         }}>
-            <BottomNavigationAction onClick={() => handleClick('/')} label="Home" icon={activePath === '/' ? (
+            <BottomNavigationAction value=""  label="Home" icon={activePath === '/' ? (
                 <Home
-                    onClick={() => handleClick('/')}
                     sx={{
                         cursor: 'pointer',
                         color: 'secondary.main',
@@ -43,12 +54,12 @@ const BottomNavigationBar = () => {
                         borderBottomLeftRadius: 32,
                         borderTopLeftRadius: 32,
                         padding: 1,
-                        fontSize: 24,
+                        fontSize: 18,
                         backgroundColor: 'light.secondary'
                     }}/>
             ) : (
                 <HomeOutlined
-                    onClick={() => handleClick('/')}
+
                     sx={{
                         cursor: 'pointer',
                         color: 'text.secondary',
@@ -57,12 +68,12 @@ const BottomNavigationBar = () => {
                         borderBottomLeftRadius: 32,
                         borderTopLeftRadius: 32,
                         padding: 1,
-                        fontSize: 24
+                        fontSize: 18
                     }}/>
             )}/>
 
             <BottomNavigationAction
-                onClick={() => handleClick('/trailer/new')}
+                value="trailer/new"
                 label="Create"
                 icon={activePath === '/trailer/new' ? (
                     <Add
@@ -74,7 +85,7 @@ const BottomNavigationBar = () => {
                             borderBottomLeftRadius: 32,
                             borderTopLeftRadius: 32,
                             padding: 1,
-                            fontSize: 24,
+                            fontSize: 18,
                             backgroundColor: 'light.secondary'
                         }}/>
                 ) : (
@@ -87,15 +98,15 @@ const BottomNavigationBar = () => {
                             borderBottomLeftRadius: 32,
                             borderTopLeftRadius: 32,
                             padding: 1,
-                            fontSize: 24
+                            fontSize: 18
                         }}/>
                 )}/>
 
             <BottomNavigationAction
-                onClick={() => handleClick('/books')}
-                label="Books"
+                label="Trailers"
+                value="books"
                 icon={activePath === '/books' ? (
-                    <BookOnline
+                    <Videocam
                         sx={{
                             cursor: 'pointer',
                             color: 'secondary.main',
@@ -104,11 +115,11 @@ const BottomNavigationBar = () => {
                             borderBottomLeftRadius: 32,
                             borderTopLeftRadius: 32,
                             padding: 1,
-                            fontSize: 24,
+                            fontSize: 18,
                             backgroundColor: 'light.secondary'
                         }}/>
                 ) : (
-                    <BookOnlineOutlined
+                    <VideocamOutlined
                         sx={{
                             cursor: 'pointer',
                             color: 'text.secondary',
@@ -117,10 +128,41 @@ const BottomNavigationBar = () => {
                             borderBottomLeftRadius: 32,
                             borderTopLeftRadius: 32,
                             padding: 1,
-                            fontSize: 24
+                            fontSize: 18
                         }}/>
                 )}/>
+            {authData && (
+                <BottomNavigationAction
+                    label="Profile"
+                    value="profile"
+                    icon={activePath === '/profile' ? (
+                        <Face
+                            sx={{
+                                cursor: 'pointer',
+                                color: 'secondary.main',
+                                borderTopRightRadius: 32,
+                                borderBottomRightRadius: 0,
+                                borderBottomLeftRadius: 32,
+                                borderTopLeftRadius: 32,
+                                padding: 1,
+                                fontSize: 18,
+                                backgroundColor: 'light.secondary'
+                            }}/>
+                    ) : (
+                        <FaceOutlined
+                            sx={{
+                                cursor: 'pointer',
+                                color: 'text.secondary',
+                                borderTopRightRadius: 32,
+                                borderBottomRightRadius: 0,
+                                borderBottomLeftRadius: 32,
+                                borderTopLeftRadius: 32,
+                                padding: 1,
+                                fontSize: 18
+                            }}/>
+                    )}/>
 
+            )}
         </BottomNavigation>
     )
 }

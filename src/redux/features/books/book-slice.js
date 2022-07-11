@@ -85,7 +85,20 @@ export const deleteBook = createAsyncThunk('books/deleteBook', async ({token, id
 const bookSlice = createSlice({
     name: 'book',
     initialState,
-    reducers: {},
+    reducers: {
+        addComment: (state, action) => {
+
+        },
+        updateComment: (state, action) => {
+
+        },
+        removeComment: (state, action) => {
+
+        },
+        toggleLike: (state, action) => {
+
+        }
+    },
     extraReducers: builder => {
         builder.addCase(getBooks.pending, (state) => {
             state.bookLoading = true;
@@ -96,48 +109,6 @@ const bookSlice = createSlice({
             state.bookError = null;
             state.bookMessage = action.payload.message;
             state.books = action.payload.data;
-            action.payload.data.forEach(book => {
-                switch (book.category) {
-                    case 'action':
-                        state.actionBooks.push(book);
-                        break;
-                    case 'adventure':
-                        state.adventureBooks.push(book);
-                        break;
-                    case 'classic':
-                        state.classicBooks.push(book);
-                        break;
-                    case 'comic':
-                        state.comicBooks.push(book);
-                        break;
-                    case 'fantasy':
-                        state.fantasyBooks.push(book);
-                        break;
-                    case 'horror':
-                        state.horrorBooks.push(book);
-                        break;
-                    case 'romance':
-                        state.romanceBooks.push(book);
-                        break;
-                    case 'sci-fi':
-                        state.sciFiBooks.push(book);
-                        break;
-                    case 'crime':
-                        state.crimeBooks.push(book);
-                        break;
-                    case 'drama':
-                        state.dramaBooks.push(book);
-                        break;
-                    case 'fairytale':
-                        state.fairytaleBooks.push(book);
-                        break;
-                    case 'other':
-                        state.otherBooks.push(book);
-                        break;
-                    default:
-                        break;
-                }
-            })
         }).addCase(getBooks.rejected, (state, action) => {
             state.bookLoading = false;
             state.bookError = action.payload;
@@ -247,6 +218,8 @@ const bookSlice = createSlice({
 });
 
 export const selectBook = state => state.books;
-
+export const selectBooksByCategory = (books, category) => {
+    return books.filter(book => book.category === category);
+}
 export const BOOKS_ACTION_CREATORS = {getBooks, getBook, createBook, deleteBook, updateBook, ...bookSlice.actions};
 export default bookSlice.reducer;

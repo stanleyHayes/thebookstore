@@ -3,6 +3,8 @@ import uiReducer from "../features/ui/ui-slice";
 import authReducer from "../features/auth/auth-slice";
 import bookReducer from "../features/books/book-slice";
 import categoryReducer from "../features/categories/category-slice";
+import commentReducer from "../features/comments/comment-slice";
+import likeReducer from "../features/likes/like-slice";
 
 import {CONSTANTS} from "../../utils/constants";
 
@@ -25,7 +27,9 @@ const store = configureStore({
         ui: uiReducer,
         auth: authReducer,
         books: bookReducer,
-        categories: categoryReducer
+        categories: categoryReducer,
+        comments: commentReducer,
+        likes: likeReducer
     },
     preloadedState: {
         ui: {themeVariant, activePath: '/', drawerOpen: false, viewMode},

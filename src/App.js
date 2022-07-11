@@ -17,7 +17,6 @@ import ResetPasswordPage from "./pages/authentication/reset-password-page";
 import ForgotPasswordPage from "./pages/authentication/forgot-password-page";
 import RegisterPage from "./pages/authentication/register-page";
 import VerifyAccountPage from "./pages/authentication/verify-account-page";
-import VerificationAcknowledgmentPage from "./pages/authentication/verification-acknowledgment-page";
 import WelcomePage from "./pages/authentication/welcome-page";
 import VerifyLoginOtpPage from "./pages/authentication/verify-login-otp-page";
 import RequireAuth from "./components/shared/require-auth";

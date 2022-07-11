@@ -96,6 +96,28 @@ const resendOTP = createAsyncThunk('auth/resendOTP',
         }
     });
 
+
+const register = createAsyncThunk(
+    'auth/register',
+    async (
+        {values, navigate, resetForm, showMessage, setSubmitting},
+        {rejectWithValue}) => {
+        try {
+            setSubmitting(true);
+            const response = await authAPI.register(values);
+            navigate(`/auth/verify/${response.data.token}`);
+            resetForm();
+            showMessage(response.data.message, {variant: 'success'});
+            setSubmitting(false);
+            return response.data;
+        } catch (e) {
+            const {message} = e.response.data;
+            showMessage(message, {variant: 'error'});
+            setSubmitting(false);
+            return rejectWithValue(message);
+        }
+    });
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -179,10 +201,26 @@ const authSlice = createSlice({
             state.authLoading = false;
             state.authError = action.payload;
             state.authMessage = action.payload;
+        }).addCase(register.pending, (state) => {
+            state.token = null;
+            state.authData = null;
+            state.authLoading = true;
+            state.authError = null;
+            state.authMessage = null;
+        }).addCase(register.fulfilled, (state, action) => {
+            state.token = action.payload.token;
+            state.authLoading = false;
+            state.authError = null;
+            state.authMessage = action.payload.authMessage;
+        }).addCase(register.rejected, (state, action) => {
+            state.token = null;
+            state.authData = null;
+            state.authLoading = false;
+            state.authError = action.payload;
         })
     }
 });
 
-export const AUTH_ACTION_CREATORS = {login, getProfile, verifyOTP, resendOTP, updateProfile};
+export const AUTH_ACTION_CREATORS = {login, getProfile, verifyOTP, resendOTP, updateProfile, register};
 export const selectAuth = state => state.auth;
 export default authSlice.reducer;

@@ -6,8 +6,6 @@ import {UTILS} from "../../utils/utils";
 import SidebarLink from "../shared/sidebar-link";
 
 import {
-    Book,
-    BookOnline,
     ChevronRight,
     Close,
     DarkMode,
@@ -21,7 +19,9 @@ import {
     InfoOutlined,
     LightMode,
     Settings,
-    SettingsOutlined
+    SettingsOutlined,
+    Videocam,
+    VideocamOutlined
 } from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {Link} from "react-router-dom";
@@ -140,10 +140,10 @@ const SidebarContent = () => {
 
                     <SidebarLink
                         active={activePath === '/books'}
-                        label="Books"
+                        label="Trailers"
                         path="/books"
                         icon={activePath === '/books' ? (
-                            <Book
+                            <Videocam
                                 sx={{
                                     cursor: 'pointer',
                                     color: 'secondary.main',
@@ -156,7 +156,7 @@ const SidebarContent = () => {
                                     backgroundColor: 'light.secondary'
                                 }}/>
                         ) : (
-                            <BookOnline
+                            <VideocamOutlined
                                 sx={{
                                     cursor: 'pointer',
                                     color: 'text.secondary',

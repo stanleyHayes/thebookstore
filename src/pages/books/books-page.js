@@ -36,11 +36,11 @@ import {selectCategory} from "../../redux/features/categories/category-slice";
 const BooksPage = () => {
     const {books, bookLoading, bookError, count} = useSelector(selectBook);
     const {categories} = useSelector(selectCategory);
-    const [book, setBook] = useState("");
-    const [category, setRole] = useState("");
+    const [category, setCategory] = useState("");
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
+    const [order, setOrder] = useState('desc');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -59,30 +59,30 @@ const BooksPage = () => {
 
     useEffect(() => {
         dispatch(BOOKS_ACTION_CREATORS.getBooks({query: qs.stringify(params)}));
-    }, [size, book, category]);
+    }, [size, category]);
 
     const handleSearchClick = () => {
         dispatch(BOOKS_ACTION_CREATORS.getBooks({query: qs.stringify(params)}));
     }
 
-    const handleBookChange = event => {
+    const handleOrderChange = event => {
         if (event.target.value === "") {
-            delete params['book'];
+            delete params['order'];
 
         } else {
-            params['book'] = event.target.value;
+            params['order'] = event.target.value;
         }
-        setBook(event.target.value);
+        setOrder(event.target.value);
         navigate({pathname: location.pathname, search: qs.stringify(params)});
     }
 
-    const handleRoleChange = event => {
+    const handleCategoryChange = event => {
         if (event.target.value === "") {
             delete params["category"];
         } else {
             params['category'] = event.target.value;
         }
-        setRole(event.target.value);
+        setCategory(event.target.value);
         navigate({pathname: location.pathname, search: qs.stringify(params)});
     }
 
@@ -118,9 +118,31 @@ const BooksPage = () => {
                 )}
 
                 <Box>
-                    <Typography variant="h4" sx={{color: 'text.primary'}}>
-                        Books
-                    </Typography>
+                    <Grid container={true} spacing={2} justifyContent="space-between">
+                        <Grid item={true} xs={12} md="auto">
+                            <Typography variant="h4" sx={{color: 'text.primary'}}>
+                                Trailers
+                            </Typography>
+                        </Grid>
+                        <Grid item={true} xs={12} md="auto">
+                            <Link to="/trailer/new" style={{textDecoration: 'none'}}>
+                                <Button
+                                    color="secondary"
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                    }}
+                                    variant="contained"
+                                    disableElevation={true}>
+                                    Create Trailer
+                                </Button>
+                            </Link>
+                        </Grid>
+                    </Grid>
+
                     <Divider variant="fullWidth" sx={{my: 4}} light={true}/>
                 </Box>
                 <Box>
@@ -135,16 +157,16 @@ const BooksPage = () => {
                             <Grid container={true} spacing={2} alignItems="center">
                                 <Grid item={true} xs={12} md={3}>
                                     <FormControl variant="outlined" fullWidth={true}>
-                                        <InputLabel htmlFor="book">Select Category</InputLabel>
+                                        <InputLabel htmlFor="category">Select Category</InputLabel>
                                         <Select
                                             id="category"
                                             margin="dense"
                                             fullWidth={true}
                                             elevation={1}
                                             color="secondary"
-                                            onChange={handleBookChange}
+                                            onChange={handleCategoryChange}
                                             value={category}
-                                            label="Select Book"
+                                            label="Select Category"
                                             variant="outlined">
                                             <MenuItem
                                                 value=""
@@ -163,17 +185,17 @@ const BooksPage = () => {
                                 </Grid>
                                 <Grid item={true} xs={12} md={3}>
                                     <FormControl variant="outlined" fullWidth={true}>
-                                        <InputLabel htmlFor="category">Sort books in</InputLabel>
+                                        <InputLabel htmlFor="order">Sort order</InputLabel>
                                         <Select
-                                            id="category"
+                                            id="order"
                                             margin="dense"
-                                            defaultValue={category}
+                                            defaultValue={order}
                                             color="secondary"
                                             fullWidth={true}
                                             elevation={1}
-                                            onChange={handleRoleChange}
-                                            value={category}
-                                            label="Select Role"
+                                            onChange={handleOrderChange}
+                                            value={order}
+                                            label="Select Order"
                                             variant="outlined">
                                             <MenuItem value="asc" key="asc">Ascending</MenuItem>
                                             <MenuItem value="desc" key="desc">Descending</MenuItem>
@@ -191,8 +213,8 @@ const BooksPage = () => {
                                             value={query}
                                             variant="outlined"
                                             required={true}
-                                            label="Search book"
-                                            placeholder="Search book"
+                                            label="Search trailer"
+                                            placeholder="Search trailer"
                                         />
                                     </Grid>
                                     <Grid item={true} xs={12} md={3}>
@@ -234,7 +256,7 @@ const BooksPage = () => {
                                 </Typography>
                             } button={
                                 <Stack direction="row" justifyContent="center">
-                                    <Link to="/book/new" style={{textDecoration: 'none'}}>
+                                    <Link to="/trailer/new" style={{textDecoration: 'none'}}>
                                         <Button
                                             color="secondary"
                                             sx={{

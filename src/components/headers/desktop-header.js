@@ -55,7 +55,7 @@ const DesktopHeader = () => {
 
                     <Stack direction="row" alignItems="center" spacing={3}>
                         <NavLink label="Home" path="/" active={activePath === '/'}/>
-                        <NavLink label="Books" path="/books" active={activePath === '/books'}/>
+                        <NavLink label="Trailers" path="/books" active={activePath === '/books'}/>
                         <NavLink label="About" path="/about" active={activePath === '/about'}/>
                         {authData && (
                             <Link to="/trailer/new" style={{textDecoration: 'none'}}>
@@ -106,7 +106,7 @@ const DesktopHeader = () => {
                                             borderBottomLeftRadius: 32,
                                             borderTopLeftRadius: 32,
                                             padding: 1,
-                                            fontSize: 24,
+                                            fontSize: 18,
                                             backgroundColor: 'light.secondary'
                                         }}/>
                                 </Badge>
@@ -120,7 +120,7 @@ const DesktopHeader = () => {
                                         borderBottomLeftRadius: 32,
                                         borderTopLeftRadius: 32,
                                         padding: 1,
-                                        fontSize: 24,
+                                        fontSize: 18,
                                         backgroundColor: 'light.secondary'
                                     }}/>
                                 <Menu
@@ -149,7 +149,7 @@ const DesktopHeader = () => {
                                                             borderBottomLeftRadius: 32,
                                                             borderTopLeftRadius: 32,
                                                             padding: 1,
-                                                            fontSize: 24,
+                                                            fontSize: 18,
                                                             backgroundColor: 'light.secondary'
                                                         }}/>}>
                                                 Profile
@@ -176,7 +176,7 @@ const DesktopHeader = () => {
                                                         borderBottomLeftRadius: 32,
                                                         borderTopLeftRadius: 32,
                                                         padding: 1,
-                                                        fontSize: 24,
+                                                        fontSize: 18,
                                                         backgroundColor: 'light.secondary'
                                                     }}/>}>
                                             Logout
@@ -214,7 +214,7 @@ const DesktopHeader = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     backgroundColor: 'light.secondary'
                                 }}/>
                         ) : (
@@ -228,7 +228,7 @@ const DesktopHeader = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     backgroundColor: 'light.secondary'
                                 }}/>
                         )}

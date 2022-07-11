@@ -10,6 +10,14 @@ const login = (user) => {
     });
 }
 
+const register = (user) => {
+    return axios({
+        method: 'POST',
+        url: `${CONSTANTS.SERVER_BASE_URL}/user/auth/register`,
+        data: user
+    });
+}
+
 const getProfile = token => {
     return axios({
         method: 'GET',
@@ -19,7 +27,6 @@ const getProfile = token => {
         }
     });
 }
-
 
 const updateProfile = (token, data) => {
     return axios({
@@ -40,7 +47,6 @@ const verifyOTP = (otp, token) => {
     });
 }
 
-
 const resendOTP = (user) => {
     return axios({
         method: 'POST',
@@ -49,5 +55,5 @@ const resendOTP = (user) => {
     });
 }
 
-const authAPI = {login, getProfile, verifyOTP, resendOTP, updateProfile};
+const authAPI = {login, getProfile, verifyOTP, resendOTP, updateProfile, register};
 export default authAPI;
