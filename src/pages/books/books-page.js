@@ -253,7 +253,7 @@ const BooksPage = () => {
                                     </Typography>
                                 } message={
                                 <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
-                                    Be the first to create a book
+                                    Be the first to create a trailer
                                 </Typography>
                             } button={
                                 <Stack direction="row" justifyContent="center">

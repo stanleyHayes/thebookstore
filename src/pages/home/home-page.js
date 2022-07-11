@@ -91,18 +91,18 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Action Books
+                            Our Latest Action Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'action').length === 0 ? (
                             <Box>
                                 <Empty
                                     title={
                                         <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                            No Action books
+                                            No Action book trailers
                                         </Typography>
                                     } message={
                                     <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                        Be the first to create an action book
+                                        Be the first to create an action book trailer
                                     </Typography>
                                 } button={
                                     <Stack direction="row" justifyContent="center">
@@ -135,7 +135,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'action').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -151,7 +151,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Action Books
+                                    View Action Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -179,7 +179,7 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Adventure Books
+                            Our Latest Adventure Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'adventure').length === 0 ? (
                             <Box>
@@ -188,11 +188,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No Adventure books
+                                                    No Adventure book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create an adventure book
+                                                Be the first to create an adventure book trailer
                                             </Typography>
                                         } button={
                                             <Stack direction="row" justifyContent="center">
@@ -228,7 +228,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'adventure').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -244,7 +244,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Adventure Books
+                                    View Adventure Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -271,7 +271,7 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Classic Books
+                            Our Latest Classic Book Trailers
                         </Typography>
 
                         {books && selectBooksByCategory(books, 'classic').length === 0 ? (
@@ -281,11 +281,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No Classic books
+                                                    No Classic book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a classic book
+                                                Be the first to create a classic book trailer
                                             </Typography>
                                         } button={
                                             <Stack direction="row" justifyContent="center">
@@ -321,7 +321,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'classic').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -336,7 +336,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Classic Books
+                                    View Classic Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -364,7 +364,7 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Comic Books
+                            Our Latest Comic Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'comic').length === 0 ? (
                             <Box>
@@ -373,11 +373,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No comic books
+                                                    No comic book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a comic book
+                                                Be the first to create a comic book trailer
                                             </Typography>
                                         } button={
                                             <Stack direction="row" justifyContent="center">
@@ -412,7 +412,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'action').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -427,7 +427,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Comic Books
+                                    View Comic Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -458,39 +458,35 @@ const HomePage = () => {
                         </Typography>
                         {books && selectBooksByCategory(books, 'fantasy').length === 0 ? (
                             <Box>
-                                <Grid container={true} justifyContent="center">
-                                    <Grid item={true} xs={12} md={6}>
-                                        <Empty
-                                            title={
-                                                <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No fantasy books
-                                                </Typography>
-                                            } message={
-                                            <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a fantasy book
-                                            </Typography>
-                                        } button={
-                                            <Stack direction="row" justifyContent="center">
-                                                <Link to="/trailer/new?category=fantasy"
-                                                      style={{textDecoration: 'none'}}>
-                                                    <Button
-                                                        color="secondary"
-                                                        sx={{
-                                                            textTransform: 'capitalize',
-                                                            borderTopRightRadius: 32,
-                                                            borderBottomRightRadius: 0,
-                                                            borderBottomLeftRadius: 32,
-                                                            borderTopLeftRadius: 32,
-                                                        }}
-                                                        variant="contained"
-                                                        disableElevation={true}>
-                                                        Create Trailer
-                                                    </Button>
-                                                </Link>
-                                            </Stack>
-                                        }/>
-                                    </Grid>
-                                </Grid>
+                                <Empty
+                                    title={
+                                        <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
+                                            No fantasy book trailers
+                                        </Typography>
+                                    } message={
+                                    <Typography variant="body1" align="center" sx={{color: 'text.secondary'}}>
+                                        Be the first to create a fantasy book trailer
+                                    </Typography>
+                                } button={
+                                    <Stack direction="row" justifyContent="center">
+                                        <Link to="/trailer/new?category=fantasy"
+                                              style={{textDecoration: 'none'}}>
+                                            <Button
+                                                color="secondary"
+                                                sx={{
+                                                    textTransform: 'capitalize',
+                                                    borderTopRightRadius: 32,
+                                                    borderBottomRightRadius: 0,
+                                                    borderBottomLeftRadius: 32,
+                                                    borderTopLeftRadius: 32,
+                                                }}
+                                                variant="contained"
+                                                disableElevation={true}>
+                                                Create Trailer
+                                            </Button>
+                                        </Link>
+                                    </Stack>
+                                }/>
                             </Box>
                         ) : (
                             <Carousel
@@ -503,7 +499,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'fantasy').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -518,7 +514,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Fantasy Books
+                                    View Fantasy Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -546,18 +542,18 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Horror Books
+                            Our Latest Horror Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'horror').length === 0 ? (
                             <Box>
                                 <Empty
                                     title={
                                         <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                            No horror books
+                                            No horror book trailers
                                         </Typography>
                                     } message={
                                     <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                        Be the first to create a horror book
+                                        Be the first to create a horror book trailer
                                     </Typography>
                                 } button={
                                     <Stack direction="row" justifyContent="center">
@@ -591,7 +587,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'horror').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -606,7 +602,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Horror Books
+                                    View Horror Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -633,18 +629,18 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Romance Books
+                            Our Latest Romance Book Trailer
                         </Typography>
                         {books && selectBooksByCategory(books, 'romance').length === 0 ? (
                             <Box>
                                 <Empty
                                     title={
                                         <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                            No romance books
+                                            No romance book trailer
                                         </Typography>
                                     } message={
                                     <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                        Be the first to create a romance book
+                                        Be the first to create a romance book trailer
                                     </Typography>
                                 } button={
                                     authData && (
@@ -679,7 +675,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'romance').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -694,7 +690,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Romance Books
+                                    View Romance Book Trailer
                                 </Button>
                             </Link>
                         </Stack>
@@ -731,11 +727,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No sci-fi books
+                                                    No sci-fi book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a sci-fi book
+                                                Be the first to create a sci-fi book trailer
                                             </Typography>
                                         } button={
                                             authData && (
@@ -773,7 +769,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'sci-fi').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -788,7 +784,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Sci-Fi Books
+                                    View Sci-Fi Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -815,7 +811,7 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Thriller Books
+                            Our Latest Thriller Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'thriller').length === 0 ? (
                             <Box>
@@ -824,11 +820,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No thriller books
+                                                    No thriller book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a thriller book
+                                                Be the first to create a thriller book trailer
                                             </Typography>
                                         } button={
                                             authData && (
@@ -866,7 +862,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'thriller').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -881,7 +877,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Thriller Books
+                                    View Thriller Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -909,7 +905,7 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Crime Books
+                            Our Latest Crime Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'crime').length === 0 ? (
                             <Box>
@@ -918,11 +914,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No crime books
+                                                    No crime book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a crime book
+                                                Be the first to create a crime book trailer
                                             </Typography>
                                         } button={
                                             authData && (
@@ -959,7 +955,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'action').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -974,7 +970,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Crime Books
+                                    View Crime Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -1001,18 +997,18 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Drama Books
+                            Our Latest Drama Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'drama').length === 0 ? (
                             <Box>
                                 <Empty
                                     title={
                                         <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                            No drama books
+                                            No drama book trailers
                                         </Typography>
                                     } message={
                                     <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                        Be the first to create a drama book
+                                        Be the first to create a drama book trailer
                                     </Typography>
                                 } button={
                                     authData && (
@@ -1047,7 +1043,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'drama').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -1062,7 +1058,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Drama Books
+                                    View Drama Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -1090,18 +1086,18 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Fairytale Books
+                            Our Latest Fairytale Book Trailer
                         </Typography>
                         {books && selectBooksByCategory(books, 'fairytale').length === 0 ? (
                             <Box>
                                 <Empty
                                     title={
                                         <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                            No fairytale books
+                                            No fairytale book trailer
                                         </Typography>
                                     } message={
                                     <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                        Be the first to create a fairytale book
+                                        Be the first to create a fairytale book trailer
                                     </Typography>
                                 } button={authData && (
                                     <Stack direction="row" justifyContent="center">
@@ -1126,6 +1122,7 @@ const HomePage = () => {
                             </Box>
                         ) : (
                             <Carousel
+                                style={{paddingBottom: 1}}
                                 autoPlay={true}
                                 autoPlaySpeed={5000}
                                 infinite={true}
@@ -1135,7 +1132,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'action').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -1150,7 +1147,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Fairytale Books
+                                    View Fairytale Book Trailers
                                 </Button>
                             </Link>
                         </Stack>
@@ -1178,7 +1175,7 @@ const HomePage = () => {
                             }}
                             variant="body2"
                             align="center">
-                            Our Latest Books
+                            Our Latest Book Trailers
                         </Typography>
                         {books && selectBooksByCategory(books, 'other').length === 0 ? (
                             <Box>
@@ -1187,11 +1184,11 @@ const HomePage = () => {
                                         <Empty
                                             title={
                                                 <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
-                                                    No books
+                                                    No book trailers
                                                 </Typography>
                                             } message={
                                             <Typography variant="body2" align="center" sx={{color: 'text.secondary'}}>
-                                                Be the first to create a book
+                                                Be the first to create a book trailer
                                             </Typography>
                                         } button={
                                             authData && (
@@ -1228,7 +1225,7 @@ const HomePage = () => {
                                 responsive={UTILS.responsive}>
                                 {books && selectBooksByCategory(books, 'other').map(book => {
                                     return (
-                                        <Box key={book._id} sx={{mx: 2}}>
+                                        <Box key={book._id} sx={{mx: 2, height: '100%'}}>
                                             <Book variant="outlined" book={book}/>
                                         </Box>
                                     )
@@ -1243,7 +1240,7 @@ const HomePage = () => {
                                     variant="text"
                                     sx={{textTransform: 'capitalize'}}
                                     endIcon={<KeyboardArrowRight color="secondary"/>}>
-                                    View Books
+                                    View Book Trailers
                                 </Button>
                             </Link>
                         </Stack>

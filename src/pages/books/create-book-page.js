@@ -29,6 +29,8 @@ import {CloudUpload, Remove} from "@mui/icons-material";
 import imageUpload from "./../../assets/images/upload-photo.png";
 import videoUpload from "./../../assets/images/upload-video.png";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
+import {useNavigate} from "react-router";
+import {useSnackbar} from "notistack";
 
 const CreateBookPage = () => {
     const {bookLoading, bookError} = useSelector(selectBook);
@@ -41,6 +43,13 @@ const CreateBookPage = () => {
     const [trailerPreview, setTrailerPreview] = useState(null);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const {enqueueSnackbar} = useSnackbar();
+
+    const showMessage = (message, options) => {
+        enqueueSnackbar(message, options);
+    }
 
     const formik = useFormik({
         validationSchema: yup.object().shape({
@@ -64,7 +73,13 @@ const CreateBookPage = () => {
                 book: {...values, trailer: base64Trailer, image: base64Cover},
                 token,
                 setSubmitting,
-                resetForm
+                resetForm,
+                navigate,
+                setBase64Trailer,
+                setBase64Cover,
+                setCoverPreview,
+                setTrailerPreview,
+                showMessage
             }));
         }
     });

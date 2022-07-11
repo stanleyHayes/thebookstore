@@ -137,53 +137,6 @@ const commentSlice = createSlice({
             state.commentError = null;
             state.commentMessage = action.payload.message;
             state.comments = [...state.comments, action.payload.data];
-            switch (action.payload.data.category) {
-                case 'other':
-                    state.otherComments = [...state.otherComments, action.payload.data];
-                    break;
-                default:
-                    break;
-            }
-            switch (action.payload.data.category) {
-                case 'action':
-                    state.actionComments = [...state.actionComments, action.payload.data];
-                    break;
-                case 'adventure':
-                    state.adventureComments = [...state.adventureComments, action.payload.data];
-                    break;
-                case 'classic':
-                    state.classicComments = [...state.classicComments, action.payload.data];
-                    break;
-                case 'comic':
-                    state.comicComments = [...state.comicComments, action.payload.data];
-                    break;
-                case 'fantasy':
-                    state.fantasyComments = [...state.fantasyComments, action.payload.data];
-                    break;
-                case 'horror':
-                    state.horrorComments = [...state.horrorComments, action.payload.data];
-                    break;
-                case 'romance':
-                    state.romanceComments = [...state.romanceComments, action.payload.data];
-                    break;
-                case 'sci-fi':
-                    state.sciFiComments = [...state.sciFiComments, action.payload.data];
-                    break;
-                case 'crime':
-                    state.crimeComments = [...state.crimeComments, action.payload.data];
-                    break;
-                case 'drama':
-                    state.dramaComments = [...state.dramaComments, action.payload.data];
-                    break;
-                case 'fairytale':
-                    state.fairytaleComments = [...state.fairytaleComments, action.payload.data];
-                    break;
-                case 'other':
-                    state.otherComments = [...state.otherComments, action.payload.data];
-                    break;
-                default:
-                    break;
-            }
         }).addCase(createComment.rejected, (state, action) => {
             state.commentLoading = false;
             state.commentError = action.payload;

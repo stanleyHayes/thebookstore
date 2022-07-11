@@ -29,11 +29,14 @@ import {
 import {Comment, Delete, Edit, Share, ThumbUpOutlined} from "@mui/icons-material";
 import Comments from "../../components/tabs/comments";
 import Empty from "../../components/shared/empty";
+import {COMMENTS_ACTION_CREATORS, selectComment} from "../../redux/features/comments/comment-slice";
 
 const BookDetailPage = () => {
     const {bookLoading, bookError, bookDetail} = useSelector(selectBook);
+    const {commentLoading, commentError} = useSelector(selectComment);
+
     const {bookID} = useParams();
-    const {authData} = useSelector(selectAuth);
+    const {authData, token} = useSelector(selectAuth);
 
     const dispatch = useDispatch();
 
@@ -50,6 +53,7 @@ const BookDetailPage = () => {
             text: ''
         },
         onSubmit: (values, {resetForm, setSubmitting}) => {
+            dispatch(COMMENTS_ACTION_CREATORS.createComment({token, comment: {...values, book: bookID}, resetForm, setSubmitting}));
         }
     });
 
@@ -83,8 +87,6 @@ const BookDetailPage = () => {
                                 />
                             </Card>
 
-                            <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
-
                             <LoadingItem
                                 mb={2}
                                 item={
@@ -102,7 +104,7 @@ const BookDetailPage = () => {
                                 <Grid item={true}>
                                     <LoadingItem
                                         item={
-                                            <MUILink href={bookDetail?.link} target="_blank">
+                                            <MUILink href={bookDetail?.link} underline="none" target="_blank">
                                                 <Typography variant="body2" sx={{color: 'secondary.main'}}>
                                                     Purchase Book
                                                 </Typography>
@@ -253,19 +255,28 @@ const BookDetailPage = () => {
                                     &#8226;
                                 </Typography>
 
-                                <Typography
-                                    sx={{color: 'text.secondary'}}
-                                    variant="body2">
-                                    {bookDetail?.user?.fullName}
-                                </Typography>
+                                <Link to={`/channels/${bookDetail?.user?.username}`} style={{textDecoration: 'none'}}>
+                                    <Typography
+                                        sx={{color: 'secondary.main'}}
+                                        variant="body2">
+                                        {bookDetail?.user?.fullName}
+                                    </Typography>
+                                </Link>
                             </Stack>
                         </Box>
+
                         <Box sx={{flexBasis: '30%'}}>
+                            {commentLoading && <LinearProgress variant="query" color="secondary"/>}
+                                {commentError && (
+                                    <Alert sx={{my: 2}} severity="error">
+                                        <AlertTitle>{commentError}</AlertTitle>
+                                    </Alert>
+                                )}
                             <Typography
                                 size="small"
                                 variant="h6"
                                 sx={{textTransform: 'capitalize', color: 'text.primary'}}>
-                                {`${bookDetail?.comments?.length} Comments`}
+                                {`${bookDetail?.comments?.length} Comment${bookDetail?.comments?.length === 1 ? '': 's'}`}
                             </Typography>
                             <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
                             {authData ? (
@@ -329,7 +340,7 @@ const BookDetailPage = () => {
                                     </Link>
                                 </Box>
                             )}
-                            <Stack direction="column" spacing={2}>
+                            <Stack direction="column" spacing={2} sx={{width: '100%'}}>
                                 {bookDetail?.comments?.length === 0 ? (
                                     <Box>
                                         <Empty
@@ -344,7 +355,11 @@ const BookDetailPage = () => {
                                         />
                                     </Box>
                                 ) : (
-                                    <Comments comments={bookDetail?.comments}/>
+                                    <Box>
+                                        <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
+                                        <Comments comments={bookDetail?.comments}/>
+                                    </Box>
+
                                 )}
                             </Stack>
                         </Box>

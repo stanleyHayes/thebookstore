@@ -61,6 +61,7 @@ const RegisterPage = () => {
             email: ''
         },
         onSubmit: (values, {resetForm, setSubmitting}) => {
+            console.log(values)
             dispatch(AUTH_ACTION_CREATORS.register({
                 values, resetForm, setSubmitting, showMessage, navigate
             }));
@@ -74,7 +75,6 @@ const RegisterPage = () => {
             gender: yup.string().oneOf(['male', 'female'], 'choose valid gender').required('gender required'),
             email: yup.string().email('Invalid email').required('username required'),
             password: yup.string().required('Password required'),
-            pin: yup.string().required('Pin required'),
             confirmPassword: yup.string()
                 .required('confirm password required')
                 .oneOf([yup.ref('password'), null], 'Passwords must match'),
@@ -101,18 +101,19 @@ const RegisterPage = () => {
                     maxHeight: '100vh',
                     backgroundColor: 'background.default'
                 }}>
-                <img
-                    style={{
-                        maxHeight: '100vh',
-                        width: '100%',
-                        height: '100vh',
-                        objectFit: 'cover',
-                        objectPosition: 'center'
-                    }}
-                    alt=""
-                    src={loginLogo}
-                />
-                }
+                <Stack justifyContent="center" alignItems="center" sx={{height: '100%'}}>
+                    <img
+                        style={{
+                            maxHeight: '100vh',
+                            width: '50%',
+                            height: '50%',
+                            objectFit: 'cover',
+                            objectPosition: 'center'
+                        }}
+                        alt=""
+                        src={loginLogo}
+                    />
+                </Stack>
             </Box>
             <Box sx={{
                 flex: 1,
@@ -494,7 +495,7 @@ const RegisterPage = () => {
                                                                         />}
                                                                 </InputAdornment>
                                                             }
-                                                            error={formik.touched.password && formik.errors.password}
+                                                            error={Boolean(formik.touched.password && formik.errors.password)}
                                                             onChange={formik.handleChange}
                                                             onBlur={formik.handleBlur}
                                                             placeholder="Enter password"
@@ -523,7 +524,6 @@ const RegisterPage = () => {
                                                         Confirm Password
                                                     </Typography>
                                                     <FormControl fullWidth={true} variant="outlined">
-                                                        <InputLabel htmlFor="password">Confirm Password</InputLabel>
                                                         <OutlinedInput
                                                             fullWidth={true}
                                                             id="confirmPassword"
@@ -559,7 +559,6 @@ const RegisterPage = () => {
                                                             onBlur={formik.handleBlur}
                                                             placeholder="Enter confirm password"
                                                             required={true}
-                                                            label="Confirm Password"
                                                             size="medium"
                                                             margin="dense"
                                                         />
@@ -575,6 +574,7 @@ const RegisterPage = () => {
                                         </Grid>
 
                                         <LoadingButton
+                                            onClick={formik.handleSubmit}
                                             type="submit"
                                             size="large"
                                             color="secondary"

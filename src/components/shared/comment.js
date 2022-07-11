@@ -1,17 +1,4 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Menu,
-    MenuItem,
-    Rating,
-    Stack,
-    Typography
-} from "@mui/material";
+import {Avatar, Button, Card, CardContent, CardHeader, Divider, Menu, MenuItem, Typography} from "@mui/material";
 import moment from "moment";
 import {UTILS} from "../../utils/utils";
 import {Flag, MoreHoriz} from "@mui/icons-material";
@@ -34,12 +21,12 @@ const Comment = ({comment}) => {
 
     return (
         <Card
-            elevation={1}
+            elevation={0}
             sx={{
-                borderTopRightRadius: 16,
+                borderTopRightRadius: 32,
                 borderBottomRightRadius: 0,
-                borderBottomLeftRadius: 16,
-                borderTopLeftRadius: 16,
+                borderBottomLeftRadius: 32,
+                borderTopLeftRadius: 32,
                 height: '100%'
             }}>
             <CardHeader
@@ -47,17 +34,23 @@ const Comment = ({comment}) => {
                     <Typography
                         variant="body1"
                         sx={{color: 'text.primary'}}>
-                        {comment.user.fullName}
+                        {comment?.user?.fullName}
                     </Typography>}
                 subheader={
                     <Typography
                         variant="body2"
                         sx={{color: 'text.secondary'}}>
-                        {moment(comment.createdAt).fromNow()}
+                        {moment(comment?.createdAt).fromNow()}
                     </Typography>
                 }
                 avatar={
-                    <Avatar sx={{backgroundColor: 'light.secondary', borderRadius: '25%'}}>
+                    <Avatar sx={{
+                        backgroundColor: 'light.secondary',
+                        borderTopRightRadius: 32,
+                        borderBottomRightRadius: 0,
+                        borderBottomLeftRadius: 32,
+                        borderTopLeftRadius: 32
+                    }}>
                         <Typography
                             sx={{color: 'secondary.main'}}
                             variant="h6">
@@ -67,69 +60,35 @@ const Comment = ({comment}) => {
                 }
                 action={
                     <MoreHoriz
-                        sx={{cursor: 'pointer', color: 'text.secondary'}}
+                        sx={{
+                            cursor: 'pointer',
+                            backgroundColor: 'light.secondary',
+                            color: 'secondary.main',
+                            borderTopRightRadius: 32,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32
+                        }}
                         onClick={handleMenuOpen}
                     />
                 }
             />
             <Divider variant="fullWidth" light={true}/>
             <CardContent>
-                <Box sx={{mb: 1}}>
-                    <Rating
-                        readOnly={true}
-                        precision={0.1}
-                        value={comment.rating}
-                        size="medium"
-                    />
-                </Box>
                 <Typography
-                    variant="body1"
-                    sx={{color: 'text.secondary', mb: 2}}>
-                    {comment.text}
+                    variant="body2"
+                    sx={{color: 'text.secondary'}}>
+                    {comment?.text}
                 </Typography>
-
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                        Was this comment useful?
-                    </Typography>
-                    <Stack spacing={1} direction="row" alignItems="center">
-                        <Button
-                            size="small"
-                            variant="outlined"
-                            sx={{
-                                color: 'text.secondary',
-                                textTransform: 'capitalize',
-                                borderTopRightRadius: 16,
-                                borderBottomRightRadius: 0,
-                                borderBottomLeftRadius: 16,
-                                borderTopLeftRadius: 16,
-                            }}>
-                            Yes
-                        </Button>
-                        <Button
-                            size="small"
-                            variant="outlined"
-                            sx={{
-                                color: 'text.secondary',
-                                textTransform: 'capitalize',
-                                borderTopRightRadius: 16,
-                                borderBottomRightRadius: 0,
-                                borderBottomLeftRadius: 16,
-                                borderTopLeftRadius: 16,
-                            }}>
-                            No
-                        </Button>
-                    </Stack>
-                </Stack>
             </CardContent>
 
             <Menu
                 elevation={1}
                 sx={{
-                    borderTopRightRadius: 16,
+                    borderTopRightRadius: 32,
                     borderBottomRightRadius: 0,
-                    borderBottomLeftRadius: 16,
-                    borderTopLeftRadius: 16,
+                    borderBottomLeftRadius: 32,
+                    borderTopLeftRadius: 32,
                 }}
                 open={open}
                 onClose={handleMenuClose}
@@ -139,10 +98,10 @@ const Comment = ({comment}) => {
                         size="large"
                         sx={{
                             color: 'text.primary',
-                            borderTopRightRadius: 16,
+                            borderTopRightRadius: 32,
                             borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 16,
-                            borderTopLeftRadius: 16,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32,
                             textTransform: 'capitalize'
                         }}
                         startIcon={<Flag sx={{color: red[400]}}/>}>
@@ -153,10 +112,10 @@ const Comment = ({comment}) => {
                     <Button
                         size="large"
                         sx={{
-                            borderTopRightRadius: 16,
+                            borderTopRightRadius: 32,
                             borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 16,
-                            borderTopLeftRadius: 16,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32,
                             color: 'text.primary',
                             textTransform: 'capitalize'
                         }}

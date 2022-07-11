@@ -48,8 +48,8 @@ const DesktopHeader = () => {
                         </Link>
                         <Link to="/" style={{textDecoration: 'none'}}>
                             <Typography
-                                sx={{color: 'text.primary'}}
-                                variant="h4">The Book Station</Typography>
+                                sx={{color: 'secondary.main'}}
+                                variant="h5">The Book Station</Typography>
                         </Link>
                     </Stack>
 

@@ -30,16 +30,9 @@ export const getLike = createAsyncThunk('likes/getLike', async ({id}, {rejectWit
 });
 
 export const toggleLike = createAsyncThunk(
-    'likes/toggleLike',
-    async ({
-               token, like, setSubmitting,
-               resetForm
-           }, {rejectWithValue}) => {
+    'likes/toggleLike', async ({token, book,}, {rejectWithValue}) => {
         try {
-            setSubmitting(true);
-            const response = await LIKE_API.createLike(token, like);
-            resetForm();
-            setSubmitting(false);
+            const response = await LIKE_API.toggleLike(token, book);
             return response.data;
         } catch (e) {
             const {message} = e.response.data;

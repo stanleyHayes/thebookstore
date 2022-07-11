@@ -9,14 +9,14 @@ const getLikes = (query) => {
     });
 }
 
-const toggleLike = (token, data) => {
+const toggleLike = (token, book) => {
     return axios({
         method: 'POST',
         url: `${CONSTANTS.SERVER_BASE_URL}/user/likes`,
         headers: {
             Authorization: `Bearer ${token}`
         },
-        data
+        data: {book}
     });
 }
 

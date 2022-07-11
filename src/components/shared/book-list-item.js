@@ -7,19 +7,31 @@ import {
     CardContent,
     CardHeader,
     CardMedia,
-    Divider, Menu, MenuItem,
+    Divider,
+    Grid,
+    Menu,
+    MenuItem,
     Stack,
+    Tooltip,
     Typography
 } from "@mui/material";
 import {UTILS} from "../../utils/utils";
-import {Comment, DeleteForever, Edit, Info, MoreHoriz, ThumbUpOutlined} from "@mui/icons-material";
+import {
+    CommentOutlined,
+    DeleteForever,
+    Edit,
+    MoreHoriz,
+    PlaylistAdd,
+    Save,
+    ShareOutlined,
+    ThumbUpOutlined
+} from "@mui/icons-material";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import ConfirmationDialog from "../dialogs/confirmation-dialog";
 import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
-import {useState} from "react";
 
 const BookListItem = ({book, variant}) => {
 
@@ -66,9 +78,11 @@ const BookListItem = ({book, variant}) => {
                     <Stack sx={{height: '100%'}} direction="column" divider={<Divider variant="fullWidth"/>}>
                         <CardHeader
                             title={
-                                <Typography variant="body2" sx={{color: 'text.primary'}}>
-                                    {book.user.fullName}
-                                </Typography>
+                                <Link style={{textDecoration: 'none'}} to={`/channels/${book.user.username}`}>
+                                    <Typography variant="body2" sx={{color: 'text.primary'}}>
+                                        {book.user.fullName}
+                                    </Typography>
+                                </Link>
                             }
                             subheader={
                                 <Typography variant="caption" sx={{color: 'text.secondary', fontWeight: 700}}>
@@ -84,6 +98,7 @@ const BookListItem = ({book, variant}) => {
                                         borderBottomLeftRadius: 32,
                                         borderTopLeftRadius: 32
                                     }}>
+
                                     <Typography
                                         sx={{color: 'secondary.main'}}
                                         variant="h6">
@@ -100,17 +115,22 @@ const BookListItem = ({book, variant}) => {
                                         borderTopRightRadius: 32,
                                         borderBottomRightRadius: 0,
                                         borderBottomLeftRadius: 32,
-                                        borderTopLeftRadius: 32
+                                        borderTopLeftRadius: 32,
+                                        cursor: 'pointer'
                                     }}/>
                             ))}
                         />
                         <CardContent sx={{flex: 1}}>
                             <Stack spacing={1}>
-                                <Typography
-                                    variant="h6"
-                                    sx={{textTransform: 'capitalize', color: 'text.primary', fontWeight: 500}}>
-                                    {book.name}
-                                </Typography>
+                                <Tooltip title={`Watch  trailer for ${book.name}`}>
+                                    <Link to={`/books/${book._id}`} style={{textDecoration: 'none'}}>
+                                        <Typography
+                                            variant="h6"
+                                            sx={{textTransform: 'capitalize', color: 'text.primary', fontWeight: 500}}>
+                                            {book.name}
+                                        </Typography>
+                                    </Link>
+                                </Tooltip>
                                 <Typography
                                     variant="body2"
                                     sx={{textTransform: 'capitalize', color: 'text.secondary'}}>
@@ -119,35 +139,64 @@ const BookListItem = ({book, variant}) => {
                             </Stack>
                         </CardContent>
                         <CardActionArea sx={{p: 1}}>
+                            <Grid container={true} spacing={1} alignItems="center">
+                                <Grid item={true}>
+                                    <Typography
+                                        variant="caption"
+                                        sx={{textTransform: 'capitalize', color: 'text.secondary'}}>
+                                        {`${book?.likes.length} Likes`}
+                                    </Typography>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{color: 'text.secondary'}}>
+                                        &#8226;
+                                    </Typography>
+                                </Grid>
+                                <Grid item={true}>
+                                    <Typography
+                                        variant="caption"
+                                        sx={{textTransform: 'capitalize', color: 'text.secondary'}}>
+                                        {`${book?.comments.length} Comments`}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </CardActionArea>
+                        <CardActionArea sx={{p: 1}}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                <Button
-                                    color="secondary"
-                                    size="small"
-                                    variant="text"
-                                    sx={{textTransform: 'capitalize'}}
-                                    startIcon={<ThumbUpOutlined/>}>
-                                    Like
-                                </Button>
-                                <Link to={`/books/${book._id}`} style={{textDecoration: 'none'}}>
+                                <Tooltip title={`Like ${book.name} to appreciate ${book.user.fullName}`}>
                                     <Button
                                         color="secondary"
                                         size="small"
                                         variant="text"
                                         sx={{textTransform: 'capitalize'}}
-                                        startIcon={<Comment color="secondary"/>}>
-                                        Comment
+                                        startIcon={<ThumbUpOutlined/>}>
+                                        Like
                                     </Button>
-                                </Link>
-                                <Link to={`/books/${book._id}`} style={{textDecoration: 'none'}}>
+                                </Tooltip>
+                                <Tooltip title={`Comment on ${book.name} to appreciate ${book.user.fullName}`}>
+                                    <Link to={`/books/${book._id}`} style={{textDecoration: 'none'}}>
+                                        <Button
+                                            color="secondary"
+                                            size="small"
+                                            variant="text"
+                                            sx={{textTransform: 'capitalize'}}
+                                            startIcon={<CommentOutlined color="secondary"/>}>
+                                            Comment
+                                        </Button>
+                                    </Link>
+                                </Tooltip>
+                                <Tooltip title={`Share ${book.name} if you enjoyed it`}>
                                     <Button
                                         color="secondary"
                                         size="small"
                                         variant="text"
                                         sx={{textTransform: 'capitalize'}}
-                                        startIcon={<Info color="secondary"/>}>
-                                        View
+                                        startIcon={<ShareOutlined color="secondary"/>}>
+                                        Share
                                     </Button>
-                                </Link>
+                                </Tooltip>
                             </Stack>
                         </CardActionArea>
                     </Stack>
@@ -155,8 +204,37 @@ const BookListItem = ({book, variant}) => {
             </Box>
 
             <Menu open={menuOpen} anchorEl={anchorEl} onClose={handleMenuClose} variant="menu" elevation={1}>
-                <MenuItem>
-                    <Link to="/books/:bookID/update" style={{textDecoration: 'none'}}>
+                {authData && (authData._id === book.user._id && (
+                    <MenuItem>
+                        <Link to="/books/:bookID/update" style={{textDecoration: 'none'}}>
+                            <Button
+                                size="large"
+                                sx={{
+                                    justifyContent: 'flex-start',
+                                    color: 'text.primary',
+                                    textTransform: 'capitalize'
+                                }}
+                                fullWidth={true}
+                                variant="text"
+                                startIcon={
+                                    <Edit
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18,
+                                        }}/>}>
+                                Update Trailer
+                            </Button>
+                        </Link>
+                    </MenuItem>
+                ))}
+                {authData && (authData._id === book.user._id && (
+                    <MenuItem>
                         <Button
                             size="large"
                             sx={{
@@ -167,7 +245,8 @@ const BookListItem = ({book, variant}) => {
                             fullWidth={true}
                             variant="text"
                             startIcon={
-                                <Edit
+                                <DeleteForever
+                                    onClick={handleDeleteClick}
                                     sx={{
                                         cursor: 'pointer',
                                         color: 'secondary.main',
@@ -176,12 +255,36 @@ const BookListItem = ({book, variant}) => {
                                         borderBottomLeftRadius: 32,
                                         borderTopLeftRadius: 32,
                                         padding: 1,
-                                        fontSize: 24,
-                                        backgroundColor: 'light.secondary'
+                                        fontSize: 18,
                                     }}/>}>
-                            Update Trailer
+                            Delete Trailer
                         </Button>
-                    </Link>
+                    </MenuItem>
+                ))}
+                <MenuItem>
+                    <Button
+                        size="large"
+                        sx={{
+                            justifyContent: 'flex-start',
+                            color: 'text.primary',
+                            textTransform: 'capitalize'
+                        }}
+                        fullWidth={true}
+                        variant="text"
+                        startIcon={
+                            <Save
+                                sx={{
+                                    cursor: 'pointer',
+                                    color: 'secondary.main',
+                                    borderTopRightRadius: 32,
+                                    borderBottomRightRadius: 0,
+                                    borderBottomLeftRadius: 32,
+                                    borderTopLeftRadius: 32,
+                                    padding: 1,
+                                    fontSize: 18,
+                                }}/>}>
+                        Save to Watch Later
+                    </Button>
                 </MenuItem>
                 <MenuItem>
                     <Button
@@ -194,7 +297,7 @@ const BookListItem = ({book, variant}) => {
                         fullWidth={true}
                         variant="text"
                         startIcon={
-                            <DeleteForever
+                            <PlaylistAdd
                                 onClick={handleDeleteClick}
                                 sx={{
                                     cursor: 'pointer',
@@ -204,10 +307,34 @@ const BookListItem = ({book, variant}) => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24,
-                                    backgroundColor: 'light.secondary'
+                                    fontSize: 18,
                                 }}/>}>
-                        Delete Trailer
+                        Save to playlist
+                    </Button>
+                </MenuItem>
+                <MenuItem>
+                    <Button
+                        size="large"
+                        sx={{
+                            justifyContent: 'flex-start',
+                            color: 'text.primary',
+                            textTransform: 'capitalize'
+                        }}
+                        fullWidth={true}
+                        variant="text"
+                        startIcon={
+                            <ShareOutlined
+                                sx={{
+                                    cursor: 'pointer',
+                                    color: 'secondary.main',
+                                    borderTopRightRadius: 32,
+                                    borderBottomRightRadius: 0,
+                                    borderBottomLeftRadius: 32,
+                                    borderTopLeftRadius: 32,
+                                    padding: 1,
+                                    fontSize: 18,
+                                }}/>}>
+                        Share
                     </Button>
                 </MenuItem>
             </Menu>

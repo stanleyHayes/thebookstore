@@ -46,7 +46,7 @@ const Comments = ({comments}) => {
                 <Grid container={true} spacing={2}>
                     {comments?.map((comment, index) => {
                         return (
-                            <Grid key={index} item={true} xs={12} md={4} lg={3}>
+                            <Grid key={index} item={true} xs={12}>
                                 <Comment comment={comment}/>
                             </Grid>
                         )
