@@ -45,7 +45,7 @@ const BottomNavigationBar = () => {
             borderTopStyle: 'solid',
             borderTopColor: 'divider'
         }}>
-            <BottomNavigationAction value=""  label="Home" icon={activePath === '/' ? (
+            <BottomNavigationAction value=""  icon={activePath === '/' ? (
                 <Home
                     sx={{
                         cursor: 'pointer',
