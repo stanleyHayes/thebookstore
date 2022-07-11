@@ -146,7 +146,7 @@ const BookDetailPage = () => {
                                         variant="text"
                                         sx={{textTransform: 'capitalize'}}
                                         startIcon={<Comment color="secondary"/>}>
-                                        {`${bookDetail?.likes.length} Comments`}
+                                        {`${bookDetail?.comments.length} Comments`}
                                     </Button>
                                 </Grid>
                                 <Grid item={true}>
