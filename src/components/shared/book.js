@@ -86,7 +86,7 @@ const Book = ({book, variant}) => {
                         </Typography>
                     </Avatar>
                 }
-                action={authData._id === book.user._id && (
+                action={authData && (authData._id === book.user._id && (
                     <MoreHoriz
                         color="secondary"
                         onClick={handleMenuOpen}
@@ -97,7 +97,7 @@ const Book = ({book, variant}) => {
                             borderBottomLeftRadius: 32,
                             borderTopLeftRadius: 32
                         }}/>
-                )}
+                ))}
             />
             <CardMedia
                 src={book.image.url}

@@ -7,16 +7,46 @@ import {
     CardContent,
     CardHeader,
     CardMedia,
-    Divider,
+    Divider, Menu, MenuItem,
     Stack,
     Typography
 } from "@mui/material";
 import {UTILS} from "../../utils/utils";
-import {Comment, Info, ThumbUpOutlined} from "@mui/icons-material";
+import {Comment, DeleteForever, Edit, Info, MoreHoriz, ThumbUpOutlined} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import React from "react";
+import ConfirmationDialog from "../dialogs/confirmation-dialog";
+import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectAuth} from "../../redux/features/auth/auth-slice";
+import {useState} from "@types/react";
 
 const BookListItem = ({book, variant}) => {
+
+    const {authData} = useSelector(selectAuth);
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleMenuOpen = event => {
+        setMenuOpen(true);
+        setAnchorEl(event.currentTarget);
+    }
+
+    const handleMenuClose = () => {
+        setMenuOpen(false);
+        setAnchorEl(null);
+    }
+
+
+    const handleDeleteClick = () => {
+        setDialogOpen(true);
+    }
+
+    const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
+
     return (
         <Card elevation={0} variant={variant}>
             <Box sx={{display: 'flex'}}>
@@ -60,7 +90,20 @@ const BookListItem = ({book, variant}) => {
                                         {UTILS.getInitials(book.user.fullName)}
                                     </Typography>
                                 </Avatar>
-                            }/>
+                            }
+                            action={authData && (authData._id === book.user._id && (
+                                <MoreHoriz
+                                    color="secondary"
+                                    onClick={handleMenuOpen}
+                                    sx={{
+                                        backgroundColor: 'light.secondary',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32
+                                    }}/>
+                            ))}
+                        />
                         <CardContent sx={{flex: 1}}>
                             <Stack spacing={1}>
                                 <Typography
@@ -108,10 +151,77 @@ const BookListItem = ({book, variant}) => {
                             </Stack>
                         </CardActionArea>
                     </Stack>
-
-
                 </Box>
             </Box>
+
+            <Menu open={menuOpen} anchorEl={anchorEl} onClose={handleMenuClose} variant="menu" elevation={1}>
+                <MenuItem>
+                    <Link to="/books/:bookID/update" style={{textDecoration: 'none'}}>
+                        <Button
+                            size="large"
+                            sx={{
+                                justifyContent: 'flex-start',
+                                color: 'text.primary',
+                                textTransform: 'capitalize'
+                            }}
+                            fullWidth={true}
+                            variant="text"
+                            startIcon={
+                                <Edit
+                                    sx={{
+                                        cursor: 'pointer',
+                                        color: 'secondary.main',
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                        padding: 1,
+                                        fontSize: 24,
+                                        backgroundColor: 'light.secondary'
+                                    }}/>}>
+                            Update Trailer
+                        </Button>
+                    </Link>
+                </MenuItem>
+                <MenuItem>
+                    <Button
+                        size="large"
+                        sx={{
+                            justifyContent: 'flex-start',
+                            color: 'text.primary',
+                            textTransform: 'capitalize'
+                        }}
+                        fullWidth={true}
+                        variant="text"
+                        startIcon={
+                            <DeleteForever
+                                onClick={handleDeleteClick}
+                                sx={{
+                                    cursor: 'pointer',
+                                    color: 'secondary.main',
+                                    borderTopRightRadius: 32,
+                                    borderBottomRightRadius: 0,
+                                    borderBottomLeftRadius: 32,
+                                    borderTopLeftRadius: 32,
+                                    padding: 1,
+                                    fontSize: 24,
+                                    backgroundColor: 'light.secondary'
+                                }}/>}>
+                        Delete Trailer
+                    </Button>
+                </MenuItem>
+            </Menu>
+
+            {dialogOpen && (
+                <ConfirmationDialog
+                    onClose={() => setDialogOpen(false)}
+                    open={dialogOpen}
+                    message={`Are you sure you want to delete ${book.name}?`}
+                    handleDelete={() => dispatch(BOOKS_ACTION_CREATORS.deleteBook({
+                        id: book._id,
+                        token
+                    }))}/>
+            )}
 
         </Card>
     )
