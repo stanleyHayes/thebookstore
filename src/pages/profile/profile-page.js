@@ -14,7 +14,7 @@ const ProfilePage = () => {
 
     return (
         <Layout>
-            <Box sx={{pt: 4}}>
+            <Box sx={{py: 4}}>
                 <Container>
                     <Grid
                         spacing={2}

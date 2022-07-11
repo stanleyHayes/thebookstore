@@ -35,6 +35,7 @@ const BottomNavigationBar = () => {
 
     return (
         <BottomNavigation
+            showLabels={false}
             color="secondary"
             defaultValue=""
             value={selectedTab}
@@ -74,7 +75,6 @@ const BottomNavigationBar = () => {
 
             <BottomNavigationAction
                 value="trailer/new"
-                label="Create"
                 icon={activePath === '/trailer/new' ? (
                     <Add
                         sx={{
@@ -103,7 +103,6 @@ const BottomNavigationBar = () => {
                 )}/>
 
             <BottomNavigationAction
-                label="Trailers"
                 value="books"
                 icon={activePath === '/books' ? (
                     <Videocam
@@ -133,7 +132,6 @@ const BottomNavigationBar = () => {
                 )}/>
             {authData && (
                 <BottomNavigationAction
-                    label="Profile"
                     value="profile"
                     icon={activePath === '/profile' ? (
                         <Face
