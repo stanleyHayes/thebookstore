@@ -31,6 +31,29 @@ const login = createAsyncThunk(
         }
     });
 
+
+const verifyAccount = createAsyncThunk(
+    'auth/verifyAccount',
+    async (
+        {values, resetForm, setSubmitting, navigate, showMessage, token},
+        {rejectWithValue}) => {
+        try {
+            setSubmitting(true);
+            const response = await authAPI.verifyAccount(values, token);
+            navigate(`/account/verify/success`);
+            resetForm();
+            showMessage(response.data.message, {variant: 'success'});
+            setSubmitting(false);
+            return response.data;
+        } catch (e) {
+            const {message} = e.response.data;
+            showMessage(message, {variant: 'error'});
+            setSubmitting(false);
+            return rejectWithValue(message);
+        }
+    });
+
+
 const getProfile = createAsyncThunk('auth/getProfile',
     async ({token}, {rejectWithValue}) => {
         try {
@@ -169,6 +192,18 @@ const authSlice = createSlice({
             state.authError = action.payload;
             state.authData = null;
             state.token = null;
+        }).addCase(verifyAccount.pending, (state) => {
+            state.authLoading = true;
+            state.authError = null;
+        }).addCase(verifyAccount.fulfilled, (state, action) => {
+            state.authLoading = false;
+            state.authError = null;
+            state.authMessage = action.payload.message;
+        }).addCase(verifyAccount.rejected, (state, action) => {
+            state.authLoading = false;
+            state.authError = action.payload;
+            state.authData = null;
+            state.token = null;
         }).addCase(resendOTP.pending, (state) => {
             state.authLoading = true;
             state.authError = null;
@@ -221,6 +256,6 @@ const authSlice = createSlice({
     }
 });
 
-export const AUTH_ACTION_CREATORS = {login, getProfile, verifyOTP, resendOTP, updateProfile, register};
+export const AUTH_ACTION_CREATORS = {login, getProfile, verifyOTP, resendOTP, updateProfile, verifyAccount, register};
 export const selectAuth = state => state.auth;
 export default authSlice.reducer;

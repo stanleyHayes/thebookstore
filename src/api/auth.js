@@ -47,6 +47,14 @@ const verifyOTP = (otp, token) => {
     });
 }
 
+const verifyAccount = (otp, token) => {
+    return axios({
+        method: 'PUT',
+        url: `${CONSTANTS.SERVER_BASE_URL}/user/auth/profile/${token}`,
+        data: otp
+    });
+}
+
 const resendOTP = (user) => {
     return axios({
         method: 'POST',
@@ -55,5 +63,5 @@ const resendOTP = (user) => {
     });
 }
 
-const authAPI = {login, getProfile, verifyOTP, resendOTP, updateProfile, register};
+const authAPI = {login, getProfile, verifyOTP, resendOTP, updateProfile, register, verifyAccount};
 export default authAPI;

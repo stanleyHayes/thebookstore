@@ -20,6 +20,7 @@ import VerifyAccountPage from "./pages/authentication/verify-account-page";
 import WelcomePage from "./pages/authentication/welcome-page";
 import VerifyLoginOtpPage from "./pages/authentication/verify-login-otp-page";
 import RequireAuth from "./components/shared/require-auth";
+import VerificationAcknowledgmentPage from "./pages/authentication/verification-acknowledgment-page";
 
 function App() {
     const {themeVariant} = useSelector(selectUI);
@@ -36,6 +37,7 @@ function App() {
                 <Route element={<BookDetailPage/>} exact={true} path="/books/:bookID"/>
                 <Route element={<AboutPage/>} exact={true} path="/about"/>
                 <Route element={<VerifyAccountPage/>} exact={true} path="/auth/verify/:token"/>
+                <Route element={<VerificationAcknowledgmentPage/>} exact={true} path="/account/verify/success"/>
                 <Route element={<RegisterPage/>} exact={true} path="/auth/register"/>
                 <Route element={<VerifyLoginOtpPage/>} exact={true} path="/auth/otp/:token/verify"/>
                 <Route element={<LoginPage/>} exact={true} path="/auth/login"/>
