@@ -120,7 +120,8 @@ const RegisterPage = () => {
                 alignItems: 'center',
                 backgroundColor: 'background.paper',
                 minHeight: '100vh',
-                overflowY: {xs: 'scroll'}
+                overflowY: {xs: 'scroll'},
+                py: {xs: 4, lg: 0}
             }}>
                 {authLoading && <LinearProgress variant="query" color="secondary"/>}
                 <Container>
