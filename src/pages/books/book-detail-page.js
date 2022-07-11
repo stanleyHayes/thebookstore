@@ -260,7 +260,7 @@ const BookDetailPage = () => {
                                 </Typography>
                             </Stack>
                         </Box>
-                        <Box sx={{flexBasis: '30%', maxHeight: '100vh', overflowY: 'scroll'}}>
+                        <Box sx={{flexBasis: '30%'}}>
                             <Typography
                                 size="small"
                                 variant="h6"

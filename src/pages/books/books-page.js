@@ -127,6 +127,7 @@ const BooksPage = () => {
                         <Grid item={true} xs={12} md="auto">
                             <Link to="/trailer/new" style={{textDecoration: 'none'}}>
                                 <Button
+                                    fullWidth={true}
                                     color="secondary"
                                     sx={{
                                         textTransform: 'capitalize',
