@@ -19,7 +19,7 @@ import ConfirmationDialog from "../dialogs/confirmation-dialog";
 import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
-import {useState} from "@types/react";
+import {useState} from "react";
 
 const BookListItem = ({book, variant}) => {
 
