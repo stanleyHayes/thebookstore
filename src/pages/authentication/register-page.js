@@ -10,8 +10,8 @@ import {
     Grid,
     InputAdornment,
     InputLabel,
-    LinearProgress,
-    OutlinedInput,
+    LinearProgress, MenuItem,
+    OutlinedInput, Select,
     Stack,
     Typography,
     useTheme
@@ -54,15 +54,16 @@ const RegisterPage = () => {
             firstName: '',
             lastName: '',
             username: '',
+            gender: 'male',
             password: '',
-            pin: '',
-            phone: '',
+            phoneNumber: '',
             confirmPassword: '',
             email: ''
         },
         onSubmit: (values, {resetForm, setSubmitting}) => {
             dispatch(AUTH_ACTION_CREATORS.register({
-                values, resetForm, setSubmitting, showMessage, navigate}));
+                values, resetForm, setSubmitting, showMessage, navigate
+            }));
         },
         validateOnBlur: true,
         validateOnChange: true,
@@ -70,18 +71,18 @@ const RegisterPage = () => {
             firstName: yup.string().required('First name required'),
             lastName: yup.string().required('Last name required'),
             username: yup.string().required('username required'),
+            gender: yup.string().oneOf(['male', 'female'], 'choose valid gender').required('gender required'),
             email: yup.string().email('Invalid email').required('username required'),
             password: yup.string().required('Password required'),
             pin: yup.string().required('Pin required'),
             confirmPassword: yup.string()
                 .required('confirm password required')
                 .oneOf([yup.ref('password'), null], 'Passwords must match'),
-            phone: yup.string().phone('Enter valid phone number').required('Phone number required')
+            phoneNumber: yup.string().phone('Enter valid phone number').required('Phone number required')
         })
     });
 
     const [showPassword, setShowPassword] = useState(false);
-    const [showPin, setShowPin] = useState(false);
 
     const theme = useTheme();
 
@@ -378,9 +379,9 @@ const RegisterPage = () => {
                                                     <FormControl fullWidth={true} variant="outlined">
                                                         <OutlinedInput
                                                             fullWidth={true}
-                                                            id="phone"
-                                                            value={formik.values.phone}
-                                                            name="phone"
+                                                            id="phoneNumber"
+                                                            value={formik.values.phoneNumber}
+                                                            name="phoneNumber"
                                                             endAdornment={
                                                                 <InputAdornment
                                                                     position="end">
@@ -394,7 +395,7 @@ const RegisterPage = () => {
                                                                     />
                                                                 </InputAdornment>
                                                             }
-                                                            error={formik.touched.phone && formik.errors.phone}
+                                                            error={formik.touched.phoneNumber && formik.errors.phoneNumber}
                                                             onChange={formik.handleChange}
                                                             onBlur={formik.handleBlur}
                                                             placeholder="Enter phone"
@@ -402,10 +403,10 @@ const RegisterPage = () => {
                                                             size="medium"
                                                             margin="dense"
                                                         />
-                                                        {formik.touched.phone && formik.errors.phone && (
+                                                        {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                                                             <FormHelperText
                                                                 error={true}>
-                                                                {formik.errors.phone}
+                                                                {formik.errors.phoneNumber}
                                                             </FormHelperText>
                                                         )}
                                                     </FormControl>
@@ -415,57 +416,35 @@ const RegisterPage = () => {
                                             <Grid item={true} xs={12} md={6}>
                                                 <Box>
                                                     <Typography
-                                                        mb={1} variant="body2"
+                                                        mb={1}
+                                                        variant="body2"
                                                         sx={{
                                                             color: 'secondary.main',
                                                             fontWeight: 'bold'
                                                         }}>
-                                                        Pin
+                                                        Gender
                                                     </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="pin"
-                                                            value={formik.values.pin}
-                                                            name="pin"
-                                                            type={showPassword ? 'text' : 'password'}
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    {showPin ?
-                                                                        <VisibilityOffOutlined
-                                                                            onClick={() => setShowPin(false)}
-                                                                            sx={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'secondary.main',
-                                                                                padding: 1,
-                                                                                fontSize: 24,
-                                                                            }}
-                                                                        /> :
-                                                                        <VisibilityOutlined
-                                                                            onClick={() => setShowPin(true)}
-                                                                            sx={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'secondary.main',
-                                                                                padding: 1,
-                                                                                fontSize: 24,
-                                                                            }}
-                                                                        />}
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.pin && formik.errors.pin}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter pin"
-                                                            required={true}
-                                                            size="medium"
+                                                    <FormControl variant="outlined" fullWidth={true}>
+                                                        <Select
+                                                            id="gender"
+                                                            name="gender"
                                                             margin="dense"
-                                                        />
-                                                        {formik.touched.pin && formik.errors.pin && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.pin}
-                                                            </FormHelperText>
+                                                            color="secondary"
+                                                            fullWidth={true}
+                                                            elevation={1}
+                                                            onChange={formik.handleChange}
+                                                            value={formik.values.gender}
+                                                            variant="outlined">
+                                                            <MenuItem value="male">Male</MenuItem>
+                                                            <MenuItem value="female">Female</MenuItem>
+                                                        </Select>
+                                                        {formik.touched.gender && formik.errors.gender && (
+                                                            <Typography
+                                                                sx={{mt: 1}}
+                                                                variant="body2"
+                                                                color="error">
+                                                                {formik.errors.gender}
+                                                            </Typography>
                                                         )}
                                                     </FormControl>
                                                 </Box>
