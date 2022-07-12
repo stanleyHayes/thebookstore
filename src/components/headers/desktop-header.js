@@ -153,13 +153,8 @@ const DesktopHeader = () => {
                                                         sx={{
                                                             cursor: 'pointer',
                                                             color: 'secondary.main',
-                                                            borderTopRightRadius: 32,
-                                                            borderBottomRightRadius: 0,
-                                                            borderBottomLeftRadius: 32,
-                                                            borderTopLeftRadius: 32,
                                                             padding: 1,
-                                                            fontSize: 18,
-                                                            backgroundColor: 'light.secondary'
+                                                            fontSize: 18
                                                         }}/>}>
                                                 Profile
                                             </Button>
@@ -181,13 +176,8 @@ const DesktopHeader = () => {
                                                         sx={{
                                                             cursor: 'pointer',
                                                             color: 'secondary.main',
-                                                            borderTopRightRadius: 32,
-                                                            borderBottomRightRadius: 0,
-                                                            borderBottomLeftRadius: 32,
-                                                            borderTopLeftRadius: 32,
                                                             padding: 1,
-                                                            fontSize: 18,
-                                                            backgroundColor: 'light.secondary'
+                                                            fontSize: 18
                                                         }}/>}>
                                                 My Trailers
                                             </Button>
@@ -209,15 +199,10 @@ const DesktopHeader = () => {
                                                         sx={{
                                                             cursor: 'pointer',
                                                             color: 'secondary.main',
-                                                            borderTopRightRadius: 32,
-                                                            borderBottomRightRadius: 0,
-                                                            borderBottomLeftRadius: 32,
-                                                            borderTopLeftRadius: 32,
                                                             padding: 1,
-                                                            fontSize: 18,
-                                                            backgroundColor: 'light.secondary'
+                                                            fontSize: 18
                                                         }}/>}>
-                                                Profile
+                                                Watch later
                                             </Button>
                                         </Link>
                                     </MenuItem>
@@ -237,13 +222,8 @@ const DesktopHeader = () => {
                                                         sx={{
                                                             cursor: 'pointer',
                                                             color: 'secondary.main',
-                                                            borderTopRightRadius: 32,
-                                                            borderBottomRightRadius: 0,
-                                                            borderBottomLeftRadius: 32,
-                                                            borderTopLeftRadius: 32,
                                                             padding: 1,
                                                             fontSize: 18,
-                                                            backgroundColor: 'light.secondary'
                                                         }}/>}>
                                                 Playlists
                                             </Button>
@@ -264,13 +244,8 @@ const DesktopHeader = () => {
                                                     sx={{
                                                         cursor: 'pointer',
                                                         color: 'secondary.main',
-                                                        borderTopRightRadius: 32,
-                                                        borderBottomRightRadius: 0,
-                                                        borderBottomLeftRadius: 32,
-                                                        borderTopLeftRadius: 32,
                                                         padding: 1,
-                                                        fontSize: 18,
-                                                        backgroundColor: 'light.secondary'
+                                                        fontSize: 18
                                                     }}/>}>
                                             Logout
                                         </Button>

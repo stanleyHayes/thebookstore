@@ -1,4 +1,4 @@
-import {Avatar, Box, Button, Divider, Stack, Typography} from "@mui/material";
+import {Avatar, Box, Button, Divider, Menu, MenuItem, Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {closeDrawer, selectUI, toggleTheme} from "../../redux/features/ui/ui-slice";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
@@ -12,7 +12,7 @@ import {
     DeleteForever,
     ExitToApp,
     Face,
-    FaceOutlined,
+    FaceOutlined, FeaturedPlayList, FeaturedPlayListOutlined,
     Home,
     HomeOutlined,
     Info,
@@ -21,7 +21,7 @@ import {
     Settings,
     SettingsOutlined,
     Videocam,
-    VideocamOutlined
+    VideocamOutlined, WatchLater, WatchLaterOutlined
 } from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {Link} from "react-router-dom";
@@ -120,7 +120,7 @@ const SidebarContent = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     backgroundColor: 'light.secondary'
                                 }}/>
                         ) : (
@@ -133,7 +133,7 @@ const SidebarContent = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24
+                                    fontSize: 18
                                 }}/>
                         )}
                     />
@@ -152,7 +152,7 @@ const SidebarContent = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     backgroundColor: 'light.secondary'
                                 }}/>
                         ) : (
@@ -165,7 +165,7 @@ const SidebarContent = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24
+                                    fontSize: 18
                                 }}/>
                         )
                         }
@@ -184,7 +184,7 @@ const SidebarContent = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     backgroundColor: 'light.secondary'
                                 }}/>
                         ) : (
@@ -197,7 +197,7 @@ const SidebarContent = () => {
                                     borderBottomLeftRadius: 32,
                                     borderTopLeftRadius: 32,
                                     padding: 1,
-                                    fontSize: 24
+                                    fontSize: 18
                                 }}/>
                         )
                         }
@@ -238,7 +238,7 @@ const SidebarContent = () => {
                                             borderBottomLeftRadius: 32,
                                             borderTopLeftRadius: 32,
                                             padding: 1,
-                                            fontSize: 24,
+                                            fontSize: 18,
                                             backgroundColor: 'light.secondary'
                                         }}/>
                                 ) : (
@@ -251,7 +251,7 @@ const SidebarContent = () => {
                                             borderBottomLeftRadius: 32,
                                             borderTopLeftRadius: 32,
                                             padding: 1,
-                                            fontSize: 24
+                                            fontSize: 18
                                         }}/>
                                 )}
                             />
@@ -270,7 +270,7 @@ const SidebarContent = () => {
                                             borderBottomLeftRadius: 32,
                                             borderTopLeftRadius: 32,
                                             padding: 1,
-                                            fontSize: 24,
+                                            fontSize: 18,
                                             backgroundColor: 'light.secondary'
                                         }}/>
                                 ) : (
@@ -283,11 +283,109 @@ const SidebarContent = () => {
                                             borderBottomLeftRadius: 32,
                                             borderTopLeftRadius: 32,
                                             padding: 1,
-                                            fontSize: 24
+                                            fontSize: 18
                                         }}/>
                                 )
                                 }
                             />
+
+                            <SidebarLink
+                                active={activePath === '/trailers/me'}
+                                label="My Trailers"
+                                path="/trailers/me"
+                                icon={activePath === '/profile' ? (
+                                    <Videocam
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18,
+                                            backgroundColor: 'light.secondary'
+                                        }}/>
+                                ) : (
+                                    <VideocamOutlined
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'text.secondary',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18
+                                        }}/>
+                                )}
+                            />
+
+                            <SidebarLink
+                                active={activePath === '/watch-later'}
+                                label="Watch Later"
+                                path="/watch-later"
+                                icon={activePath === '/watch-later' ? (
+                                    <WatchLater
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18,
+                                            backgroundColor: 'light.secondary'
+                                        }}/>
+                                ) : (
+                                    <WatchLaterOutlined
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'text.secondary',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18
+                                        }}/>
+                                )}
+                            />
+
+
+                            <SidebarLink
+                                active={activePath === '/playlists'}
+                                label="Playlists"
+                                path="/playlists"
+                                icon={activePath === '/playlists' ? (
+                                    <FeaturedPlayList
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'secondary.main',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18,
+                                            backgroundColor: 'light.secondary'
+                                        }}/>
+                                ) : (
+                                    <FeaturedPlayListOutlined
+                                        sx={{
+                                            cursor: 'pointer',
+                                            color: 'text.secondary',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            padding: 1,
+                                            fontSize: 18
+                                        }}/>
+                                )}
+                            />
+
                         </Stack>
                         <Stack direction="column">
                             <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -306,13 +404,8 @@ const SidebarContent = () => {
                                             sx={{
                                                 cursor: 'pointer',
                                                 color: 'secondary.main',
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32,
                                                 padding: 1,
-                                                fontSize: 24,
-                                                backgroundColor: 'light.secondary'
+                                                fontSize: 18
                                             }}/>}>
                                     Logout
                                 </Button>
@@ -323,7 +416,7 @@ const SidebarContent = () => {
                                         color: 'secondary.main',
                                         borderRadius: '1%',
                                         padding: 1,
-                                        fontSize: 24,
+                                        fontSize: 18,
                                     }}/>
                             </Stack>
                             <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -342,13 +435,8 @@ const SidebarContent = () => {
                                             sx={{
                                                 cursor: 'pointer',
                                                 color: red[800],
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32,
                                                 padding: 1,
-                                                fontSize: 24,
-                                                backgroundColor: red[100]
+                                                fontSize: 18
                                             }}/>}>
                                     Disable Account
                                 </Button>
@@ -358,7 +446,7 @@ const SidebarContent = () => {
                                         color: red[800],
                                         borderRadius: '1%',
                                         padding: 1,
-                                        fontSize: 24,
+                                        fontSize: 18,
                                     }}/>
                             </Stack>
                         </Stack>
