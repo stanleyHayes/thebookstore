@@ -33,13 +33,13 @@ const MobileHeader = () => {
                 <Box>
                     <Link to="/" style={{textDecoration: 'none'}}>
                         <Typography
-                            sx={{color: 'text.primary', fontWeight: 'bold'}}
+                            sx={{color: 'secondary.main', fontWeight: 'bold'}}
                             variant="body1">The Book Station</Typography>
                     </Link>
                 </Box>
                 {authData && (
                     <Link
-                        to="/trailers/new" style={{textDecoration: 'none'}}>
+                        to="/trailer/new" style={{textDecoration: 'none'}}>
                         <Add
                             sx={{
                                 cursor: 'pointer',

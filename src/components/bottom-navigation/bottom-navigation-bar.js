@@ -1,7 +1,5 @@
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {
-    Face,
-    FaceOutlined,
     Home,
     HomeOutlined,
     MoreHoriz,
@@ -43,11 +41,11 @@ const BottomNavigationBar = () => {
             value={selectedTab}
             onChange={handleTabChange}
             sx={{
-            borderTopWidth: 1,
-            borderTopStyle: 'solid',
-            borderTopColor: 'divider'
-        }}>
-            <BottomNavigationAction value=""  icon={activePath === '/' ? (
+                borderTopWidth: 1,
+                borderTopStyle: 'solid',
+                borderTopColor: 'divider'
+            }}>
+            <BottomNavigationAction value="" icon={activePath === '/' ? (
                 <Home
                     sx={{
                         cursor: 'pointer',
@@ -75,34 +73,6 @@ const BottomNavigationBar = () => {
                     }}/>
             )}/>
 
-            <BottomNavigationAction
-                value="notifications"
-                icon={activePath === '/notifications' ? (
-                    <NotificationsActiveRounded
-                        sx={{
-                            cursor: 'pointer',
-                            color: 'secondary.main',
-                            borderTopRightRadius: 32,
-                            borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 32,
-                            borderTopLeftRadius: 32,
-                            padding: 1,
-                            fontSize: 18,
-                            backgroundColor: 'light.secondary'
-                        }}/>
-                ) : (
-                    <Notifications
-                        sx={{
-                            cursor: 'pointer',
-                            color: 'text.secondary',
-                            borderTopRightRadius: 32,
-                            borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 32,
-                            borderTopLeftRadius: 32,
-                            padding: 1,
-                            fontSize: 18
-                        }}/>
-                )}/>
 
             <BottomNavigationAction
                 value="books"
@@ -132,37 +102,35 @@ const BottomNavigationBar = () => {
                             fontSize: 18
                         }}/>
                 )}/>
-            {authData && (
-                <BottomNavigationAction
-                    value="profile"
-                    icon={activePath === '/profile' ? (
-                        <Face
-                            sx={{
-                                cursor: 'pointer',
-                                color: 'secondary.main',
-                                borderTopRightRadius: 32,
-                                borderBottomRightRadius: 0,
-                                borderBottomLeftRadius: 32,
-                                borderTopLeftRadius: 32,
-                                padding: 1,
-                                fontSize: 18,
-                                backgroundColor: 'light.secondary'
-                            }}/>
-                    ) : (
-                        <FaceOutlined
-                            sx={{
-                                cursor: 'pointer',
-                                color: 'text.secondary',
-                                borderTopRightRadius: 32,
-                                borderBottomRightRadius: 0,
-                                borderBottomLeftRadius: 32,
-                                borderTopLeftRadius: 32,
-                                padding: 1,
-                                fontSize: 18
-                            }}/>
-                    )}/>
 
-            )}
+            <BottomNavigationAction
+                value="notifications"
+                icon={activePath === '/notifications' ? (
+                    <NotificationsActiveRounded
+                        sx={{
+                            cursor: 'pointer',
+                            color: 'secondary.main',
+                            borderTopRightRadius: 32,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32,
+                            padding: 1,
+                            fontSize: 18,
+                            backgroundColor: 'light.secondary'
+                        }}/>
+                ) : (
+                    <Notifications
+                        sx={{
+                            cursor: 'pointer',
+                            color: 'text.secondary',
+                            borderTopRightRadius: 32,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32,
+                            padding: 1,
+                            fontSize: 18
+                        }}/>
+                )}/>
 
             {authData && (
                 <BottomNavigationAction
