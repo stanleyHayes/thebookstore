@@ -1,11 +1,13 @@
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {
-    Add,
-    AddOutlined,
     Face,
     FaceOutlined,
     Home,
-    HomeOutlined, MoreHoriz, MoreHorizOutlined,
+    HomeOutlined,
+    MoreHoriz,
+    MoreHorizOutlined,
+    Notifications,
+    NotificationsActiveRounded,
     Videocam,
     VideocamOutlined
 } from "@mui/icons-material";
@@ -74,9 +76,9 @@ const BottomNavigationBar = () => {
             )}/>
 
             <BottomNavigationAction
-                value="trailer/new"
-                icon={activePath === '/trailer/new' ? (
-                    <Add
+                value="notifications"
+                icon={activePath === '/notifications' ? (
+                    <NotificationsActiveRounded
                         sx={{
                             cursor: 'pointer',
                             color: 'secondary.main',
@@ -89,7 +91,7 @@ const BottomNavigationBar = () => {
                             backgroundColor: 'light.secondary'
                         }}/>
                 ) : (
-                    <AddOutlined
+                    <Notifications
                         sx={{
                             cursor: 'pointer',
                             color: 'text.secondary',
