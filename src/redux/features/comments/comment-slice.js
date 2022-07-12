@@ -70,7 +70,7 @@ export const deleteComment = createAsyncThunk('comments/deleteComment', async ({
 });
 
 const commentSlice = createSlice({
-    name: 'comment',
+    name: 'comments',
     initialState,
     reducers: {},
     extraReducers: builder => {

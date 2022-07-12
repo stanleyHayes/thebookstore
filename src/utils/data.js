@@ -40,7 +40,7 @@ const TEAM = [
         image: coulibaly,
         name: 'Mohamed Coulibaly',
         role: 'Full Stack Developer',
-        description: 'Mohamed Coulibaly, FULL STACK web developer takes part in the development of the website to ensure the well-being of the project, and takes care of the good development of the website, in the the Deux+five group, being flexible and knowing how to communicate is a must, with zeta creativity is welcome.'
+        description: 'Mohamed Coulibaly, FULL STACK web developer takes part in the development of the website to ensure the well-being of the project, and takes care of the good development of the website, in the the Deux+five group, being flexible and knowing how to communicate is a must, with  Deux+five creativity is welcome.'
     },
     {
         _id: 5,

@@ -2,7 +2,6 @@ import {Box, Button, Container, Grid, Stack, Typography, useTheme} from "@mui/ma
 import loginLogo from "./../../assets/images/account-success.png";
 import "yup-phone";
 import {Link} from "react-router-dom";
-import Overlay from "../../components/shared/overlay";
 import Carousel from "react-material-ui-carousel";
 import {THE_BOOK_STORE_DATA} from "../../utils/data";
 import BannerSliderItem from "../../components/shared/banner-slider-item";
@@ -40,11 +39,14 @@ const VerificationAcknowledgmentPage = () => {
                     flex: 1,
                     display: 'flex',
                     alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                     minHeight: '100vh',
                     overflowY: {xs: 'scroll', lg: 'hidden'},
-                    backgroundColor: 'background.paper'
+                    backgroundColor: 'background.paper',
+                    paddingY: {xs: 4, lg: 2}
                 }}>
-                <Container maxWidth="sm">
+                <Container sx={{mb: 4}} maxWidth="sm">
                     <Typography mb={3} variant="h6" sx={{color: 'text.secondary'}}>
                         Welcome to
                     </Typography>
@@ -58,28 +60,19 @@ const VerificationAcknowledgmentPage = () => {
                     </Typography>
                     <Box>
                         <Grid container={true} spacing={2} alignItems="center">
-                            <Grid item={true} xs={12} md="auto">
-                                <Link to="/auth/register" style={{textDecoration: 'none'}}>
-                                    <Button
-                                        fullWidth={true}
-                                        sx={{
-                                            backgroundColor: 'secondary.main',
-                                            color: 'white',
-                                            borderRadius: 32
-                                        }}
-                                        variant="contained"
-                                        disableElevation={true}>
-                                        Sign Up
-                                    </Button>
-                                </Link>
-                            </Grid>
-                            <Grid item={true} xs={12} md="auto">
+                            <Grid item={true} xs={12}>
                                 <Link to="/auth/login" style={{textDecoration: 'none'}}>
                                     <Button
                                         color="secondary"
                                         fullWidth={true}
-                                        sx={{textTransform: 'capitalize', borderRadius: 32}}
-                                        variant="outlined"
+                                        sx={{
+                                            textTransform: 'capitalize',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                        }}
+                                        variant="contained"
                                         disableElevation={true}>
                                         Sign In
                                     </Button>
@@ -88,8 +81,12 @@ const VerificationAcknowledgmentPage = () => {
                         </Grid>
                     </Box>
                 </Container>
-                <Container sx={{mb: 4}}>
+                <Container maxWidth="sm">
                     <Carousel
+                        autoPlay={true}
+                        stopAutoPlayOnHover={true}
+                        duration={5000}
+                        indicators={false}
                         cycleNavigation={true}>
                         {THE_BOOK_STORE_DATA.FEATURES.map((item, index) => {
                             return (

@@ -46,17 +46,19 @@ const ForgotPasswordPage = () => {
                 overflow: 'hidden'
             }}>
             <Box sx={{display: {xs: 'none', lg: 'block'}, flex: 1, maxHeight: '100vh'}}>
+                <Stack sx={{height: '100%'}} justifyContent="center" alignItems="center">
                 <img
                     style={{
                         maxHeight: '100vh',
-                        width: '100%',
-                        height: '100vh',
+                        width: '50%',
+                        height: '50%',
                         objectFit: 'cover',
                         objectPosition: 'center'
                     }}
                     alt=""
                     src={loginLogo}
                 />
+                </Stack>
             </Box>
             <Box sx={{flex: 1, display: 'flex', alignItems: 'center', backgroundColor: 'background.paper'}}>
                 <Container>
@@ -138,12 +140,10 @@ const ForgotPasswordPage = () => {
                                             sx={{
                                                 textTransform: 'capitalize',
                                                 py: 1.2,
-                                                borderRadius: 32,
-                                                display: 'inline-block',
-                                                width: {
-                                                    xs: '100%',
-                                                    md: '30%'
-                                                }
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32,
                                             }}
                                             loadingPosition="start"
                                             startIcon={formik.isSubmitting ?

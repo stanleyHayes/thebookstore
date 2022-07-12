@@ -41,7 +41,7 @@ export const toggleLike = createAsyncThunk(
     });
 
 const likeSlice = createSlice({
-    name: 'like',
+    name: 'likes',
     initialState,
     reducers: {},
     extraReducers: builder => {
@@ -81,53 +81,6 @@ const likeSlice = createSlice({
             state.likeError = null;
             state.likeMessage = action.payload.message;
             state.likes = [...state.likes, action.payload.data];
-            switch (action.payload.data.category) {
-                case 'other':
-                    state.otherLikes = [...state.otherLikes, action.payload.data];
-                    break;
-                default:
-                    break;
-            }
-            switch (action.payload.data.category) {
-                case 'action':
-                    state.actionLikes = [...state.actionLikes, action.payload.data];
-                    break;
-                case 'adventure':
-                    state.adventureLikes = [...state.adventureLikes, action.payload.data];
-                    break;
-                case 'classic':
-                    state.classicLikes = [...state.classicLikes, action.payload.data];
-                    break;
-                case 'comic':
-                    state.comicLikes = [...state.comicLikes, action.payload.data];
-                    break;
-                case 'fantasy':
-                    state.fantasyLikes = [...state.fantasyLikes, action.payload.data];
-                    break;
-                case 'horror':
-                    state.horrorLikes = [...state.horrorLikes, action.payload.data];
-                    break;
-                case 'romance':
-                    state.romanceLikes = [...state.romanceLikes, action.payload.data];
-                    break;
-                case 'sci-fi':
-                    state.sciFiLikes = [...state.sciFiLikes, action.payload.data];
-                    break;
-                case 'crime':
-                    state.crimeLikes = [...state.crimeLikes, action.payload.data];
-                    break;
-                case 'drama':
-                    state.dramaLikes = [...state.dramaLikes, action.payload.data];
-                    break;
-                case 'fairytale':
-                    state.fairytaleLikes = [...state.fairytaleLikes, action.payload.data];
-                    break;
-                case 'other':
-                    state.otherLikes = [...state.otherLikes, action.payload.data];
-                    break;
-                default:
-                    break;
-            }
         }).addCase(toggleLike.rejected, (state, action) => {
             state.likeLoading = false;
             state.likeError = action.payload;

@@ -37,8 +37,7 @@ const store = configureStore({
             token,
             authData
         }
-    },
-    devTools: true
+    }
 });
 
 export default store;

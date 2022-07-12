@@ -3,7 +3,16 @@ import logo from "./../../assets/images/logo.png";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
 import {UTILS} from "../../utils/utils";
-import {DarkMode, ExitToApp, Face, LightMode, MoreHoriz, Notifications} from "@mui/icons-material";
+import {
+    DarkMode,
+    ExitToApp,
+    Face,
+    FeaturedPlayList,
+    LightMode,
+    MoreHoriz,
+    Notifications, Videocam,
+    WatchLater
+} from "@mui/icons-material";
 import {selectUI, toggleTheme} from "../../redux/features/ui/ui-slice";
 import {useState} from "react";
 import {Link} from "react-router-dom";
@@ -153,6 +162,90 @@ const DesktopHeader = () => {
                                                             backgroundColor: 'light.secondary'
                                                         }}/>}>
                                                 Profile
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/trailers/me" style={{textDecoration: 'none'}}>
+                                            <Button
+                                                size="large"
+                                                sx={{
+                                                    justifyContent: 'flex-start',
+                                                    color: 'text.primary',
+                                                    textTransform: 'capitalize'
+                                                }}
+                                                fullWidth={true}
+                                                variant="text"
+                                                startIcon={
+                                                    <Videocam
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            color: 'secondary.main',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                            padding: 1,
+                                                            fontSize: 18,
+                                                            backgroundColor: 'light.secondary'
+                                                        }}/>}>
+                                                My Trailers
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/watch-later" style={{textDecoration: 'none'}}>
+                                            <Button
+                                                size="large"
+                                                sx={{
+                                                    justifyContent: 'flex-start',
+                                                    color: 'text.primary',
+                                                    textTransform: 'capitalize'
+                                                }}
+                                                fullWidth={true}
+                                                variant="text"
+                                                startIcon={
+                                                    <WatchLater
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            color: 'secondary.main',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                            padding: 1,
+                                                            fontSize: 18,
+                                                            backgroundColor: 'light.secondary'
+                                                        }}/>}>
+                                                Profile
+                                            </Button>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/playlists" style={{textDecoration: 'none'}}>
+                                            <Button
+                                                size="large"
+                                                sx={{
+                                                    justifyContent: 'flex-start',
+                                                    color: 'text.primary',
+                                                    textTransform: 'capitalize'
+                                                }}
+                                                fullWidth={true}
+                                                variant="text"
+                                                startIcon={
+                                                    <FeaturedPlayList
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            color: 'secondary.main',
+                                                            borderTopRightRadius: 32,
+                                                            borderBottomRightRadius: 0,
+                                                            borderBottomLeftRadius: 32,
+                                                            borderTopLeftRadius: 32,
+                                                            padding: 1,
+                                                            fontSize: 18,
+                                                            backgroundColor: 'light.secondary'
+                                                        }}/>}>
+                                                Playlists
                                             </Button>
                                         </Link>
                                     </MenuItem>

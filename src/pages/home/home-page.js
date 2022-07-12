@@ -48,7 +48,14 @@ const HomePage = () => {
                                     {authData && (
                                         <Link to="/trailer/new" style={{textDecoration: 'none'}}>
                                             <Button
-                                                sx={{textTransform: 'capitalize', width: {xs: '100%', md: '30%'}}}
+                                                sx={{
+                                                    textTransform: 'capitalize',
+                                                    width: {xs: '100%', md: '30%'},
+                                                    borderTopRightRadius: 32,
+                                                    borderBottomRightRadius: 0,
+                                                    borderBottomLeftRadius: 32,
+                                                    borderTopLeftRadius: 32,
+                                                }}
                                                 variant="contained"
                                                 disableElevation={true}
                                                 size="large"

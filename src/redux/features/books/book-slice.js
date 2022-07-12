@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, current} from "@reduxjs/toolkit";
 import {BOOK_API} from "../../../api/book";
 import {LIKES_ACTION_CREATORS} from "../likes/like-slice";
 import {COMMENTS_ACTION_CREATORS} from "../comments/comment-slice";
@@ -155,10 +155,6 @@ const bookSlice = createSlice({
                 case 'other':
                     state.otherBooks = [...state.otherBooks, action.payload.data];
                     break;
-                default:
-                    break;
-            }
-            switch (action.payload.data.category) {
                 case 'action':
                     state.actionBooks = [...state.actionBooks, action.payload.data];
                     break;
@@ -191,9 +187,6 @@ const bookSlice = createSlice({
                     break;
                 case 'fairytale':
                     state.fairytaleBooks = [...state.fairytaleBooks, action.payload.data];
-                    break;
-                case 'other':
-                    state.otherBooks = [...state.otherBooks, action.payload.data];
                     break;
                 default:
                     break;
@@ -238,7 +231,8 @@ const bookSlice = createSlice({
                 return book;
             })
         }).addCase(LIKES_ACTION_CREATORS.toggleLike.fulfilled, (state, action) => {
-            state.books = state.books.map(book => {
+            console.log(current(state.books[0].likes))
+            state.books = current(state).books.map(book => {
                 if (book._id === action.payload.data.book) {
                     const like = book.likes.find(like => like._id === action.payload.data._id);
                     if (like) {

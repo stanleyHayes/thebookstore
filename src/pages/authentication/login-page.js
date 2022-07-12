@@ -76,18 +76,19 @@ const LoginPage = () => {
                     maxHeight: '100vh',
                     backgroundColor: 'background.default'
                 }}>
-                <img
-                    style={{
-                        maxHeight: '100vh',
-                        width: '100%',
-                        height: '100vh',
-                        objectFit: 'cover',
-                        objectPosition: 'center'
-                    }}
-                    alt=""
-                    src={loginLogo}
-                />
-                }
+                <Stack sx={{height: '100%'}} justifyContent="center" alignItems="center">
+                    <img
+                        style={{
+                            maxHeight: '100vh',
+                            width: '50%',
+                            height: '50%',
+                            objectFit: 'cover',
+                            objectPosition: 'center'
+                        }}
+                        alt=""
+                        src={loginLogo}
+                    />
+                </Stack>
             </Box>
             <Box sx={{
                 flex: 1,
@@ -273,15 +274,12 @@ const LoginPage = () => {
                                             sx={{
                                                 textTransform: 'capitalize',
                                                 py: 1.2,
-                                                mb: 2,
-                                                borderRadius: 24,
-                                                display: 'inline-block',
-                                                width: {
-                                                    xs: '100%',
-                                                    md: '50%'
-                                                }
+                                                borderTopRightRadius: 32,
+                                                borderBottomRightRadius: 0,
+                                                borderBottomLeftRadius: 32,
+                                                borderTopLeftRadius: 32,
                                             }}
-                                            fullWidth={false}
+                                            fullWidth={true}
                                             loadingPosition="start"
                                             startIcon={authLoading ?
                                                 <CircularProgress color="secondary"/> : null}

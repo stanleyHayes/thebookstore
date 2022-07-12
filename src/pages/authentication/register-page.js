@@ -61,7 +61,6 @@ const RegisterPage = () => {
             email: ''
         },
         onSubmit: (values, {resetForm, setSubmitting}) => {
-            console.log(values)
             dispatch(AUTH_ACTION_CREATORS.register({
                 values, resetForm, setSubmitting, showMessage, navigate
             }));

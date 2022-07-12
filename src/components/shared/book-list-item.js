@@ -22,9 +22,9 @@ import {
     Edit,
     MoreHoriz,
     PlaylistAdd,
-    Save,
     ShareOutlined,
-    ThumbUpOutlined
+    ThumbUpOutlined,
+    WatchLater
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
@@ -272,7 +272,7 @@ const BookListItem = ({book, variant}) => {
                         fullWidth={true}
                         variant="text"
                         startIcon={
-                            <Save
+                            <WatchLater
                                 sx={{
                                     cursor: 'pointer',
                                     color: 'secondary.main',

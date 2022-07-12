@@ -43,10 +43,13 @@ const WelcomePage = () => {
                                     <Button
                                         fullWidth={true}
                                         sx={{
-                                            backgroundColor: 'secondary.main',
-                                            color: 'white',
-                                            borderRadius: 32
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                            textTransform: 'capitalize'
                                         }}
+                                        color="secondary"
                                         variant="contained"
                                         disableElevation={true}>
                                         Sign Up
@@ -58,7 +61,13 @@ const WelcomePage = () => {
                                     <Button
                                         color="secondary"
                                         fullWidth={true}
-                                        sx={{textTransform: 'capitalize', borderRadius: 32}}
+                                        sx={{
+                                            textTransform: 'capitalize',
+                                            borderTopRightRadius: 32,
+                                            borderBottomRightRadius: 0,
+                                            borderBottomLeftRadius: 32,
+                                            borderTopLeftRadius: 32,
+                                        }}
                                         variant="outlined"
                                         disableElevation={true}>
                                         Sign In
@@ -80,6 +89,10 @@ const WelcomePage = () => {
                 }}>
                 <Container sx={{mb: 4}}>
                     <Carousel
+                        autoPlay={true}
+                        stopAutoPlayOnHover={true}
+                        duration={5000}
+                        indicators={false}
                         cycleNavigation={true}>
                         {THE_BOOK_STORE_DATA.FEATURES.map((item, index) => {
                             return (

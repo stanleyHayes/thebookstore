@@ -22,10 +22,10 @@ import {
     Edit,
     MoreHoriz,
     PlaylistAdd,
-    Save,
     ShareOutlined,
     ThumbUp,
-    ThumbUpOutlined
+    ThumbUpOutlined,
+    WatchLater
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {UTILS} from "../../utils/utils";
@@ -35,7 +35,7 @@ import ConfirmationDialog from "../dialogs/confirmation-dialog";
 import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
 import {LIKES_ACTION_CREATORS} from "../../redux/features/likes/like-slice";
 
-const Book = ({book, variant}) => {
+const Book = ({book}) => {
 
     const {authData} = useSelector(selectAuth);
 
@@ -68,7 +68,7 @@ const Book = ({book, variant}) => {
     return (
         <Card
             sx={{height: '99.0%'}}
-            variant={variant}
+            variant="elevation"
             elevation={0}>
             <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
                 <CardHeader
@@ -276,7 +276,7 @@ const Book = ({book, variant}) => {
                             fullWidth={true}
                             variant="text"
                             startIcon={
-                                <Save
+                                <WatchLater
                                     sx={{
                                         cursor: 'pointer',
                                         color: 'secondary.main',
