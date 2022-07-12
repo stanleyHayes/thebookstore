@@ -1,4 +1,4 @@
-import {Box, Button, Container, Grid, Stack, Typography, useTheme} from "@mui/material";
+import {Box, Button, Container, Grid, Stack, Typography} from "@mui/material";
 import loginLogo from "./../../assets/images/account-success.png";
 import "yup-phone";
 import {Link} from "react-router-dom";
@@ -8,7 +8,6 @@ import BannerSliderItem from "../../components/shared/banner-slider-item";
 
 const VerificationAcknowledgmentPage = () => {
 
-    const theme = useTheme();
 
     return (
         <Box

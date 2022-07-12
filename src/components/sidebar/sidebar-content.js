@@ -1,4 +1,4 @@
-import {Avatar, Box, Button, Divider, Menu, MenuItem, Stack, Typography} from "@mui/material";
+import {Avatar, Box, Button, Divider, Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {closeDrawer, selectUI, toggleTheme} from "../../redux/features/ui/ui-slice";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
@@ -12,7 +12,9 @@ import {
     DeleteForever,
     ExitToApp,
     Face,
-    FaceOutlined, FeaturedPlayList, FeaturedPlayListOutlined,
+    FaceOutlined,
+    FeaturedPlayList,
+    FeaturedPlayListOutlined,
     Home,
     HomeOutlined,
     Info,
@@ -21,7 +23,9 @@ import {
     Settings,
     SettingsOutlined,
     Videocam,
-    VideocamOutlined, WatchLater, WatchLaterOutlined
+    VideocamOutlined,
+    WatchLater,
+    WatchLaterOutlined
 } from "@mui/icons-material";
 import {red} from "@mui/material/colors";
 import {Link} from "react-router-dom";
