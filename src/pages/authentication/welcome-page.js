@@ -91,7 +91,7 @@ const WelcomePage = () => {
                     <Carousel
                         autoPlay={true}
                         stopAutoPlayOnHover={true}
-                        duration={5000}
+                        duration={3000}
                         indicators={false}
                         cycleNavigation={true}>
                         {THE_BOOK_STORE_DATA.FEATURES.map((item, index) => {

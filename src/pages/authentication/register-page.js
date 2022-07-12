@@ -9,9 +9,10 @@ import {
     FormHelperText,
     Grid,
     InputAdornment,
-    InputLabel,
-    LinearProgress, MenuItem,
-    OutlinedInput, Select,
+    LinearProgress,
+    MenuItem,
+    OutlinedInput,
+    Select,
     Stack,
     Typography,
     useTheme
@@ -91,12 +92,11 @@ const RegisterPage = () => {
                 maxWidth: '100vw',
                 display: 'flex',
                 minHeight: '100vh',
-                overflow: 'hidden'
             }}>
             <Box
                 sx={{
                     display: {xs: 'none', lg: 'block'},
-                    flex: 1,
+                    overflow: 'hidden',
                     maxHeight: '100vh',
                     backgroundColor: 'background.default'
                 }}>
@@ -114,496 +114,496 @@ const RegisterPage = () => {
                     />
                 </Stack>
             </Box>
-            <Box sx={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                backgroundColor: 'background.paper',
-                minHeight: '100vh',
-                overflowY: {xs: 'scroll'},
-                py: {xs: 4, lg: 0}
-            }}>
+
+            <Box
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    backgroundColor: 'background.paper',
+                    minHeight: '100vh',
+                    justifyContent: 'center',
+                    overflowY: 'scroll',
+                }}>
                 {authLoading && <LinearProgress variant="query" color="secondary"/>}
-                <Container>
-                    <Grid container={true} justifyContent="center">
-                        <Grid item={true} xs={12} md={8}>
-                            <Box sx={{alignItems: "center", display: 'flex'}} flexGrow={1}>
-                                <form
-                                    style={{width: '100%'}}
-                                    autoComplete="off"
-                                    onSubmit={formik.handleSubmit}>
-                                    <Box>
-                                        {authError && (
-                                            <Alert severity="error">
-                                                <AlertTitle>{authError}</AlertTitle>
-                                            </Alert>
-                                        )}
+                <Container maxWidth="md">
+                    <Box sx={{alignItems: "center", display: 'flex'}} flexGrow={1}>
+                        <form
+                            style={{width: '100%', marginTop: 8, marginBottom: 8}}
+                            autoComplete="off"
+                            onSubmit={formik.handleSubmit}>
+                            <Box>
+                                {authError && (
+                                    <Alert severity="error">
+                                        <AlertTitle>{authError}</AlertTitle>
+                                    </Alert>
+                                )}
 
-                                        {authMessage && (
-                                            <Alert severity="error">
-                                                <AlertTitle>{authMessage}</AlertTitle>
-                                            </Alert>
-                                        )}
+                                {authMessage && (
+                                    <Alert severity="error">
+                                        <AlertTitle>{authMessage}</AlertTitle>
+                                    </Alert>
+                                )}
 
-                                        <Box mb={4}>
-                                            <Button
-                                                color="secondary"
-                                                size="large"
-                                                sx={{textTransform: 'capitalize'}}
-                                                onClick={() => navigate(-1)}
-                                                variant="text"
-                                                startIcon={<KeyboardArrowLeft/>}>
-                                                Back
-                                            </Button>
-                                        </Box>
+                                <Box mb={2}>
+                                    <Button
+                                        color="secondary"
+                                        size="large"
+                                        sx={{textTransform: 'capitalize'}}
+                                        onClick={() => navigate(-1)}
+                                        variant="text"
+                                        startIcon={<KeyboardArrowLeft/>}>
+                                        Back
+                                    </Button>
+                                </Box>
 
-                                        <Typography mb={2} variant="h5" sx={{color: 'text.primary'}}>
-                                            Sign Up
-                                        </Typography>
+                                <Stack mb={2} direction="row" spacing={1}>
+                                    <Typography variant="h5" sx={{color: 'secondary.main'}}>
+                                        Sign
+                                    </Typography>
+                                    <Typography variant="h5" sx={{color: 'text.primary'}}>
+                                        Up
+                                    </Typography>
+                                </Stack>
 
-                                        <Typography variant="h4" sx={{color: 'secondary.main', mb: 4}}>
-                                            The Book Station
-                                        </Typography>
+                                <Typography variant="h4" sx={{color: 'secondary.main', mb: 2}}>
+                                    The Book Station
+                                </Typography>
 
 
-                                        <Stack mb={4} direction="row" spacing={2} alignItems="center">
-                                            <Typography
-                                                variant="body2"
-                                                sx={{color: 'text.secondary', fontWeight: 500}}>
-                                                Already have an account?
-                                            </Typography>
-                                            <Typography
-                                                variant="body2"
-                                                sx={{color: 'text.secondary', fontWeight: 500}}>
-                                                <Link
-                                                    style={{
-                                                        color: theme.palette.secondary.main,
-                                                        textDecoration: 'none'
-                                                    }}
-                                                    to="/auth/login">
-                                                    Sign In
-                                                </Link>
-                                            </Typography>
-                                        </Stack>
-
-                                        <Grid mb={4} container={true} spacing={2} alignItems="center">
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1}
-                                                        variant="body2"
-                                                        sx={{color: 'secondary.main', fontWeight: 'bold'}}>
-                                                        First Name
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="firstName"
-                                                            value={formik.values.firstName}
-                                                            name="firstName"
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    <PersonOutlined
-                                                                        sx={{
-                                                                            cursor: 'pointer',
-                                                                            color: 'secondary.main',
-                                                                            padding: 1,
-                                                                            fontSize: 24,
-                                                                        }}
-                                                                    />
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.firstName && formik.errors.firstName}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter first name"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.firstName && formik.errors.firstName && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.firstName}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1} variant="body2"
-                                                        sx={{color: 'secondary.main', fontWeight: 'bold'}}>
-                                                        Last Name
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="lastName"
-                                                            value={formik.values.lastName}
-                                                            name="lastName"
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    <PersonOutlined
-                                                                        sx={{
-                                                                            cursor: 'pointer',
-                                                                            color: 'secondary.main',
-                                                                            padding: 1,
-                                                                            fontSize: 24,
-                                                                        }}
-                                                                    />
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.lastName && formik.errors.lastName}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter last name"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.lastName && formik.errors.lastName && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.lastName}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid mb={4} container={true} spacing={2} alignItems="center">
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1}
-                                                        variant="body2"
-                                                        sx={{color: 'secondary.main', fontWeight: 'bold'}}>
-                                                        Email
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="email"
-                                                            value={formik.values.email}
-                                                            name="email"
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    <MailOutline
-                                                                        sx={{
-                                                                            cursor: 'pointer',
-                                                                            color: 'secondary.main',
-                                                                            padding: 1,
-                                                                            fontSize: 24,
-                                                                        }}
-                                                                    />
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.email && formik.errors.email}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter email"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.email && formik.errors.email && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.email}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1} variant="body2"
-                                                        sx={{color: 'secondary.main', fontWeight: 'bold'}}>
-                                                        Username
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="username"
-                                                            value={formik.values.username}
-                                                            name="username"
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    <PersonOutline
-                                                                        sx={{
-                                                                            cursor: 'pointer',
-                                                                            color: 'secondary.main',
-                                                                            padding: 1,
-                                                                            fontSize: 24,
-                                                                        }}
-                                                                    />
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.username && formik.errors.username}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter username"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.username && formik.errors.username && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.username}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid mb={4} container={true} spacing={2} alignItems="center">
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1}
-                                                        variant="body2"
-                                                        sx={{color: 'secondary.main', fontWeight: 'bold'}}>
-                                                        Phone
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="phoneNumber"
-                                                            value={formik.values.phoneNumber}
-                                                            name="phoneNumber"
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    <CallOutlined
-                                                                        sx={{
-                                                                            cursor: 'pointer',
-                                                                            color: 'secondary.main',
-                                                                            padding: 1,
-                                                                            fontSize: 24,
-                                                                        }}
-                                                                    />
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.phoneNumber && formik.errors.phoneNumber}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter phone"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.phoneNumber}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1}
-                                                        variant="body2"
-                                                        sx={{
-                                                            color: 'secondary.main',
-                                                            fontWeight: 'bold'
-                                                        }}>
-                                                        Gender
-                                                    </Typography>
-                                                    <FormControl variant="outlined" fullWidth={true}>
-                                                        <Select
-                                                            id="gender"
-                                                            name="gender"
-                                                            margin="dense"
-                                                            color="secondary"
-                                                            fullWidth={true}
-                                                            elevation={1}
-                                                            onChange={formik.handleChange}
-                                                            value={formik.values.gender}
-                                                            variant="outlined">
-                                                            <MenuItem value="male">Male</MenuItem>
-                                                            <MenuItem value="female">Female</MenuItem>
-                                                        </Select>
-                                                        {formik.touched.gender && formik.errors.gender && (
-                                                            <Typography
-                                                                sx={{mt: 1}}
-                                                                variant="body2"
-                                                                color="error">
-                                                                {formik.errors.gender}
-                                                            </Typography>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid mb={4} container={true} spacing={2} alignItems="center">
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1} variant="body2"
-                                                        sx={{
-                                                            color: 'secondary.main',
-                                                            fontWeight: 'bold'
-                                                        }}>
-                                                        Password
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="password"
-                                                            value={formik.values.password}
-                                                            name="password"
-                                                            type={showPassword ? 'text' : 'password'}
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    {showPassword ?
-                                                                        <VisibilityOffOutlined
-                                                                            onClick={() => setShowPassword(false)}
-                                                                            sx={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'secondary.main',
-                                                                                padding: 1,
-                                                                                fontSize: 24,
-                                                                            }}
-                                                                        /> :
-                                                                        <VisibilityOutlined
-                                                                            onClick={() => setShowPassword(true)}
-                                                                            sx={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'secondary.main',
-                                                                                padding: 1,
-                                                                                fontSize: 24,
-                                                                            }}
-                                                                        />}
-                                                                </InputAdornment>
-                                                            }
-                                                            error={Boolean(formik.touched.password && formik.errors.password)}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter password"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.password && formik.errors.password && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.password}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-
-                                            <Grid item={true} xs={12} md={6}>
-                                                <Box>
-                                                    <Typography
-                                                        mb={1} variant="body2"
-                                                        sx={{
-                                                            color: 'secondary.main',
-                                                            fontWeight: 'bold'
-                                                        }}>
-                                                        Confirm Password
-                                                    </Typography>
-                                                    <FormControl fullWidth={true} variant="outlined">
-                                                        <OutlinedInput
-                                                            fullWidth={true}
-                                                            id="confirmPassword"
-                                                            value={formik.values.confirmPassword}
-                                                            name="confirmPassword"
-                                                            type={showPassword ? 'text' : 'password'}
-                                                            endAdornment={
-                                                                <InputAdornment
-                                                                    position="end">
-                                                                    {showPassword ?
-                                                                        <VisibilityOffOutlined
-                                                                            onClick={() => setShowPassword(false)}
-                                                                            sx={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'secondary.main',
-                                                                                padding: 1,
-                                                                                fontSize: 24,
-                                                                            }}
-                                                                        /> :
-                                                                        <VisibilityOutlined
-                                                                            onClick={() => setShowPassword(true)}
-                                                                            sx={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'secondary.main',
-                                                                                padding: 1,
-                                                                                fontSize: 24,
-                                                                            }}
-                                                                        />}
-                                                                </InputAdornment>
-                                                            }
-                                                            error={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                                                            onChange={formik.handleChange}
-                                                            onBlur={formik.handleBlur}
-                                                            placeholder="Enter confirm password"
-                                                            required={true}
-                                                            size="medium"
-                                                            margin="dense"
-                                                        />
-                                                        {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-                                                            <FormHelperText
-                                                                error={true}>
-                                                                {formik.errors.confirmPassword}
-                                                            </FormHelperText>
-                                                        )}
-                                                    </FormControl>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
-
-                                        <LoadingButton
-                                            onClick={formik.handleSubmit}
-                                            type="submit"
-                                            size="large"
-                                            color="secondary"
-                                            sx={{
-                                                textTransform: 'capitalize',
-                                                py: 1.2,
-                                                mb: 2,
-                                                borderRadius: 24,
-                                                display: 'inline-block',
-                                                width: {
-                                                    xs: '100%',
-                                                    md: '50%'
-                                                }
+                                <Stack mb={2} direction="row" spacing={2} alignItems="center">
+                                    <Typography
+                                        variant="body2"
+                                        sx={{color: 'text.secondary', fontWeight: 500}}>
+                                        Already have an account?
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        sx={{color: 'text.secondary', fontWeight: 500}}>
+                                        <Link
+                                            style={{
+                                                color: theme.palette.secondary.main,
+                                                textDecoration: 'none'
                                             }}
-                                            fullWidth={false}
-                                            loadingPosition="start"
-                                            startIcon={authLoading ?
-                                                <CircularProgress color="secondary"/> : null}
-                                            loadingIndicator={authLoading ?
-                                                <CircularProgress color="secondary"/> : null}
-                                            loading={authLoading}
-                                            variant="contained"
-                                            disableElevation={true}>
-                                            {authLoading ? 'Creating account...' : 'Create an account'}
-                                        </LoadingButton>
-                                    </Box>
-                                </form>
+                                            to="/auth/login">
+                                            Sign In
+                                        </Link>
+                                    </Typography>
+                                </Stack>
+
+                                <Grid mb={2} container={true} spacing={2} alignItems="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1}
+                                                variant="body2"
+                                                sx={{color: 'secondary.main', fontWeight: 'bold'}}>
+                                                First Name
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="firstName"
+                                                    value={formik.values.firstName}
+                                                    name="firstName"
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            <PersonOutlined
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    color: 'secondary.main',
+                                                                    padding: 1,
+                                                                    fontSize: 24,
+                                                                }}
+                                                            />
+                                                        </InputAdornment>
+                                                    }
+                                                    error={formik.touched.firstName && formik.errors.firstName}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter first name"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.firstName && formik.errors.firstName && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.firstName}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1} variant="body2"
+                                                sx={{color: 'secondary.main', fontWeight: 'bold'}}>
+                                                Last Name
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="lastName"
+                                                    value={formik.values.lastName}
+                                                    name="lastName"
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            <PersonOutlined
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    color: 'secondary.main',
+                                                                    padding: 1,
+                                                                    fontSize: 24,
+                                                                }}
+                                                            />
+                                                        </InputAdornment>
+                                                    }
+                                                    error={formik.touched.lastName && formik.errors.lastName}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter last name"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.lastName && formik.errors.lastName && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.lastName}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid mb={2} container={true} spacing={2} alignItems="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1}
+                                                variant="body2"
+                                                sx={{color: 'secondary.main', fontWeight: 'bold'}}>
+                                                Email
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="email"
+                                                    value={formik.values.email}
+                                                    name="email"
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            <MailOutline
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    color: 'secondary.main',
+                                                                    padding: 1,
+                                                                    fontSize: 24,
+                                                                }}
+                                                            />
+                                                        </InputAdornment>
+                                                    }
+                                                    error={formik.touched.email && formik.errors.email}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter email"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.email && formik.errors.email && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.email}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1} variant="body2"
+                                                sx={{color: 'secondary.main', fontWeight: 'bold'}}>
+                                                Username
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="username"
+                                                    value={formik.values.username}
+                                                    name="username"
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            <PersonOutline
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    color: 'secondary.main',
+                                                                    padding: 1,
+                                                                    fontSize: 24,
+                                                                }}
+                                                            />
+                                                        </InputAdornment>
+                                                    }
+                                                    error={formik.touched.username && formik.errors.username}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter username"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.username && formik.errors.username && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.username}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid mb={2} container={true} spacing={2} alignItems="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1}
+                                                variant="body2"
+                                                sx={{color: 'secondary.main', fontWeight: 'bold'}}>
+                                                Phone
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="phoneNumber"
+                                                    value={formik.values.phoneNumber}
+                                                    name="phoneNumber"
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            <CallOutlined
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    color: 'secondary.main',
+                                                                    padding: 1,
+                                                                    fontSize: 24,
+                                                                }}
+                                                            />
+                                                        </InputAdornment>
+                                                    }
+                                                    error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter phone"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.phoneNumber}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1}
+                                                variant="body2"
+                                                sx={{
+                                                    color: 'secondary.main',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                Gender
+                                            </Typography>
+                                            <FormControl variant="outlined" fullWidth={true}>
+                                                <Select
+                                                    id="gender"
+                                                    name="gender"
+                                                    margin="dense"
+                                                    color="secondary"
+                                                    fullWidth={true}
+                                                    elevation={1}
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.gender}
+                                                    variant="outlined">
+                                                    <MenuItem value="male">Male</MenuItem>
+                                                    <MenuItem value="female">Female</MenuItem>
+                                                </Select>
+                                                {formik.touched.gender && formik.errors.gender && (
+                                                    <Typography
+                                                        sx={{mt: 1}}
+                                                        variant="body2"
+                                                        color="error">
+                                                        {formik.errors.gender}
+                                                    </Typography>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid mb={2} container={true} spacing={2} alignItems="center">
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1} variant="body2"
+                                                sx={{
+                                                    color: 'secondary.main',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                Password
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="password"
+                                                    value={formik.values.password}
+                                                    name="password"
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            {showPassword ?
+                                                                <VisibilityOffOutlined
+                                                                    onClick={() => setShowPassword(false)}
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        color: 'secondary.main',
+                                                                        padding: 1,
+                                                                        fontSize: 24,
+                                                                    }}
+                                                                /> :
+                                                                <VisibilityOutlined
+                                                                    onClick={() => setShowPassword(true)}
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        color: 'secondary.main',
+                                                                        padding: 1,
+                                                                        fontSize: 24,
+                                                                    }}
+                                                                />}
+                                                        </InputAdornment>
+                                                    }
+                                                    error={Boolean(formik.touched.password && formik.errors.password)}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter password"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.password && formik.errors.password && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.password}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+
+                                    <Grid item={true} xs={12} md={6}>
+                                        <Box>
+                                            <Typography
+                                                mb={1} variant="body2"
+                                                sx={{
+                                                    color: 'secondary.main',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                Confirm Password
+                                            </Typography>
+                                            <FormControl fullWidth={true} variant="outlined">
+                                                <OutlinedInput
+                                                    fullWidth={true}
+                                                    id="confirmPassword"
+                                                    value={formik.values.confirmPassword}
+                                                    name="confirmPassword"
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    endAdornment={
+                                                        <InputAdornment
+                                                            position="end">
+                                                            {showPassword ?
+                                                                <VisibilityOffOutlined
+                                                                    onClick={() => setShowPassword(false)}
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        color: 'secondary.main',
+                                                                        padding: 1,
+                                                                        fontSize: 24,
+                                                                    }}
+                                                                /> :
+                                                                <VisibilityOutlined
+                                                                    onClick={() => setShowPassword(true)}
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        color: 'secondary.main',
+                                                                        padding: 1,
+                                                                        fontSize: 24,
+                                                                    }}
+                                                                />}
+                                                        </InputAdornment>
+                                                    }
+                                                    error={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    placeholder="Enter confirm password"
+                                                    required={true}
+                                                    size="medium"
+                                                    margin="dense"
+                                                />
+                                                {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                                                    <FormHelperText
+                                                        error={true}>
+                                                        {formik.errors.confirmPassword}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+
+                                <LoadingButton
+                                    onClick={formik.handleSubmit}
+                                    type="submit"
+                                    size="large"
+                                    color="secondary"
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        py: 1.2,
+                                        borderTopRightRadius: 32,
+                                        borderBottomRightRadius: 0,
+                                        borderBottomLeftRadius: 32,
+                                        borderTopLeftRadius: 32,
+                                    }}
+                                    fullWidth={false}
+                                    loadingPosition="start"
+                                    startIcon={authLoading ?
+                                        <CircularProgress color="secondary"/> : null}
+                                    loadingIndicator={authLoading ?
+                                        <CircularProgress color="secondary"/> : null}
+                                    loading={authLoading}
+                                    variant="contained"
+                                    disableElevation={true}>
+                                    {authLoading ? 'Creating account...' : 'Create an account'}
+                                </LoadingButton>
                             </Box>
-                        </Grid>
-                    </Grid>
+                        </form>
+                    </Box>
                 </Container>
             </Box>
         </Box>
