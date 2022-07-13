@@ -55,12 +55,15 @@ const verifyAccount = createAsyncThunk(
 
 
 const getProfile = createAsyncThunk('auth/getProfile',
-    async ({token}, {rejectWithValue}) => {
+    async ({token, navigate}, {rejectWithValue}) => {
         try {
             const response = await authAPI.getProfile(token);
             return response.data;
         } catch (e) {
             const {message} = e.response.data;
+            if(message === 'jwt expired'){
+                navigate('/auth/login');
+            }
             return rejectWithValue(message);
         }
     });

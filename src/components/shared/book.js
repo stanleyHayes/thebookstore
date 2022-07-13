@@ -33,11 +33,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
 import ConfirmationDialog from "../dialogs/confirmation-dialog";
 import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
-import {LIKES_ACTION_CREATORS} from "../../redux/features/likes/like-slice";
+import {
+    countBookLikes,
+    hasLikedTrailer,
+    LIKES_ACTION_CREATORS,
+    selectLike
+} from "../../redux/features/likes/like-slice";
+import {useSnackbar} from "notistack";
 
 const Book = ({book}) => {
 
     const {authData} = useSelector(selectAuth);
+    const {likes} = useSelector(selectLike);
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -47,6 +54,8 @@ const Book = ({book}) => {
         setMenuOpen(true);
         setAnchorEl(event.currentTarget);
     }
+
+    const {enqueueSnackbar} = useSnackbar();
 
     const handleMenuClose = () => {
         setMenuOpen(false);
@@ -61,10 +70,14 @@ const Book = ({book}) => {
     const dispatch = useDispatch();
     const {token} = useSelector(selectAuth);
 
-    const hasLiked = () => {
-        const like = book.likes.find(like => like.user === authData._id);
-        return like !== undefined;
+    const handleShareClick = () => {
+        window.navigator.clipboard.writeText(`View the trailer of the book ${book.name} by ${book.user.fullName} using the link https://thebookstation.vercel.app/books/${book._id}`).then(() => {
+            enqueueSnackbar('Like copied', {variant: 'success'});
+        }).catch(error => {
+            enqueueSnackbar(error, {variant: 'error'});
+        });
     }
+
     return (
         <Card
             sx={{height: '99.0%'}}
@@ -140,7 +153,7 @@ const Book = ({book}) => {
                             <Typography
                                 variant="caption"
                                 sx={{textTransform: 'capitalize', color: 'text.secondary'}}>
-                                {`${book?.likes.length} Likes`}
+                                {`${countBookLikes(likes, book._id)} Like${countBookLikes(likes, book._id) === 1 ? '' : 's'}`}
                             </Typography>
                         </Grid>
                         <Grid item={true}>
@@ -154,7 +167,7 @@ const Book = ({book}) => {
                             <Typography
                                 variant="caption"
                                 sx={{textTransform: 'capitalize', color: 'text.secondary'}}>
-                                {`${book?.comments.length} Comments`}
+                                {`${book?.comments.length} Comment${book?.comments.length === 1 ? '' : 's'}`}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -175,7 +188,8 @@ const Book = ({book}) => {
                                         size="small"
                                         variant="text"
                                         sx={{textTransform: 'capitalize'}}
-                                        startIcon={hasLiked() ? <ThumbUp/> : <ThumbUpOutlined/>}>
+                                        startIcon={hasLikedTrailer(likes, authData._id, book._id) ? <ThumbUp/> :
+                                            <ThumbUpOutlined/>}>
                                         Like
                                     </Button>
                                 </Tooltip>
@@ -194,6 +208,7 @@ const Book = ({book}) => {
 
                                 <Tooltip title={`Share ${book.name} if you enjoyed it`}>
                                     <Button
+                                        onClick={handleShareClick}
                                         color="secondary"
                                         size="small"
                                         variant="text"

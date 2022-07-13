@@ -9,9 +9,9 @@ const initialState = {
     commentDetail: null,
 }
 
-export const getComments = createAsyncThunk('comments/getComments', async ({token, query}) => {
+export const getComments = createAsyncThunk('comments/getComments', async ({book}) => {
     try {
-        const response = await COMMENT_API.getComments(token, query);
+        const response = await COMMENT_API.getComments(book);
         return response.data;
     } catch (e) {
         const {message} = e.response.data;
@@ -136,7 +136,7 @@ const commentSlice = createSlice({
             state.commentLoading = false;
             state.commentError = null;
             state.commentMessage = action.payload.message;
-            state.comments = [...state.comments, action.payload.data];
+            state.comments = [action.payload.data, ...state.comments];
         }).addCase(createComment.rejected, (state, action) => {
             state.commentLoading = false;
             state.commentError = action.payload;

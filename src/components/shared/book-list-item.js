@@ -22,7 +22,7 @@ import {
     Edit,
     MoreHoriz,
     PlaylistAdd,
-    ShareOutlined,
+    ShareOutlined, ThumbUp,
     ThumbUpOutlined,
     WatchLater
 } from "@mui/icons-material";
@@ -32,14 +32,19 @@ import ConfirmationDialog from "../dialogs/confirmation-dialog";
 import {BOOKS_ACTION_CREATORS} from "../../redux/features/books/book-slice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
+import {hasLikedTrailer, LIKES_ACTION_CREATORS, selectLike} from "../../redux/features/likes/like-slice";
+import {useSnackbar} from "notistack";
 
 const BookListItem = ({book, variant}) => {
 
     const {authData} = useSelector(selectAuth);
+    const {likes} = useSelector(selectLike);
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
+
+    const {enqueueSnackbar} = useSnackbar();
 
     const handleMenuOpen = event => {
         setMenuOpen(true);
@@ -58,6 +63,14 @@ const BookListItem = ({book, variant}) => {
 
     const dispatch = useDispatch();
     const {token} = useSelector(selectAuth);
+
+    const handleShareClick = () => {
+        window.navigator.clipboard.writeText(`View the trailer of the book ${book.name} by ${book.user.fullName} using the link https://thebookstation.vercel.app/books/${book._id}`).then(() => {
+            enqueueSnackbar('Like copied', {variant: 'success'});
+        }).catch(error => {
+            enqueueSnackbar(error, {variant: 'error'});
+        });
+    }
 
     return (
         <Card elevation={0} variant={variant}>
@@ -167,11 +180,15 @@ const BookListItem = ({book, variant}) => {
                             <Stack direction="row" justifyContent="space-between" alignItems="center">
                                 <Tooltip title={`Like ${book.name} to appreciate ${book.user.fullName}`}>
                                     <Button
+                                        onClick={() => dispatch(LIKES_ACTION_CREATORS.toggleLike({
+                                            token,
+                                            book: book._id
+                                        }))}
                                         color="secondary"
                                         size="small"
                                         variant="text"
                                         sx={{textTransform: 'capitalize'}}
-                                        startIcon={<ThumbUpOutlined/>}>
+                                        startIcon={hasLikedTrailer(likes, authData._id, book._id) ? <ThumbUp/> : <ThumbUpOutlined/>}>
                                         Like
                                     </Button>
                                 </Tooltip>
@@ -189,6 +206,7 @@ const BookListItem = ({book, variant}) => {
                                 </Tooltip>
                                 <Tooltip title={`Share ${book.name} if you enjoyed it`}>
                                     <Button
+                                        onClick={handleShareClick}
                                         color="secondary"
                                         size="small"
                                         variant="text"
@@ -203,7 +221,12 @@ const BookListItem = ({book, variant}) => {
                 </Box>
             </Box>
 
-            <Menu open={menuOpen} anchorEl={anchorEl} onClose={handleMenuClose} variant="menu" elevation={1}>
+            <Menu
+                open={menuOpen}
+                anchorEl={anchorEl}
+                onClose={handleMenuClose}
+                variant="menu"
+                elevation={1}>
                 {authData && (authData._id === book.user._id && (
                     <MenuItem>
                         <Link to="/books/:bookID/update" style={{textDecoration: 'none'}}>

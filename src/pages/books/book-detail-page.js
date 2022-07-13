@@ -26,14 +26,24 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {Comment, Delete, Edit, Share, ThumbUpOutlined} from "@mui/icons-material";
+import {Comment, Delete, Edit, Share, ThumbUp, ThumbUpOutlined} from "@mui/icons-material";
 import Comments from "../../components/tabs/comments";
 import Empty from "../../components/shared/empty";
 import {COMMENTS_ACTION_CREATORS, selectComment} from "../../redux/features/comments/comment-slice";
+import {
+    countBookLikes,
+    hasLikedTrailer,
+    LIKES_ACTION_CREATORS,
+    selectLike
+} from "../../redux/features/likes/like-slice";
+import {useSnackbar} from "notistack";
 
 const BookDetailPage = () => {
     const {bookLoading, bookError, bookDetail} = useSelector(selectBook);
-    const {commentLoading, commentError} = useSelector(selectComment);
+    const {likes} = useSelector(selectLike);
+    const {commentLoading, commentError, comments} = useSelector(selectComment);
+
+    const {enqueueSnackbar} = useSnackbar();
 
     const {bookID} = useParams();
     const {authData, token} = useSelector(selectAuth);
@@ -44,6 +54,13 @@ const BookDetailPage = () => {
         dispatch(BOOKS_ACTION_CREATORS.getBook({id: bookID}));
     }, [bookID]);
 
+    useEffect(() => {
+        dispatch(COMMENTS_ACTION_CREATORS.getComments({book: bookID}));
+    }, [bookID]);
+
+    useEffect(() => {
+        dispatch(LIKES_ACTION_CREATORS.getLikes({book: bookID}));
+    }, [bookID]);
 
     const commentFormik = useFormik({
         validationSchema: yup.object().shape({
@@ -53,9 +70,24 @@ const BookDetailPage = () => {
             text: ''
         },
         onSubmit: (values, {resetForm, setSubmitting}) => {
-            dispatch(COMMENTS_ACTION_CREATORS.createComment({token, comment: {...values, book: bookID}, resetForm, setSubmitting}));
+            dispatch(COMMENTS_ACTION_CREATORS.createComment({
+                token,
+                comment: {...values, book: bookID},
+                resetForm,
+                setSubmitting
+            }));
         }
     });
+
+
+    const handleShareClick = () => {
+        window.navigator.clipboard.writeText(`View the trailer of the book ${bookDetail?.name} by ${bookDetail?.user?.fullName} using the link https://thebookstation.vercel.app/books/${bookDetail?._id}`).then(() => {
+            enqueueSnackbar('Like copied', {variant: 'success'});
+        }).catch(error => {
+            enqueueSnackbar(error, {variant: 'error'});
+        });
+    }
+
 
     return (
         <Layout>
@@ -100,7 +132,7 @@ const BookDetailPage = () => {
 
                             <Divider variant="fullWidth" sx={{my: 2}} light={true}/>
 
-                            <Grid container={true} spacing={2} alignItems="center">
+                            <Grid container={true} alignItems="center" justifyContent="space-between">
                                 <Grid item={true}>
                                     <LoadingItem
                                         item={
@@ -114,7 +146,6 @@ const BookDetailPage = () => {
                                         skeleton={<Skeleton variant="text" animation="wave"/>}
                                     />
                                 </Grid>
-
                                 <Grid item={true}>
                                     <Typography
                                         variant="body2"
@@ -122,16 +153,34 @@ const BookDetailPage = () => {
                                         &#8226;
                                     </Typography>
                                 </Grid>
-                                <Grid item={true}>
-                                    <Button
-                                        color="secondary"
-                                        size="small"
-                                        variant="text"
-                                        sx={{textTransform: 'capitalize'}}
-                                        startIcon={<ThumbUpOutlined/>}>
-                                        {`${bookDetail?.likes.length} Likes`}
-                                    </Button>
-                                </Grid>
+                                {authData ? (
+                                    <Grid item={true}>
+                                        <Button
+                                            onClick={() => dispatch(LIKES_ACTION_CREATORS.toggleLike({
+                                                token,
+                                                book: bookDetail._id
+                                            }))}
+                                            color="secondary"
+                                            size="small"
+                                            variant="text"
+                                            sx={{textTransform: 'capitalize'}}
+                                            startIcon={hasLikedTrailer(likes, authData._id, bookDetail?._id) ?
+                                                <ThumbUp/> : <ThumbUpOutlined/>}>
+                                            {`${countBookLikes(likes, bookDetail?._id)} Like${countBookLikes(likes, bookDetail?._id) === 1 ? '' : 's'}`}
+                                        </Button>
+                                    </Grid>
+
+                                ) : (
+                                    <Grid item={true}>
+                                        <Button
+                                            color="secondary"
+                                            size="small"
+                                            variant="text"
+                                            sx={{textTransform: 'capitalize'}}>
+                                            {`${bookDetail?.likes.length} Like${bookDetail?.likes.length === 1 ? '' : 's'}`}
+                                        </Button>
+                                    </Grid>
+                                )}
                                 <Grid item={true}>
                                     <Typography
                                         variant="body1"
@@ -146,7 +195,7 @@ const BookDetailPage = () => {
                                         variant="text"
                                         sx={{textTransform: 'capitalize'}}
                                         startIcon={<Comment color="secondary"/>}>
-                                        {`${bookDetail?.comments.length} Comments`}
+                                        {`${bookDetail?.comments.length} Comment${bookDetail?.comments.length === 1 ? '' : 's'}`}
                                     </Button>
                                 </Grid>
                                 <Grid item={true}>
@@ -158,6 +207,7 @@ const BookDetailPage = () => {
                                 </Grid>
                                 <Grid item={true}>
                                     <Button
+                                        onClick={handleShareClick}
                                         color="secondary"
                                         size="small"
                                         variant="text"
@@ -267,23 +317,23 @@ const BookDetailPage = () => {
 
                         <Box sx={{flexBasis: '30%'}}>
                             {commentLoading && <LinearProgress variant="query" color="secondary"/>}
-                                {commentError && (
-                                    <Alert sx={{my: 2}} severity="error">
-                                        <AlertTitle>{commentError}</AlertTitle>
-                                    </Alert>
-                                )}
+                            {commentError && (
+                                <Alert sx={{my: 2}} severity="error">
+                                    <AlertTitle>{commentError}</AlertTitle>
+                                </Alert>
+                            )}
                             <Typography
                                 size="small"
                                 variant="h6"
                                 sx={{textTransform: 'capitalize', color: 'text.primary'}}>
-                                {`${bookDetail?.comments?.length} Comment${bookDetail?.comments?.length === 1 ? '': 's'}`}
+                                {`${bookDetail?.comments?.length} Comment${bookDetail?.comments?.length === 1 ? '' : 's'}`}
                             </Typography>
                             <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
                             {authData ? (
                                 <form onSubmit={commentFormik.handleSubmit}>
                                     <Stack spacing={2}>
                                         <TextField
-                                            label="Caption"
+                                            label="Write a comment"
                                             fullWidth={true}
                                             name="text"
                                             required={true}
@@ -293,28 +343,30 @@ const BookDetailPage = () => {
                                             helperText={commentFormik.errors.text}
                                             type="text"
                                             size="medium"
-                                            placeholder="Enter comment text"
+                                            placeholder="Write a comment..."
                                             onChange={commentFormik.handleChange}
                                             onBlur={commentFormik.handleBlur}
                                             multiline={true}
                                             minRows={2}
                                         />
-                                        <Button
-                                            type="submit"
-                                            fullWidth={true}
-                                            size="medium"
-                                            variant="outlined"
-                                            color="secondary"
-                                            disableElevation={true}
-                                            sx={{
-                                                textTransform: 'capitalize',
-                                                borderTopRightRadius: 32,
-                                                borderBottomRightRadius: 0,
-                                                borderBottomLeftRadius: 32,
-                                                borderTopLeftRadius: 32,
-                                            }}>
-                                            Write a Comment
-                                        </Button>
+                                        {commentFormik.values.text && (
+                                            <Button
+                                                type="submit"
+                                                fullWidth={true}
+                                                size="medium"
+                                                variant="outlined"
+                                                color="secondary"
+                                                disableElevation={true}
+                                                sx={{
+                                                    textTransform: 'capitalize',
+                                                    borderTopRightRadius: 32,
+                                                    borderBottomRightRadius: 0,
+                                                    borderBottomLeftRadius: 32,
+                                                    borderTopLeftRadius: 32,
+                                                }}>
+                                                Write a Comment
+                                            </Button>
+                                        )}
                                     </Stack>
                                 </form>
                             ) : (
@@ -345,7 +397,7 @@ const BookDetailPage = () => {
                                     <Box>
                                         <Empty
                                             title={
-                                                <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                                <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
                                                     No comments
                                                 </Typography>
                                             } message={
@@ -357,7 +409,7 @@ const BookDetailPage = () => {
                                 ) : (
                                     <Box>
                                         <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
-                                        <Comments comments={bookDetail?.comments}/>
+                                        <Comments comments={comments}/>
                                     </Box>
 
                                 )}

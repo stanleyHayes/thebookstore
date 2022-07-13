@@ -9,9 +9,9 @@ const initialState = {
     likeDetail: null,
 }
 
-export const getLikes = createAsyncThunk('likes/getLikes', async ({token, query}) => {
+export const getLikes = createAsyncThunk('likes/getLikes', async ({book}) => {
     try {
-        const response = await LIKE_API.getLikes(token, query);
+        const response = await LIKE_API.getLikes(book);
         return response.data;
     } catch (e) {
         const {message} = e.response.data;
@@ -80,7 +80,12 @@ const likeSlice = createSlice({
             state.likeLoading = false;
             state.likeError = null;
             state.likeMessage = action.payload.message;
-            state.likes = [...state.likes, action.payload.data];
+            const foundLike = state.likes.find(like => like._id === action.payload.data._id);
+            if (foundLike) {
+                state.likes = state.likes.filter(like => like._id !== action.payload.data._id);
+            } else {
+                state.likes = [...state.likes, action.payload.data];
+            }
         }).addCase(toggleLike.rejected, (state, action) => {
             state.likeLoading = false;
             state.likeError = action.payload;
@@ -89,6 +94,15 @@ const likeSlice = createSlice({
 });
 
 export const selectLike = state => state.likes;
+
+export const countBookLikes = (likes, book) => {
+    const filteredLikes = likes.filter(like => like.book === book);
+    return filteredLikes.length;
+}
+
+export const hasLikedTrailer = (likes, user, book) => {
+    return likes.find(like => like.book === book && like.user === user) !== undefined;
+}
 
 export const LIKES_ACTION_CREATORS = {getLikes, getLike, toggleLike, ...likeSlice.actions};
 export default likeSlice.reducer;

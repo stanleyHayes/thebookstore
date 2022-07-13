@@ -1,7 +1,5 @@
-import {createAsyncThunk, createSlice, current} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {BOOK_API} from "../../../api/book";
-import {LIKES_ACTION_CREATORS} from "../likes/like-slice";
-import {COMMENTS_ACTION_CREATORS} from "../comments/comment-slice";
 
 const initialState = {
     books: [],
@@ -194,55 +192,6 @@ const bookSlice = createSlice({
         }).addCase(createBook.rejected, (state, action) => {
             state.bookLoading = false;
             state.bookError = action.payload;
-        }).addCase(COMMENTS_ACTION_CREATORS.createComment.fulfilled, (state, action) => {
-            console.log(state)
-            state.books = state.books.map(book => {
-                console.log(book._id === action.payload.data.book)
-                if (book._id === action.payload.data.book) {
-                    console.log(book.comments.length, 'before')
-                    book.comments = [...book.comments, action.payload.data];
-                    console.log('comment added', book._id, action.payload.data._id)
-                    console.log(book.comments.length, 'after')
-                    return book;
-                }
-                return book;
-            });
-
-            console.log(action.payload.data)
-        }).addCase(COMMENTS_ACTION_CREATORS.updateComment.fulfilled, (state, action) => {
-            state.books = state.books.map(book => {
-                if (book._id === action.payload.data.book) {
-                    book.comments = book.comments.map(comment => {
-                        if (comment._id === action.payload.data._id) {
-                            return action.payload.data
-                        }
-                        return comment;
-                    })
-                    return book;
-                }
-                return book;
-            })
-        }).addCase(COMMENTS_ACTION_CREATORS.deleteComment.fulfilled, (state, action) => {
-            state.books = state.books.map(book => {
-                if (book._id === action.payload.data.book) {
-                    book.comments = book.comments.filter(comment => comment._id !== action.payload.data._id)
-                    return book;
-                }
-                return book;
-            })
-        }).addCase(LIKES_ACTION_CREATORS.toggleLike.fulfilled, (state, action) => {
-            console.log(current(state.books[0].likes))
-            state.books = current(state).books.map(book => {
-                if (book._id === action.payload.data.book) {
-                    const like = book.likes.find(like => like._id === action.payload.data._id);
-                    if (like) {
-                        book.likes = book.likes.filter(like => like._id !== action.payload.data._id);
-                    } else {
-                        book.likes.push(action.payload.data._id);
-                    }
-                }
-                return book;
-            })
         })
     }
 });

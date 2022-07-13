@@ -2,10 +2,10 @@ import axios from "axios";
 import {CONSTANTS} from "../utils/constants";
 
 
-const getLikes = (query) => {
+const getLikes = (book) => {
     return axios({
         method: 'GET',
-        url: `${CONSTANTS.SERVER_BASE_URL}/user/likes?query=${query}`,
+        url: `${CONSTANTS.SERVER_BASE_URL}/user/likes?book=${book}`,
     });
 }
 
