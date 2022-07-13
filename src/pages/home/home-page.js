@@ -26,7 +26,7 @@ const HomePage = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(BOOKS_ACTION_CREATORS.getBooks({query: 'categories=other'}));
+        dispatch(BOOKS_ACTION_CREATORS.getBooks({query: 'categories=notifications'}));
     }, []);
 
     return (

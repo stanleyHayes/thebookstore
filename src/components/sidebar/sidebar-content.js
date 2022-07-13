@@ -263,7 +263,7 @@ const SidebarContent = () => {
                             <SidebarLink
                                 active={activePath === '/settings'}
                                 label="Settings"
-                                path="/"
+                                path="/settings"
                                 icon={activePath === '/settings' ? (
                                     <Settings
                                         sx={{
@@ -297,7 +297,7 @@ const SidebarContent = () => {
                                 active={activePath === '/trailers/me'}
                                 label="My Trailers"
                                 path="/trailers/me"
-                                icon={activePath === '/profile' ? (
+                                icon={activePath === '/trailers/me' ? (
                                     <Videocam
                                         sx={{
                                             cursor: 'pointer',

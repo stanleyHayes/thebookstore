@@ -1,7 +1,7 @@
 import Layout from "../../components/layout/layout";
 import {Container, Typography} from "@mui/material";
 
-const LikedTrailersPage = () => {
+const NotificationsPage = () => {
     return (
         <Layout>
             <Container>
@@ -13,4 +13,4 @@ const LikedTrailersPage = () => {
     )
 }
 
-export default LikedTrailersPage;
+export default NotificationsPage;

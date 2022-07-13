@@ -68,7 +68,7 @@ const TEAM = [
         image: karamoa,
         name: 'Melody Koramoa',
         role: 'Researcher',
-        description: 'Melody Koramoa, a computer science student, and researcher of the Deux+five, responsible for aligning methodologies with research goals, using a range of tools to acquire information and interpret data. I\'m also responsible for writing up reports and presenting findings and schedules to management and other stakeholders, identifying trends and patterns, and conducting fieldwork and tests for various books making it interesting for our users to read on our website.'
+        description: 'Melody Koramoa, a computer science student, and researcher of the Deux+five, responsible for aligning methodologies with research goals, using a range of tools to acquire information and interpret data. I\'m also responsible for writing up reports and presenting findings and schedules to management and notifications stakeholders, identifying trends and patterns, and conducting fieldwork and tests for various books making it interesting for our users to read on our website.'
     },
 ];
 
