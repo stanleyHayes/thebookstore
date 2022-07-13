@@ -12,31 +12,37 @@ const MobileHeader = () => {
 
     return (
         <Toolbar variant="regular">
+
             <Stack
                 sx={{width: '100%'}}
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between">
-                <Menu
-                    onClick={() => dispatch(openDrawer())}
-                    sx={{
-                        cursor: 'pointer',
-                        color: 'secondary.main',
-                        borderTopRightRadius: 32,
-                        borderBottomRightRadius: 0,
-                        borderBottomLeftRadius: 32,
-                        borderTopLeftRadius: 32,
-                        padding: 0.5,
-                        fontSize: 20,
-                        backgroundColor: 'light.secondary'
-                    }}/>
-                <Box>
-                    <Link to="/" style={{textDecoration: 'none'}}>
-                        <Typography
-                            sx={{color: 'secondary.main', fontWeight: 'bold'}}
-                            variant="body1">The Book Station</Typography>
-                    </Link>
-                </Box>
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="flex-start">
+                    <Menu
+                        onClick={() => dispatch(openDrawer())}
+                        sx={{
+                            cursor: 'pointer',
+                            color: 'secondary.main',
+                            borderTopRightRadius: 32,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 32,
+                            borderTopLeftRadius: 32,
+                            padding: 0.5,
+                            fontSize: 20,
+                            backgroundColor: 'light.secondary'
+                        }}/>
+                    <Box>
+                        <Link to="/" style={{textDecoration: 'none'}}>
+                            <Typography
+                                sx={{color: 'secondary.main', fontWeight: 'bold'}}
+                                variant="body1">The Book Station</Typography>
+                        </Link>
+                    </Box>
+                </Stack>
                 {authData && (
                     <Link
                         to="/trailer/new" style={{textDecoration: 'none'}}>
