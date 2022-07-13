@@ -3,7 +3,6 @@ import {
     Box,
     Button,
     Card,
-    CardActionArea,
     CardContent,
     CardHeader,
     CardMedia,
@@ -22,7 +21,8 @@ import {
     Edit,
     MoreHoriz,
     PlaylistAdd,
-    ShareOutlined, ThumbUp,
+    ShareOutlined,
+    ThumbUp,
     ThumbUpOutlined,
     WatchLater
 } from "@mui/icons-material";
@@ -151,7 +151,7 @@ const BookListItem = ({book, variant}) => {
                                 </Typography>
                             </Stack>
                         </CardContent>
-                        <CardActionArea sx={{p: 1}}>
+                        <Box sx={{p: 1}}>
                             <Grid container={true} spacing={1} alignItems="center">
                                 <Grid item={true}>
                                     <Typography
@@ -175,8 +175,8 @@ const BookListItem = ({book, variant}) => {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                        </CardActionArea>
-                        <CardActionArea sx={{p: 1}}>
+                        </Box>
+                        <Box sx={{p: 1}}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center">
                                 <Tooltip title={`Like ${book.name} to appreciate ${book.user.fullName}`}>
                                     <Button
@@ -216,7 +216,7 @@ const BookListItem = ({book, variant}) => {
                                     </Button>
                                 </Tooltip>
                             </Stack>
-                        </CardActionArea>
+                        </Box>
                     </Stack>
                 </Box>
             </Box>

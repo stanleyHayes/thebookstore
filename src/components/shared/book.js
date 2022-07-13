@@ -3,7 +3,6 @@ import {
     Box,
     Button,
     Card,
-    CardActionArea,
     CardContent,
     CardHeader,
     CardMedia,
@@ -147,7 +146,7 @@ const Book = ({book}) => {
                     </Stack>
                 </CardContent>
 
-                <CardActionArea sx={{p: 1}}>
+                <Box sx={{py: 0.5, px: 1}}>
                     <Grid container={true} spacing={1} alignItems="center">
                         <Grid item={true}>
                             <Typography
@@ -171,12 +170,12 @@ const Book = ({book}) => {
                             </Typography>
                         </Grid>
                     </Grid>
-                </CardActionArea>
+                </Box>
 
                 {authData && (
                     <Box>
                         <Divider variant="fullWidth"/>
-                        <CardActionArea sx={{p: 1}}>
+                        <Box sx={{p: 0.5}}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center">
                                 <Tooltip title={`Like ${book.name} to appreciate ${book.user.fullName}`}>
                                     <Button
@@ -218,7 +217,7 @@ const Book = ({book}) => {
                                     </Button>
                                 </Tooltip>
                             </Stack>
-                        </CardActionArea>
+                        </Box>
                     </Box>
                 )}
 

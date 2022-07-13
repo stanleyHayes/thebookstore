@@ -19,6 +19,7 @@ const MobileHeader = () => {
                 alignItems="center"
                 justifyContent="space-between">
                 <Stack
+                    spacing={2}
                     direction="row"
                     alignItems="center"
                     justifyContent="flex-start">
