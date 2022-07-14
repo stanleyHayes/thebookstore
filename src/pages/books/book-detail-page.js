@@ -88,8 +88,6 @@ const BookDetailPage = () => {
         });
     }
 
-    console.log(comments)
-
     return (
         <Layout>
             {bookLoading && <LinearProgress variant="query" color="secondary"/>}
