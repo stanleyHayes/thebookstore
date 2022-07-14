@@ -1,12 +1,10 @@
 import Layout from "../../components/layout/layout";
 import {useDispatch, useSelector} from "react-redux";
 import LoadingItem from "../../components/shared/loading-text";
-import moment from "moment";
 import React, {useEffect} from "react";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import {useParams} from "react-router";
-import {Link} from "react-router-dom";
 import {BOOKS_ACTION_CREATORS, selectBook} from "../../redux/features/books/book-slice";
 import {selectAuth} from "../../redux/features/auth/auth-slice";
 import {
@@ -26,9 +24,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {Comment, Delete, Edit, Share, ThumbUp, ThumbUpOutlined} from "@mui/icons-material";
-import Comments from "../../components/tabs/comments";
-import Empty from "../../components/shared/empty";
+import {CommentOutlined, Delete, Edit, Share, ThumbUp, ThumbUpOutlined} from "@mui/icons-material";
 import {COMMENTS_ACTION_CREATORS, selectComment} from "../../redux/features/comments/comment-slice";
 import {
     countBookLikes,
@@ -37,6 +33,10 @@ import {
     selectLike
 } from "../../redux/features/likes/like-slice";
 import {useSnackbar} from "notistack";
+import {Link} from "react-router-dom";
+import Empty from "../../components/shared/empty";
+import Comments from "../../components/tabs/comments";
+import moment from "moment";
 
 const BookDetailPage = () => {
     const {bookLoading, bookError, bookDetail} = useSelector(selectBook);
@@ -88,6 +88,7 @@ const BookDetailPage = () => {
         });
     }
 
+    console.log(comments)
 
     return (
         <Layout>
@@ -177,7 +178,7 @@ const BookDetailPage = () => {
                                             size="small"
                                             variant="text"
                                             sx={{textTransform: 'capitalize'}}>
-                                            {`${bookDetail?.likes.length} Like${bookDetail?.likes.length === 1 ? '' : 's'}`}
+                                            {`${likes?.length} Like${likes?.length === 1 ? '' : 's'}`}
                                         </Button>
                                     </Grid>
                                 )}
@@ -189,14 +190,17 @@ const BookDetailPage = () => {
                                     </Typography>
                                 </Grid>
                                 <Grid item={true}>
-                                    <Button
-                                        color="secondary"
-                                        size="small"
-                                        variant="text"
-                                        sx={{textTransform: 'capitalize'}}
-                                        startIcon={<Comment color="secondary"/>}>
-                                        {`${bookDetail?.comments.length} Comment${bookDetail?.comments.length === 1 ? '' : 's'}`}
-                                    </Button>
+                                    {commentLoading ? (<Skeleton variant="text" animation="wave"/>) :
+                                        (
+                                            <Button
+                                                color="secondary"
+                                                size="small"
+                                                variant="text"
+                                                sx={{textTransform: 'capitalize'}}
+                                                startIcon={<CommentOutlined color="secondary"/>}>
+                                                {`${comments?.length} Comment${comments?.length === 1 ? '' : 's'}`}
+                                            </Button>
+                                        )}
                                 </Grid>
                                 <Grid item={true}>
                                     <Typography
@@ -322,12 +326,16 @@ const BookDetailPage = () => {
                                     <AlertTitle>{commentError}</AlertTitle>
                                 </Alert>
                             )}
-                            <Typography
-                                size="small"
-                                variant="h6"
-                                sx={{textTransform: 'capitalize', color: 'text.primary'}}>
-                                {`${bookDetail?.comments?.length} Comment${bookDetail?.comments?.length === 1 ? '' : 's'}`}
-                            </Typography>
+                            {commentLoading ? (
+                                <Skeleton variant="text" animation="wave"/>
+                            ) : (
+                                <Typography
+                                    size="small"
+                                    variant="h6"
+                                    sx={{textTransform: 'capitalize', color: 'text.primary'}}>
+                                    {`${comments?.length} Comment${comments?.length === 1 ? '' : 's'}`}
+                                </Typography>
+                            )}
                             <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
                             {authData ? (
                                 <form onSubmit={commentFormik.handleSubmit}>
@@ -393,7 +401,7 @@ const BookDetailPage = () => {
                                 </Box>
                             )}
                             <Stack direction="column" spacing={2} sx={{width: '100%'}}>
-                                {bookDetail?.comments?.length === 0 ? (
+                                {comments?.length === 0 ? (
                                     <Box>
                                         <Empty
                                             title={
@@ -409,7 +417,7 @@ const BookDetailPage = () => {
                                 ) : (
                                     <Box>
                                         <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
-                                        <Comments comments={comments}/>
+                                        {comments && <Comments comments={comments}/>}
                                     </Box>
 
                                 )}

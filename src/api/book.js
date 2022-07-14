@@ -1,13 +1,13 @@
 import axios from "axios";
 import {CONSTANTS} from "../utils/constants";
 
-
 const getBooks = (query) => {
     return axios({
         method: 'GET',
         url: `${CONSTANTS.SERVER_BASE_URL}/user/books?query=${query}`,
     });
 }
+
 
 const createBook = (token, data) => {
     return axios({
@@ -49,6 +49,7 @@ const deleteBook = (token, id) => {
         },
     });
 }
+
 
 
 export const BOOK_API = {getBooks, getBook, createBook, deleteBook, updateBook};
