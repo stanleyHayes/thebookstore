@@ -248,7 +248,7 @@ const BooksPage = () => {
                         <Grid item={true} xs={12} md={6}>
                             <Empty
                                 title={
-                                    <Typography variant="h4" align="center" sx={{color: 'text.primary'}}>
+                                    <Typography variant="h5" align="center" sx={{color: 'text.primary'}}>
                                         No books
                                     </Typography>
                                 } message={
