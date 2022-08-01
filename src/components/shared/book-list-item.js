@@ -73,7 +73,7 @@ const BookListItem = ({book, variant}) => {
     }
 
     return (
-        <Card elevation={0} variant={variant}>
+        <Card sx={{height: '100%'}} elevation={0} variant={variant}>
             <Box sx={{display: 'flex'}}>
                 <Box sx={{flexBasis: '30%'}}>
                     <CardMedia
