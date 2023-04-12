@@ -1,5 +1,6 @@
 // const SERVER_BASE_URL = 'http://localhost:8000/api/v1';
-const SERVER_BASE_URL = 'https://thebookstation.herokuapp.com/api/v1';
+// const SERVER_BASE_URL = 'https://thebookstation.herokuapp.com/api/v1';
+const SERVER_BASE_URL = 'https://thebookstation.onrender.com/api/v1';
 const THEBOOKSTORE_THEME_VARIANT = 'THEBOOKSTORE_THEME_VARIANT';
 const THEBOOKSTORE_AUTH_TOKEN = 'THEBOOKSTORE_AUTH_TOKEN';
 const THEBOOKSTORE_AUTH_DATA = 'THEBOOKSTORE_AUTH_DATA';
